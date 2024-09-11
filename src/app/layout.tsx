@@ -11,6 +11,7 @@ const pretendard = localFont({
 
 export const metadata: Metadata = {
   title: "앱티핏",
+  description: "AI로 쉽고 빠르게 너만의 학과적성을 찾아봐!",
 };
 
 export default function RootLayout({
