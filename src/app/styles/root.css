@@ -21,9 +21,7 @@
   /* 폰트 굵기 */
   --fw-400: 400; /* regular */
   --fw-500: 500; /* medium */
-  --font-500: 500; /* medium */
-  --font-700: 700; /* bold */
-  --font-900: 900; /* black */
+  --fw-600: 600; /* semibold */
   --fw-700: 700; /* bold */
   --fw-900: 900; /* black */
 
