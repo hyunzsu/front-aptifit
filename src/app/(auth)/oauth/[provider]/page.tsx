@@ -3,9 +3,8 @@
 import { useOAuthCallback } from "@/app/(auth)/_hooks";
 
 const OAuthPage = () => {
-  const data = useOAuthCallback();
-
-  console.log(data);
+  // OAuth인증코드를 서버로 전송
+  useOAuthCallback();
 
   return <main>OAuthPage 콜백 페이지</main>;
 };

@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { getOAuthCodeFromURL } from "../../_utils";
 
 const useOAuthCallbck = () => {
   const { provider } = useParams();
-  const [data, setData] = useState(null);
 
   useEffect(() => {
     // OAuth 인증코드를 서버로 전송하는 기능
@@ -19,32 +18,29 @@ const useOAuthCallbck = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(oAuthCode),
+          body: JSON.stringify({
+            code: oAuthCode,
+          }),
         });
 
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
 
-        const data = await res.json();
-        setData(data);
-        console.log("Success:", data);
+        console.log("Success:");
       } catch (error) {
         console.error("Error:", error);
       }
     };
 
-    // URL에서 인증 코드 추출
-    const code = getOAuthCodeFromURL();
+    // 1. URL에서 OAuth인증 코드 추출
+    const oAuthCode = getOAuthCodeFromURL();
 
-    //인증 코드가 있는 경우 서버로 전송
-    if (code) {
-      console.log(code);
-      sendOAuthCodeToServer(code);
+    // 2. 인증 코드가 있는 경우 서버로 전송
+    if (oAuthCode) {
+      sendOAuthCodeToServer(oAuthCode);
     }
   }, []);
-
-  return data;
 };
 
 export default useOAuthCallbck;
