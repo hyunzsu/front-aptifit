@@ -1,6 +1,6 @@
 "use client";
 
-import { useOAuthCallback } from "./_hooks";
+import { useOAuthCallback } from "@/app/(auth)/_hooks";
 
 const OAuthPage = () => {
   const data = useOAuthCallback();
