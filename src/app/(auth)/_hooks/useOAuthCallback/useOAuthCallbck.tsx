@@ -16,11 +16,11 @@ const useOAuthCallbck = () => {
         const res = await fetch(`${CALLBACK_URL}`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: JSON.stringify({
+          body: new URLSearchParams({
             code: oAuthCode,
-          }),
+          }).toString(),
         });
 
         if (!res.ok) {
