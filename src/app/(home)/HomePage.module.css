@@ -1,0 +1,37 @@
+.HomePage {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #0a1632, #1f4298);
+}
+
+.iphone {
+  position: absolute;
+  z-index: 1;
+  right: 50%;
+  transform: translateX(50%);
+  bottom: -260px;
+}
+
+.cardAnimationContainer {
+  position: absolute;
+  bottom: 40px;
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .iphone {
+    width: 250px;
+    height: 550px;
+    bottom: -160px;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 425px) {
+  .iphone {
+    width: 220px;
+    height: 449px;
+    bottom: -100px;
+  }
+}
