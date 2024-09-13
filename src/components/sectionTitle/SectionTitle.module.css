@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: var(--fs-40);
+  font-weight: var(--fw-900);
+  margin-bottom: var(--spc-8);
+  line-height: 150%;
+}
+
+.description {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+  line-height: 150%;
+}
+
+.white {
+  color: var(--cl-white);
+}
+
+.black {
+  color: var(--cl-black);
+}
