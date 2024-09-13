@@ -1,0 +1,15 @@
+.test {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: (-cl-white);
+  padding: 150px 0;
+}
+
+.testSection {
+  width: 1108px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--spc-64);
+}
