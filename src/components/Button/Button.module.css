@@ -1,0 +1,35 @@
+.button {
+  font-weight: var(--font-700);
+  font-size: var(--fs-18);
+  border-radius: var(--bd-10);
+  text-align: center;
+  padding: var(--spc-12) var(--spc-24);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+}
+
+.button:active {
+  background-color: var(--cl-primary);
+}
+
+/* 메인 페이지 버튼 */
+.main {
+  background-color: var(--cl-white);
+  color: var(--cl-black);
+}
+
+/* 테스트 페이지 버튼 */
+.test {
+  background-color: var(--cl-tertiary);
+  color: var(--cl-white);
+}
+
+/* 회원 페이지 버튼 */
+.member {
+  font-size: var(--fs-16);
+  background-color: var(--cl-primary);
+  padding-top: var(--spc-20);
+  padding-bottom: var(--spc-20);
+  color: var(--cl-white);
+  width: 100%;
+}
