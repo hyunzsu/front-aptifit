@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { getOAuthCodeFromURL } from "../../_utils";
 
 const useOAuthCallbck = () => {
   const { provider } = useParams();
+  // const router = useRouter();
 
   useEffect(() => {
     // OAuth 인증코드를 서버로 전송하는 기능
@@ -27,7 +28,13 @@ const useOAuthCallbck = () => {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
 
-        console.log("Success:");
+        const data = await res.json();
+        console.log("Success:", data);
+
+        if (data) {
+          console.log("Success:", data);
+          // router.push("/oauth/complete");
+        }
       } catch (error) {
         console.error("Error:", error);
       }
