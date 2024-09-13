@@ -1,7 +1,18 @@
 import Image from "next/image";
 import s from "./AccordionItem.module.css";
+import { AccordionTable } from "@/lib/types";
 
-export default function AccordionItem({ example, isOpen, toggleAccordion }) {
+type ExampleItemProps = {
+  example: AccordionTable;
+  isOpen: boolean;
+  toggleAccordion: () => void;
+};
+
+export default function AccordionItem({
+  example,
+  isOpen,
+  toggleAccordion,
+}: ExampleItemProps) {
   return (
     <div className={s.accordionItem}>
       {/* 질문 */}
