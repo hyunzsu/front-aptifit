@@ -1,0 +1,16 @@
+.form {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.button {
+  all: unset;
+  text-align: center;
+  width: 100%;
+  height: 60px;
+  background-color: var(--cl-primary);
+  color: var(--cl-white);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-700);
+  border-radius: 10px;
+}

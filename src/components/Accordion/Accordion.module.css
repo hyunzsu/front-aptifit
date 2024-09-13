@@ -1,0 +1,9 @@
+.accordionContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 1076px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
