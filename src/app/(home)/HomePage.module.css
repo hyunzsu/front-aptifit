@@ -25,7 +25,7 @@
 }
 
 .button {
-  padding: var(--spc-10) var(--spc-24);
+  padding: var(--spc-12) var(--spc-24);
   font-size: var(--fs-18);
   font-weight: var(--fw-700);
   border-radius: var(--bd-10);
@@ -65,5 +65,19 @@
     width: 220px;
     height: 449px;
     bottom: -100px;
+  }
+
+  .title {
+    font-size: var(--fs-28);
+    margin-bottom: var(--spc-24);
+  }
+
+  .subtitle {
+    font-size: var(--fs-20);
+    margin-bottom: var(--spc-8);
+  }
+
+  .button {
+    font-size: var(--fs-16);
   }
 }
