@@ -5,6 +5,38 @@
   background: linear-gradient(to bottom, #0a1632, #1f4298);
 }
 
+.titleContainer {
+  text-align: center;
+  margin-top: 200px;
+}
+
+.title {
+  color: var(--cl-white);
+  font-weight: var(--fw-700);
+  font-size: var(--fs-60);
+  margin-bottom: var(--spc-24);
+}
+
+.subtitle {
+  color: var(--cl-white);
+  font-weight: var(--fw-700);
+  font-size: var(--fs-40);
+  margin-bottom: var(--spc-8);
+}
+
+.button {
+  padding: var(--spc-10) var(--spc-24);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+  border-radius: var(--bd-10);
+  background-color: var(--cl-white);
+  transition: all 300ms linear;
+}
+
+.button:hover {
+  background-color: var(--cl-gray-strong);
+}
+
 .iphone {
   position: absolute;
   z-index: 1;
