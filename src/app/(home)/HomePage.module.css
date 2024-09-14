@@ -6,8 +6,12 @@
 }
 
 .titleContainer {
+  width: 100%;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
-  margin-top: 200px;
 }
 
 .title {
@@ -52,6 +56,10 @@
 
 /* 태블릿 */
 @media (max-width: 768px) {
+  .titleContainer {
+    top: 20%;
+  }
+
   .iphone {
     width: 250px;
     height: 550px;
@@ -61,6 +69,10 @@
 
 /* 모바일 */
 @media (max-width: 425px) {
+  .titleContainer {
+    top: 30%;
+  }
+
   .iphone {
     width: 220px;
     height: 449px;
