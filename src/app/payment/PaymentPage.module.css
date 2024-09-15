@@ -1,0 +1,122 @@
+.PaymentPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 368px;
+}
+
+.sectionContainer {
+  border-bottom: 1px solid var(--cl-gray-strong);
+  padding: var(--spc-24) 0;
+}
+
+.sectionTitle {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+  margin-bottom: var(--spc-16);
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spc-8);
+}
+
+.discountPrice {
+  margin-bottom: var(--spc-24);
+}
+
+.text {
+  font-size: var(--fs-16);
+}
+
+.price {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-700);
+}
+
+/* 쿠폰 */
+
+.couponContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.couponInput {
+  flex: 3;
+  height: 50px;
+  padding-left: var(--spc-12);
+  font-size: var(--fs-16);
+  border: none;
+  background-color: var(--cl-gray-light);
+  border-radius: var(--bd-10);
+}
+
+.couponInput::placeholder {
+  color: #cacaca;
+}
+
+.couponButton {
+  flex: 1;
+  height: 50px;
+  background-color: var(--cl-primary);
+  color: var(--cl-white);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-700);
+  border: none;
+  border-radius: var(--bd-10);
+}
+
+/* 체크박스 */
+.inputContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spc-8);
+}
+
+.checkbox {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background-color: #f7f7f7;
+  border: 1px solid #c6cfff;
+  border-radius: 4px;
+}
+
+.checkbox:checked {
+  background-color: var(--cl-primary);
+  border: 1px solid var(--cl-primary);
+  position: relative;
+}
+
+.checkbox:checked::before {
+  content: "✓";
+  color: white;
+  font-size: var(--fs-18);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.desc {
+  font-size: var(--fs-16);
+  line-height: 150%;
+}
+
+/* 결제 버튼 */
+.button {
+  color: var(--cl-white);
+  background-color: var(--cl-primary);
+  height: 50px;
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+  border: none;
+  width: 100%;
+  border-radius: var(--bd-10);
+}
