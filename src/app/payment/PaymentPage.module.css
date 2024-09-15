@@ -72,6 +72,13 @@
   border-radius: var(--bd-10);
 }
 
+.error {
+  margin-top: var(--spc-12);
+  display: inline-block;
+  font-size: var(--fs-16);
+  color: red;
+}
+
 /* 체크박스 */
 .inputContainer {
   display: flex;
@@ -119,4 +126,25 @@
   border: none;
   width: 100%;
   border-radius: var(--bd-10);
+}
+
+@media (max-width: 425px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .checkbox {
+    min-width: 24px;
+  }
+
+  .couponButton {
+    flex: 1;
+    height: 50px;
+    background-color: var(--cl-primary);
+    color: var(--cl-white);
+    font-size: var(--fs-16);
+    font-weight: var(--fw-700);
+    border: none;
+    border-radius: var(--bd-10);
+  }
 }

@@ -39,6 +39,7 @@ export default function PaymentPage() {
             />
             <button className={s.couponButton}>등록</button>
           </div>
+          <span className={s.error}>유효한 번호가 아닙니다!</span>
         </div>
         {/* 약관동의 섹션 */}
         <div className={s.sectionContainer}>
