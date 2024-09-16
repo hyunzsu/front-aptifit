@@ -1,0 +1,95 @@
+.HomePage {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #0a1632, #1f4298);
+}
+
+.titleContainer {
+  width: 100%;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.title {
+  color: var(--cl-white);
+  font-weight: var(--fw-700);
+  font-size: var(--fs-60);
+  margin-bottom: var(--spc-24);
+}
+
+.subtitle {
+  color: var(--cl-white);
+  font-weight: var(--fw-700);
+  font-size: var(--fs-40);
+  margin-bottom: var(--spc-8);
+}
+
+.button {
+  padding: var(--spc-12) var(--spc-24);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+  border-radius: var(--bd-10);
+  background-color: var(--cl-white);
+  transition: all 300ms linear;
+}
+
+.button:hover {
+  background-color: var(--cl-gray-strong);
+}
+
+.iphone {
+  position: absolute;
+  z-index: 1;
+  right: 50%;
+  transform: translateX(50%);
+  bottom: -260px;
+}
+
+.cardAnimationContainer {
+  position: absolute;
+  bottom: 40px;
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .titleContainer {
+    top: 25%;
+  }
+
+  .iphone {
+    width: 240px;
+    height: 550px;
+    bottom: -160px;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 425px) {
+  .titleContainer {
+    top: 30%;
+  }
+
+  .iphone {
+    width: 210px;
+    height: 449px;
+    bottom: -100px;
+  }
+
+  .title {
+    font-size: 8.5vw;
+    margin-bottom: var(--spc-24);
+  }
+
+  .subtitle {
+    font-size: 6vw;
+    margin-bottom: var(--spc-8);
+  }
+
+  .button {
+    font-size: var(--fs-16);
+  }
+}

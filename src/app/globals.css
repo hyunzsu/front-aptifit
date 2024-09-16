@@ -12,3 +12,8 @@
 html {
   font-size: 62.5%;
 }
+
+button {
+  border: none;
+  cursor: pointer;
+}
