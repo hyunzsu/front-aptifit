@@ -1,0 +1,54 @@
+.CombinedDropdownFilter {
+  display: flex;
+  gap: var(--spc-16);
+}
+
+.DropdownFilter {
+  flex: 1;
+  background-color: var(--cl-gray-light);
+  border-radius: var(--bd-10);
+  padding: 0 var(--spc-16);
+  font-size: var(--fs-16);
+  position: relative;
+}
+
+.topContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 6rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+}
+
+.DropdownFilterActive {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.bottomContainer {
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+  padding: 0 var(--spc-16);
+  position: absolute;
+  z-index: 1;
+  top: 60px;
+  left: 0;
+  background-color: var(--cl-gray-light);
+  border-bottom-left-radius: var(--bd-10);
+  border-bottom-right-radius: var(--bd-10);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  height: 6rem;
+  cursor: pointer;
+}

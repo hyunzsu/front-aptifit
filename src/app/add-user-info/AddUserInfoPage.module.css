@@ -1,0 +1,75 @@
+.AddUserInfoPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: var(--spc-40);
+}
+
+.container {
+  width: 100%;
+  max-width: 368px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spc-24);
+}
+
+.label {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+  margin-bottom: var(--spc-16);
+}
+
+.input {
+  height: 6rem;
+  padding: 0 var(--spc-16);
+  border: none;
+  border-radius: var(--bd-10);
+  background-color: var(--cl-gray-light);
+}
+
+.input::placeholder {
+  font-size: var(--fs-16);
+  color: #cacaca;
+}
+
+.filterContainer {
+  margin-bottom: var(--spc-24);
+}
+
+.filterTitle {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+  margin-bottom: var(--spc-16);
+}
+
+.innerFilterContainer {
+  display: flex;
+  gap: var(--spc-16);
+}
+
+.innerFilterContainer div {
+  flex: 1;
+}
+
+.button {
+  margin-top: 24px;
+  border: none;
+  height: 6rem;
+  border-radius: var(--bd-10);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-500);
+  background-color: var(--cl-primary);
+  color: var(--cl-white);
+  width: 100%;
+}
+
+@media (max-width: 425px) {
+  .container {
+    padding: 0 16px;
+  }
+}
