@@ -12,8 +12,8 @@ import s from "./AddUserInfoPage.module.css";
 export default function AddUserInfoPage() {
   return (
     <main className={s.AddUserInfoPage}>
+      <Title label="회원정보 등록" />
       <div className={s.container}>
-        <Title label="회원정보 등록" />
         {/* 학교 입력 */}
         <div className={s.inputContainer}>
           <label className={s.label} htmlFor="">
