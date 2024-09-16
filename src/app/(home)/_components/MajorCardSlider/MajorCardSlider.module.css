@@ -1,0 +1,33 @@
+.slider {
+  width: 100vw;
+  overflow: hidden;
+}
+
+.slides {
+  display: flex;
+  gap: 16px;
+  animation: slide 40s linear infinite; /* 애니메이션 시간 조정 가능 */
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0); /* 전체 너비의 절반 만큼 이동 */
+  }
+}
+
+/* 태블릿 */
+@media (max-width: 768px) {
+  .slides img {
+    width: 150px;
+  }
+}
+
+/* 모바일 */
+@media (max-width: 425px) {
+  .slides img {
+    width: 120px;
+  }
+}

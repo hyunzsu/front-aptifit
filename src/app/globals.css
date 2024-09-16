@@ -19,5 +19,6 @@ input {
 
 button {
   font-family: __pretendard_fde3a9, __pretendard_Fallback_fde3a9;
+  border: none;
   cursor: pointer;
 }
