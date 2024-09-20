@@ -1,5 +1,8 @@
 "use client";
 
+import Image from "next/image";
+import s from "./GoogleLoginButton.module.css";
+
 export default function GoogleLoginButton() {
   const GOOGLE_CLIENT_ID = `${process.env.NEXT_PUBLIC_API_GOOGLE_CLIENT_ID}`;
   const REDIRECT_URI = `${process.env.NEXT_PUBLIC_API_REDIRECT_URI}`;
@@ -9,5 +12,9 @@ export default function GoogleLoginButton() {
     window.location.href = GOOGLE_AUTH_URL;
   };
 
-  return <button onClick={handleGoogleLogin}>구글 로그인 버튼</button>;
+  return (
+    <button className={s.GoogleLoginButton} onClick={handleGoogleLogin}>
+      G
+    </button>
+  );
 }
