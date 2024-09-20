@@ -6,7 +6,7 @@ import { getOAuthCodeFromURL } from "../../_utils";
 
 const useOAuthCallbck = () => {
   const { provider } = useParams();
-  // const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     // OAuth 인증코드를 서버로 전송하는 기능
@@ -16,6 +16,7 @@ const useOAuthCallbck = () => {
       try {
         const res = await fetch(`${CALLBACK_URL}`, {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
@@ -29,11 +30,9 @@ const useOAuthCallbck = () => {
         }
 
         const data = await res.json();
-        console.log("Success:", data);
 
-        if (data) {
-          console.log("Success:", data);
-          // router.push("/oauth/complete");
+        if (data && data.redirect_url) {
+          router.push(data.redirect_url); // redirect_url이 있을 경우 해당 url로 이동시킨다
         }
       } catch (error) {
         console.error("Error:", error);
