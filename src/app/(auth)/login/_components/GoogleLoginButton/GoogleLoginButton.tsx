@@ -14,7 +14,12 @@ export default function GoogleLoginButton() {
 
   return (
     <button className={s.GoogleLoginButton} onClick={handleGoogleLogin}>
-      G
+      <Image
+        src="/icons/google_logo.svg"
+        alt="구글 로그인"
+        width={24}
+        height={24.49}
+      />
     </button>
   );
 }

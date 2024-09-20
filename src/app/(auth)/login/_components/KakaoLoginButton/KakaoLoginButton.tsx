@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import s from "./KakaoLoginButton.module.css";
 
 export default function KakaoLoginButton() {
@@ -13,7 +14,12 @@ export default function KakaoLoginButton() {
 
   return (
     <button className={s.KakaoLoginButton} onClick={handleKakaoLogin}>
-      K
+      <Image
+        src="/icons/kakao_logo.svg"
+        alt="카카오 로그인"
+        width={26.32}
+        height={24}
+      />
     </button>
   );
 }

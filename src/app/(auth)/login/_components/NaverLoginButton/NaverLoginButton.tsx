@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import s from "./NaverLoginButton.module.css";
 
 export default function NaverLoginButton() {
@@ -14,7 +15,12 @@ export default function NaverLoginButton() {
 
   return (
     <button className={s.NaverLoginButton} onClick={handleNaverLogin}>
-      N
+      <Image
+        src="/icons/naver_logo.svg"
+        alt="네이버 로그인"
+        width={24}
+        height={23.81}
+      />
     </button>
   );
 }
