@@ -1,5 +1,7 @@
 "use client";
 
+import s from "./KakaoLoginButton.module.css";
+
 export default function KakaoLoginButton() {
   const KAKAO_CLIENT_ID = `${process.env.NEXT_PUBLIC_API_KAKAO_CLIENT_ID}`;
   const REDIRECT_URI = `${process.env.NEXT_PUBLIC_API_REDIRECT_URI}`;
@@ -9,5 +11,9 @@ export default function KakaoLoginButton() {
     window.location.href = KAKAO_AUTH_URL;
   };
 
-  return <button onClick={handleKakaoLogin}>카카오 로그인</button>;
+  return (
+    <button className={s.KakaoLoginButton} onClick={handleKakaoLogin}>
+      K
+    </button>
+  );
 }
