@@ -1,7 +1,10 @@
 .NaverLoginButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
   width: 6.4rem;
   height: 6.4rem;
-  border: none;
-  border-radius: 100%;
   background-color: #03c75a;
+  border-radius: 100%;
 }
