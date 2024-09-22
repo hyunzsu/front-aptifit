@@ -35,8 +35,8 @@ export default function FormInput({
           </label>
         </div>
       ) : (
-        <div>
-          <label htmlFor={name} className={s.label}>
+        <div className={s.inputWrapper}>
+          <label htmlFor={name} className={s.inputLabel}>
             {label}
           </label>
           <input
