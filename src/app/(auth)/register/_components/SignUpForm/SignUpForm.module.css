@@ -28,3 +28,14 @@
   font-weight: var(--fw-700);
   border-radius: 10px;
 }
+
+.passwordWrapper {
+  position: relative;
+}
+
+.togglePassword {
+  position: absolute;
+  top: 40px;
+  right: 12px;
+  background-color: transparent;
+}

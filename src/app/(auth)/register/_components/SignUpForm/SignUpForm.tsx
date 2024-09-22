@@ -5,8 +5,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignupFormData, signupSchema } from "@/schemas/signup";
 import s from "./SignUpForm.module.css";
+import { useState } from "react";
+import Image from "next/image";
 
 export default function SignUpForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register, // 입력 필드 등록 함수
     handleSubmit, // 폼 제출
@@ -45,14 +49,30 @@ export default function SignUpForm() {
         error={errors.email}
         placeholder="이메일 주소를 입력하세요"
       />
-      <FormInput
-        label="비밀번호"
-        name="password"
-        type="password"
-        register={register}
-        error={errors.password}
-        placeholder="비밀번호를 입력하세요"
-      />
+      <div className={s.passwordWrapper}>
+        <FormInput
+          label="비밀번호"
+          name="password"
+          type={showPassword ? "text" : "password"}
+          register={register}
+          error={errors.password}
+          placeholder="비밀번호를 입력하세요"
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className={s.togglePassword}
+          aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보이기"}
+        >
+          <Image
+            src={showPassword ? "/icons/eye-on.svg" : "/icons/eye-off.svg"}
+            alt={showPassword ? "비밀번호 숨기기" : "비밀번호 보이기"}
+            width={24}
+            height={24}
+            className={s.icon}
+          />
+        </button>
+      </div>
       <FormInput
         label="비밀번호 확인"
         name="confirmPassword"
