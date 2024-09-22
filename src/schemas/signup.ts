@@ -28,3 +28,11 @@ export const signupSchema = z
   });
 
 export type SignupFormData = z.infer<typeof signupSchema>;
+
+/* 로그인 폼의 유효성 검사 스키마 */
+export const loginSchema = z.object({
+  email: z.string().email({ message: "유효한 이메일 주소를 입력해주세요." }),
+  password: z.string().min(8, { message: "비밀번호는 8자 이상이어야 합니다." }),
+});
+
+export type LoginFormData = z.infer<typeof loginSchema>;
