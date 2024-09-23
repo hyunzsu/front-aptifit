@@ -27,12 +27,15 @@
 
 /* 반응형 */
 @media (max-width: 425px) {
+  /* 테스트 상단 제목 */
   .category {
-    font-size: var(--fs-18);
+    font-size: var(--fs-28);
+    font-weight: var(--fw-700); /* bold */
   }
 
+  /* 테스트 상단 질문 */
   .title {
-    font-size: var(--fs-18);
+    font-size: var(--fs-16);
     line-height: 150%;
   }
 }
