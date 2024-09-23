@@ -15,3 +15,13 @@
   font-size: var(--fs-18);
   font-weight: var(--fw-600);
 }
+
+@media (max-width: 425px) {
+  .QuizNumber {
+    font-size: var(--fs-18);
+  }
+
+  .QuizContent {
+    font-size: var(--fs-16);
+  }
+}
