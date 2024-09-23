@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { checkAccessToken } from "@/lib/utils";
+import { getFromSessionStorage } from "@/lib/utils";
 
 export default function useAccessToken() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    if (checkAccessToken()) {
+    if (getFromSessionStorage("access_token")) {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
