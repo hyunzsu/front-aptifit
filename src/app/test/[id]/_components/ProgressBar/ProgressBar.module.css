@@ -1,6 +1,15 @@
-.progressBar {
+.progressBarContainer {
   width: 100%;
-  border: 5px solid var(--cl-tertiary);
+  height: 10px;
+  background-color: var(--cl-gray-strong);
+  border-radius: 5px;
+  overflow: hidden;
   margin-bottom: var(--spc-40);
-  border-radius: 10px;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: var(--cl-primary);
+  transition: width 0.3s ease-in-out;
+  border-radius: 5px;
 }

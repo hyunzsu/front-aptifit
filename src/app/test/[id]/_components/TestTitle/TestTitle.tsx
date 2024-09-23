@@ -18,12 +18,21 @@
 
 import { useParams } from "next/navigation";
 import s from "./TestTitle.module.css";
+import Image, { StaticImageData } from "next/image";
+
+// 카테고리 아이콘
+import Interest from "/public/icons/interest.svg";
+import Competency from "/public/icons/capability.svg";
+import Value from "/public/icons/value.svg";
+import Personal from "/public/icons/characteristic.svg";
+import Knowledge from "/public/icons/knowledge.svg";
 
 // 퀴즈 데이터 타입 정의
 type QuizData = {
   category: string;
   alt: string;
   question: string;
+  icon: StaticImageData;
 };
 
 // 퀴즈 데이터 객체
@@ -33,46 +42,55 @@ const quizData: Record<string, QuizData> = {
     category: "흥미",
     alt: "흥미",
     question: "흥미에서는 당신이 흥미를 가지는 부분을 파악합니다.",
+    icon: Interest,
   },
   "2": {
     category: "흥미",
     alt: "흥미",
     question: "2번째 흥미에서는 당신이 흥미를 가지는 부분을 파악합니다.",
+    icon: Interest,
   },
   "3": {
     category: "역량",
     alt: "역량",
     question: "역량에 대한 첫 번째 질문입니다.",
+    icon: Competency,
   },
   "4": {
     category: "가치",
     alt: "가치",
     question: "가치관에 대한 질문입니다.",
+    icon: Value,
   },
   "5": {
     category: "개인특성",
     alt: "개인특성",
     question: "개인의 특성에 대한 첫 번째 질문입니다.",
+    icon: Personal,
   },
   "6": {
     category: "지식",
     alt: "지식",
     question: "지식 수준을 평가하는 질문입니다.",
+    icon: Knowledge,
   },
   "7": {
     category: "역량",
     alt: "역량",
     question: "역량에 대한 두 번째 질문입니다.",
+    icon: Competency,
   },
   "8": {
     category: "개인특성",
     alt: "개인특성",
     question: "개인의 특성에 대한 두 번째 질문입니다.",
+    icon: Personal,
   },
   "9": {
     category: "가치",
     alt: "가치",
     question: "가치관에 대한 두 번째 질문입니다.",
+    icon: Value,
   },
 };
 
@@ -92,6 +110,13 @@ export default function TestTitle() {
     <header className={s.TestTitle}>
       <div className={s.titleContainer}>
         {/* 퀴즈 카테고리 표시 */}
+        <Image
+          className={s.icon}
+          src={data.icon}
+          alt="카테고리 아이콘"
+          width={28}
+          height={28}
+        />
         <h3 className={s.category}>{data.category}</h3>
       </div>
       {/* 퀴즈 질문 표시 */}
