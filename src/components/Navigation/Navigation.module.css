@@ -12,6 +12,7 @@
   justify-content: space-between;
   width: 100%;
   max-width: 1440px;
+  padding: 0 var(--spc-16);
 }
 
 .logo {
@@ -41,4 +42,10 @@
   display: block;
   padding: var(--spc-8) var(--spc-16);
   border-radius: 8px;
+}
+
+@media (max-width: 425px) {
+  .logo {
+    font-size: var(--fs-40);
+  }
 }
