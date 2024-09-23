@@ -12,13 +12,15 @@
  * 3. 테스트 제목(TestTitle) 표시
  * 4. 여러 개의 퀴즈 항목(QuizItem) 렌더링
  * 5. 다음 페이지로 이동하는 버튼 제공
+ * 6. 자동 스크롤 기능으로 현재 응답해야 할 문제로 이동
+ * 7. 아직 응답할 수 없는 문제 비활성화
  *
  * 작업자: 김도현
  */
 
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import s from "./test.module.css";
 import TestTitle from "./_components/TestTitle/TestTitle";
@@ -35,10 +37,27 @@ export default function Test() {
   const { questions, responses, loading, setResponses, goToNextPage } =
     useTestLogic();
 
+  // 각 QuizItem에 대한 ref 생성
+  const quizRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // 페이지 로드 시 첫 번째 문제로 스크롤
   useEffect(() => {
-    // 페이지 로드 시 데이터 초기화
-    // 필요한 초기화 로직을 여기에 추가할 수 있습니다.
-  }, [id]);
+    if (quizRefs.current[1]) {
+      quizRefs.current[1].scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
+  // 응답이 변경될 때마다 다음 미응답 문제로 스크롤
+  useEffect(() => {
+    const nextUnansweredIndex = responses.findIndex(
+      (response) => response === 0
+    );
+    if (nextUnansweredIndex !== -1 && quizRefs.current[nextUnansweredIndex]) {
+      quizRefs.current[nextUnansweredIndex].scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [responses]);
 
   // 로딩 중일 때 표시할 내용
   if (loading) {
@@ -53,13 +72,23 @@ export default function Test() {
       </div>
       <div className={s.testSection}>
         {questions.map((question, index) => (
-          <QuizItem
+          <div
             key={index}
-            questionId={index}
-            question={question}
-            responses={responses}
-            setResponses={setResponses}
-          />
+            ref={(el) => {
+              quizRefs.current[index] = el;
+            }}
+            className={`${s.quizItemWrapper} ${
+              index > responses.filter((r) => r !== 0).length ? s.disabled : ""
+            }`}
+          >
+            <QuizItem
+              questionId={index}
+              question={question}
+              responses={responses}
+              setResponses={setResponses}
+              disabled={index > responses.filter((r) => r !== 0).length}
+            />
+          </div>
         ))}
       </div>
       <Button

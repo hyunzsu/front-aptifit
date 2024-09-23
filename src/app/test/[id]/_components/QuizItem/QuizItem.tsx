@@ -10,6 +10,7 @@
  * 1. 퀴즈 제목(QuizTitle) 표시
  * 2. 퀴즈 선택지(QuizOption) 표시
  * 3. 사용자 응답 관리
+ * 4. 문제 비활성화 상태 관리
  *
  * 작업자: 김도현
  */
@@ -25,6 +26,7 @@ interface QuizItemProps {
   question: string;
   responses: number[];
   setResponses: React.Dispatch<React.SetStateAction<number[]>>;
+  disabled: boolean;
 }
 
 export default function QuizItem({
@@ -32,9 +34,10 @@ export default function QuizItem({
   question,
   responses,
   setResponses,
+  disabled,
 }: QuizItemProps) {
   return (
-    <div className={s.QuizItem}>
+    <div className={`${s.QuizItem} ${disabled ? s.disabled : ""}`}>
       {/* 퀴즈 제목 컴포넌트 */}
       <QuizTitle questionId={questionId} question={question} />
 
