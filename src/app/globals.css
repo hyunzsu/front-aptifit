@@ -13,6 +13,11 @@ html {
   font-size: 62.5%;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 input {
   font-family: __pretendard_fde3a9, __pretendard_Fallback_fde3a9;
 }
