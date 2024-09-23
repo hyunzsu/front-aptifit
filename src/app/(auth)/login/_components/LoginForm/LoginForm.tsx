@@ -10,6 +10,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { saveToSessionStorage } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { GoogleLoginButton, NaverLoginButton, KakaoLoginButton } from "../";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -110,30 +111,9 @@ export default function LoginForm() {
       </Link>
 
       <div className={s.socialLogin}>
-        <button type="button" className={s.socialButton}>
-          <Image
-            src="/icons/kakao.svg"
-            alt="카카오 아이콘"
-            width={60}
-            height={60}
-          />
-        </button>
-        <button type="button" className={s.socialButton}>
-          <Image
-            src="/icons/naver.svg"
-            alt="네이버 아이콘"
-            width={60}
-            height={60}
-          />
-        </button>
-        <button type="button" className={s.socialButton}>
-          <Image
-            src="/icons/google.svg"
-            alt="구글 아이콘"
-            width={60}
-            height={60}
-          />
-        </button>
+        <GoogleLoginButton />
+        <NaverLoginButton />
+        <KakaoLoginButton />
       </div>
     </form>
   );
