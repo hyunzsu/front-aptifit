@@ -25,14 +25,14 @@ const useOAuthCallbck = () => {
           }).toString(),
         });
 
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`);
-        }
+        const result = await res.json();
 
-        const data = await res.json();
-
-        if (data && data.redirect_url) {
-          router.push(data.redirect_url); // redirect_url이 있을 경우 해당 url로 이동시킨다
+        if (res.ok) {
+          router.push(result.redirect_url); // redirect_url이 있을 경우 해당 url로 이동시킨다
+        } else {
+          // 에러가 있을 때 에러 메시지에 접근
+          console.error("에러 발생:", result.error);
+          alert(result.error);
         }
       } catch (error) {
         console.error("Error:", error);
