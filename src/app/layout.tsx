@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Navigation } from "@/components";
 import "./globals.css";
 
 const pretendard = localFont({
@@ -21,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="kr">
-      <body className={pretendard.className}>{children}</body>
+      <body className={pretendard.className}>
+        <Navigation />
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,0 +1,39 @@
+.Navigation {
+  color: var(--cl-white);
+  height: 6rem;
+  background-color: #0a1632;
+  display: flex;
+  justify-content: center;
+}
+
+.innerContainer {
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: var(--fs-40);
+  font-weight: var(--fw-900);
+}
+
+.ul {
+  display: flex;
+  align-items: center;
+  gap: var(--spc-16);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-600);
+}
+
+.li {
+  padding: var(--spc-8) var(--spc-16);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.li:hover {
+  background-color: var(--cl-white);
+  color: var(--cl-black);
+}
