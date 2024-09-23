@@ -72,7 +72,7 @@ export default function Carousel({
     <div className={styles.carouselContainer}>
       {/* 이전 버튼 */}
       <button className={`${styles.arrow} ${styles.left}`} onClick={prevSlide}>
-        <Image src="/assets/left_arrow.svg" alt="이전" width={40} height={40} />
+        <Image src="/icons/left_arrow.svg" alt="이전" width={40} height={40} />
       </button>
 
       {/* 캐러셀 아이템 컨테이너 */}
@@ -98,12 +98,7 @@ export default function Carousel({
 
       {/* 다음 버튼 */}
       <button className={`${styles.arrow} ${styles.right}`} onClick={nextSlide}>
-        <Image
-          src="/assets/right_arrow.svg"
-          alt="다음"
-          width={40}
-          height={40}
-        />
+        <Image src="/icons/right_arrow.svg" alt="다음" width={40} height={40} />
       </button>
     </div>
   );
