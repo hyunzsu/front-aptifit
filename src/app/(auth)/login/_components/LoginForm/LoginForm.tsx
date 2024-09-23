@@ -8,9 +8,12 @@ import { LoginFormData, loginSchema } from "@/schemas/signup";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import { saveToSessionStorage } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -21,8 +24,46 @@ export default function LoginForm() {
     mode: "onChange",
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+  const onSubmit = async (data: LoginFormData) => {
+    const { email, password } = data;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        const { user_name, email, access_token } = result;
+
+        // 응답 데이터
+        saveToSessionStorage(
+          "user",
+          JSON.stringify({ user_name: user_name, email: email })
+        );
+        saveToSessionStorage("access_token", JSON.stringify(access_token));
+
+        router.push("/");
+      } else {
+        // 에러가 있을 때 에러 메시지에 접근
+        console.error("에러 발생:", result.error);
+        alert(result.error);
+      }
+    } catch (error) {
+      console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    }
   };
 
   return (
@@ -64,9 +105,9 @@ export default function LoginForm() {
         {isSubmitting ? "Loading..." : "로그인"}
       </button>
 
-        <Link href="/register" className={s.signupLink}>
-          회원가입
-        </Link>
+      <Link href="/register" className={s.signupLink}>
+        회원가입
+      </Link>
 
       <div className={s.socialLogin}>
         <button type="button" className={s.socialButton}>
