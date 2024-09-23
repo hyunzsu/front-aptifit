@@ -9,7 +9,7 @@
 }
 
 .button:active {
-  background-color: var(--cl-primary);
+  background-color: var(--cl-secondary);
 }
 
 /* 메인 페이지 버튼 */
@@ -20,7 +20,7 @@
 
 /* 테스트 페이지 버튼 */
 .test {
-  background-color: var(--cl-tertiary);
+  background-color: var(--cl-primary);
   color: var(--cl-white);
 }
 
