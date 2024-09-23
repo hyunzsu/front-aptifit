@@ -7,10 +7,13 @@ import { SignupFormData, signupSchema } from "@/schemas/signup";
 import s from "./SignUpForm.module.css";
 import { useState } from "react";
 import Image from "next/image";
+import { saveToSessionStorage } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const router = useRouter();
 
   const {
     register, // 입력 필드 등록 함수
@@ -21,8 +24,48 @@ export default function SignUpForm() {
     mode: "onChange", // 실시간 유효성 검사
   });
 
-  const onSubmit = (data: SignupFormData) => {
-    console.log(data);
+  const onSubmit = async (data: SignupFormData) => {
+    const { username, phoneNumber, password, email } = data;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            user_name: username,
+            phone: phoneNumber,
+          }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        const { user_name, email, access_token } = result;
+
+        // 응답 데이터
+        saveToSessionStorage(
+          "user",
+          JSON.stringify({ user_name: user_name, email: email })
+        );
+        saveToSessionStorage("access_token", JSON.stringify(access_token));
+
+        router.push("/");
+      } else {
+        // 에러가 있을 때 에러 메시지에 접근
+        console.error("에러 발생:", result.error);
+        alert(result.error);
+      }
+    } catch (error) {
+      console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    }
   };
 
   return (
