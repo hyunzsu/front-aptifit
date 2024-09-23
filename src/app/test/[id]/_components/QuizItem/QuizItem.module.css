@@ -1,0 +1,9 @@
+.QuizItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: var(--spc-40);
+  padding-bottom: var(--spc-40);
+  border-bottom: 1px solid var(--cl-gray-strong);
+}

@@ -1,0 +1,6 @@
+.progressBar {
+  width: 100%;
+  border: 5px solid var(--cl-tertiary);
+  margin-bottom: var(--spc-40);
+  border-radius: 10px;
+}
