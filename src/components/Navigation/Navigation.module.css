@@ -1,17 +1,17 @@
 .Navigation {
-  color: var(--cl-white);
-  height: 6rem;
-  background-color: #0a1632;
   display: flex;
   justify-content: center;
+  height: 6rem;
+  background-color: #0a1632;
+  color: var(--cl-white);
 }
 
 .innerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   max-width: 1440px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .logo {
@@ -21,19 +21,24 @@
 
 .ul {
   display: flex;
-  align-items: center;
   gap: var(--spc-16);
+  align-items: center;
   font-size: var(--fs-18);
   font-weight: var(--fw-600);
 }
 
 .li {
-  padding: var(--spc-8) var(--spc-16);
-  border-radius: 8px;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .li:hover {
   background-color: var(--cl-white);
   color: var(--cl-black);
+}
+
+.link {
+  display: block;
+  padding: var(--spc-8) var(--spc-16);
+  border-radius: 8px;
 }
