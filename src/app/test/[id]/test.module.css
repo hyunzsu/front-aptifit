@@ -13,3 +13,10 @@
   align-items: center;
   margin-bottom: var(--spc-64);
 }
+
+@media (max-width: 425px) {
+  .testSection {
+    width: 320px;
+    padding: 0 16px;
+  }
+}
