@@ -9,10 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* width: 100%; */
   gap: 40px;
-  /* margin-right: 7px;
-  margin-left: 21px; */
 }
 
 .textContainer {
@@ -47,8 +44,8 @@
   border: 4px solid var(--cl-tertiary);
   border-radius: 50%;
   transition: all 0.3s ease;
-  width: var(--mobile-size);
-  height: var(--mobile-size);
+  width: var(--desktop-size);
+  height: var(--desktop-size);
 }
 
 .hiddenRadio:checked + .customRadio {
@@ -63,7 +60,8 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  font-size: calc(var(--mobile-size) * 0.7);
+
+  font-size: calc(var(--desktop-size) * 0.7);
 }
 
 .visibleText {
@@ -78,13 +76,21 @@
   box-shadow: 0 0 0 3px rgba(var(--cl-primary-rgb), 0.3);
 }
 
-@media (min-width: 768px) {
+@media (max-width: 425px) {
+  .quizOptionContainer {
+    width: 100%;
+  }
+
+  .optionContainer {
+    gap: var(--spc-16);
+  }
+
   .customRadio {
-    width: var(--desktop-size);
-    height: var(--desktop-size);
+    width: var(--mobile-size);
+    height: var(--mobile-size);
   }
 
   .checkmark {
-    font-size: calc(var(--desktop-size) * 0.7);
+    font-size: calc(var(--mobile-size) * 0.7);
   }
 }
