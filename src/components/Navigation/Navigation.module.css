@@ -1,8 +1,11 @@
 .Navigation {
+  width: 100%;
+  z-index: 1;
+  position: absolute;
   display: flex;
   justify-content: center;
   height: 6rem;
-  background-color: #0a1632;
+  background-color: transparent;
   color: var(--cl-white);
 }
 
