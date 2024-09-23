@@ -17,6 +17,7 @@
   justify-content: space-between;
   width: 100%;
   margin-top: var(--spc-16);
+  position: relative;
 }
 
 .optionWrapper {
@@ -72,6 +73,16 @@
   word-break: break-word;
 }
 
+.leftLabel {
+  position: relative;
+  left: -15px; /* 왼쪽으로 10px 이동, 필요에 따라 조정 */
+}
+
+.rightLabel {
+  position: relative;
+  right: -3px; /* 오른쪽으로 10px 이동, 필요에 따라 조정 */
+}
+
 .hiddenRadio:focus + .customRadio {
   box-shadow: 0 0 0 3px rgba(var(--cl-primary-rgb), 0.3);
 }
@@ -92,5 +103,13 @@
 
   .checkmark {
     font-size: calc(var(--mobile-size) * 0.7);
+  }
+
+  .leftLabel {
+    left: 0px; /* 모바일에서는 덜 이동 */
+  }
+
+  .rightLabel {
+    right: 0px; /* 모바일에서는 덜 이동 */
   }
 }

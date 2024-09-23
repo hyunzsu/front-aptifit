@@ -93,8 +93,10 @@ export default function QuizOption({
       </div>
       {/* 첫 번째와 마지막 선택지 라벨 표시 */}
       <div className={s.textContainer}>
-        <span className={s.visibleText}>{options[0].label}</span>
-        <span className={s.visibleText}>
+        <span className={`${s.visibleText} ${s.leftLabel}`}>
+          {options[0].label}
+        </span>
+        <span className={`${s.visibleText} ${s.rightLabel}`}>
           {options[options.length - 1].label}
         </span>
       </div>
