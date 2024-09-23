@@ -64,20 +64,34 @@ export default function LoginForm() {
         {isSubmitting ? "Loading..." : "로그인"}
       </button>
 
-      <div className={s.signupLink}>
-        <span>회원이 아니신가요?</span>
-        <Link href="/register">회원가입</Link>
-      </div>
+        <Link href="/register" className={s.signupLink}>
+          회원가입
+        </Link>
 
       <div className={s.socialLogin}>
         <button type="button" className={s.socialButton}>
-          카카오로 로그인
+          <Image
+            src="/icons/kakao.svg"
+            alt="카카오 아이콘"
+            width={60}
+            height={60}
+          />
         </button>
         <button type="button" className={s.socialButton}>
-          네이버로 로그인
+          <Image
+            src="/icons/naver.svg"
+            alt="네이버 아이콘"
+            width={60}
+            height={60}
+          />
         </button>
         <button type="button" className={s.socialButton}>
-          구글로 로그인
+          <Image
+            src="/icons/google.svg"
+            alt="구글 아이콘"
+            width={60}
+            height={60}
+          />
         </button>
       </div>
     </form>
