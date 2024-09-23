@@ -19,7 +19,7 @@ export default function AccordionItem({
       <div onClick={toggleAccordion} className={s.questionWrapper}>
         <span className={s.question}>{example.question}</span>
         <Image
-          src={isOpen ? "/assets/arrow-up.svg" : "/assets/arrow-down.svg"}
+          src={isOpen ? "/icons/arrow-up.svg" : "/icons/arrow-down.svg"}
           alt={isOpen ? "닫기" : "열기"}
           width={24}
           height={24}

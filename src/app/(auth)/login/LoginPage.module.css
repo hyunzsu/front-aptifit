@@ -1,0 +1,22 @@
+.loginPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 368px;
+}
+
+@media (max-width: 425px) {
+  .loginPage {
+    align-items: start;
+    margin-top: 36px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+}
