@@ -1,0 +1,36 @@
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carouselItem {
+  flex-shrink: 0;
+  padding: 0 10px;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}

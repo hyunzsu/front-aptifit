@@ -6,17 +6,6 @@
   gap: 24px;
 }
 
-.h3 {
-  font-size: var(--fs-18);
-  font-weight: var(--fw-700);
-}
-
-.agreementSection {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
 .button {
   all: unset;
   text-align: center;
@@ -37,5 +26,24 @@
   position: absolute;
   top: 40px;
   right: 12px;
+  background-color: transparent;
+}
+
+.signupLink {
+  text-decoration: none;
+  color: var(--cl-primary);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-400);
+  margin-bottom: 16px;
+}
+
+.socialLogin {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid var(--cl-gray-strong);
+  padding-top: 40px;
+}
+
+.socialButton {
   background-color: transparent;
 }

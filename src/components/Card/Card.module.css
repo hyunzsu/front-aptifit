@@ -1,0 +1,19 @@
+.card {
+  background-color: var(--cl-white);
+  border-radius: var(--bd-20);
+  padding: var(--spc-12) var(--spc-16);
+}
+
+.title {
+  font-size: var(--fs-20);
+  font-weight: var(--fw-700);
+  padding-bottom: var(--spc-16);
+  border-bottom: 1px solid var(--cl-gray-strong);
+  line-height: 150%;
+}
+
+.description {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-500);
+  padding-top: var(--spc-16);
+}
