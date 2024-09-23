@@ -67,6 +67,7 @@ export default function Test() {
         type="button"
         pageType="test"
         onClick={goToNextPage}
+        className={s.nextButton}
       />
     </div>
   );
