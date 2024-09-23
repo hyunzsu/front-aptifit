@@ -10,6 +10,7 @@ import Image from "next/image";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register, // 입력 필드 등록 함수
@@ -73,14 +74,34 @@ export default function SignUpForm() {
           />
         </button>
       </div>
-      <FormInput
-        label="비밀번호 확인"
-        name="confirmPassword"
-        type="password"
-        register={register}
-        error={errors.confirmPassword}
-        placeholder="비밀번호를 다시 입력하세요"
-      />
+      <div className={s.passwordWrapper}>
+        <FormInput
+          label="비밀번호 확인"
+          name="confirmPassword"
+          type={showConfirmPassword ? "text" : "password"}
+          register={register}
+          error={errors.confirmPassword}
+          placeholder="비밀번호를 다시 입력하세요"
+        />
+        <button
+          type="button"
+          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          className={s.togglePassword}
+          aria-label={
+            showConfirmPassword ? "비밀번호 숨기기" : "비밀번호 보이기"
+          }
+        >
+          <Image
+            src={
+              showConfirmPassword ? "/icons/eye-on.svg" : "/icons/eye-off.svg"
+            }
+            alt={showConfirmPassword ? "비밀번호 숨기기" : "비밀번호 보이기"}
+            width={24}
+            height={24}
+            className={s.icon}
+          />
+        </button>
+      </div>
       <div className={s.agreementSection}>
         <h3 className={s.h3}>약관 동의</h3>
         <FormInput
