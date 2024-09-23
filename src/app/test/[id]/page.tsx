@@ -22,10 +22,10 @@ import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import s from "./test.module.css";
 import TestTitle from "./_components/TestTitle/TestTitle";
+import ProgressBar from "./_components/ProgressBar/ProgressBar";
 import QuizItem from "./_components/QuizItem/QuizItem";
 import Button from "@/components/Button/Button";
 import { useTestLogic } from "@/lib/hooks";
-// import ProgressBar from "./_components/ProgressBar/ProgressBar";
 
 export default function Test() {
   // URL 파라미터에서 id 추출
@@ -47,14 +47,11 @@ export default function Test() {
 
   return (
     <div className={s.test}>
-      <section className={s.testSection}>
-        {/* 테스트 제목 컴포넌트 */}
+      <div className={s.fixedHeader}>
         <TestTitle />
-
-        {/* 진행 상황 표시 바 (현재 주석 처리됨) */}
-        {/* <ProgressBar currentPage={Number(id)} totalPages={6} /> */}
-
-        {/* 퀴즈 항목들을 매핑하여 렌더링 */}
+        <ProgressBar responses={responses} />
+      </div>
+      <div className={s.testSection}>
         {questions.map((question, index) => (
           <QuizItem
             key={index}
@@ -64,9 +61,7 @@ export default function Test() {
             setResponses={setResponses}
           />
         ))}
-      </section>
-
-      {/* 다음 페이지로 이동하는 버튼 */}
+      </div>
       <Button
         label="다음"
         type="button"
