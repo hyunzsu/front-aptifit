@@ -15,8 +15,6 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-
-  border: 1px solid var(--cl-white);
 }
 
 /* 카드 컨테이너 */

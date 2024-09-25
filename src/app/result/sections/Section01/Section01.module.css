@@ -15,8 +15,6 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-
-  border: 1px solid var(--cl-white);
 }
 
 /* 슬로건 (태그라인) */
@@ -40,8 +38,8 @@
 .description {
   font-size: var(--fs-18);
   font-weight: var(--fw-500);
-  line-height: 150%;
   color: var(--cl-white);
+  line-height: 150%;
 }
 
 @media (max-width: 425) {
