@@ -6,7 +6,7 @@ export default function ResultPage() {
     <main className={s.ResultPage}>
       <Section01 />
       <Section02 />
-      <Section03 />
+      {/* <Section03 /> */}
       <Section04 />
     </main>
   );
