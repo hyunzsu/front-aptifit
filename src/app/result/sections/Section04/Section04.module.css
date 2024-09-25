@@ -1,0 +1,41 @@
+/* 섹션 전체 */
+.section {
+  background-color: var(--cl-gray-light);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 전체 내용 컨테이너 */
+.sectionContainer {
+  max-width: 1140px;
+  width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 캐러셀 구분 라인 */
+.line {
+  width: 100%;
+  border: 1px solid var(--cl-gray-strong);
+  margin: var(--spc-64) 0;
+}
+
+/* 직업 이름 */
+.jobName {
+  font-size: var(--fs-28);
+  font-weight: var(--fw-700);
+  line-height: 150%;
+  margin-bottom: var(--spc-64);
+}
+
+@media (max-width: 425) {
+  .container {
+    width: 320px;
+    padding: 0 var(--spc-16);
+  }
+}
