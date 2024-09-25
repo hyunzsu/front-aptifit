@@ -1,0 +1,48 @@
+/* 섹션 전체 */
+.section {
+  background-color: var(--cl-primary);
+}
+
+/* 전체 내용 컨테이너 */
+.sectionContainer {
+  max-width: 1140px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  border: 1px solid var(--cl-white);
+}
+
+/* 슬로건 (태그라인) */
+.taglineContainer {
+  border-left: 4px solid var(--cl-white);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.tagline {
+  color: var(--cl-white);
+  font-size: var(--fs-28);
+  font-weight: var(--fw-700);
+  padding-left: var(--spc-16);
+}
+
+/* 학과 설명 */
+.description {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-500);
+  line-height: 150%;
+  color: var(--cl-white);
+}
+
+@media (max-width: 425) {
+  .container {
+    width: 320px;
+    padding: 0 var(--spc-16);
+  }
+}
