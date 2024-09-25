@@ -11,10 +11,12 @@ import Image from "next/image";
 import { saveToSessionStorage } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { GoogleLoginButton, NaverLoginButton, KakaoLoginButton } from "../";
+import { useAuthStore } from "@/lib/stores";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const { login } = useAuthStore();
 
   const {
     register,
@@ -54,8 +56,8 @@ export default function LoginForm() {
           "user",
           JSON.stringify({ user_name: user_name, email: email })
         );
-        saveToSessionStorage("access_token", JSON.stringify(access_token));
-
+        // saveToSessionStorage("access_token", JSON.stringify(access_token));
+        login(access_token);
         router.push("/");
       } else {
         // 에러가 있을 때 에러 메시지에 접근

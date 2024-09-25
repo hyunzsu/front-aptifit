@@ -6,6 +6,10 @@
   justify-content: center;
   height: 6rem;
   background-color: transparent;
+  color: var(--cl-black);
+}
+
+.dark {
   color: var(--cl-white);
 }
 
@@ -21,6 +25,7 @@
 .logo {
   font-size: var(--fs-40);
   font-weight: var(--fw-900);
+  color: var(--cl-white);
 }
 
 .ul {
@@ -37,16 +42,40 @@
   transition: all 200ms ease-in-out;
 }
 
-.li:hover {
+.primary:hover {
   background-color: var(--cl-white);
   color: var(--cl-black);
-  transition: all 200ms ease-in-out;
 }
 
 .link {
   display: block;
   padding: var(--spc-8) var(--spc-16);
   border-radius: 8px;
+  color: var(--cl-white);
+  transition: all 200ms ease-in-out;
+}
+
+.link:hover {
+  background-color: var(--cl-white);
+  color: var(--cl-black);
+  transition: all 200ms ease-in-out;
+}
+
+.logoutButton {
+  display: block;
+  color: var(--cl-white);
+  background: transparent;
+  font-size: var(--fs-18);
+  font-weight: var(--fw-600);
+  padding: var(--spc-8) var(--spc-16);
+  border-radius: 8px;
+  transition: all 200ms ease-in-out;
+}
+
+.logoutButton:hover {
+  background-color: var(--cl-white);
+  color: var(--cl-black);
+  transition: all 200ms ease-in-out;
 }
 
 @media (max-width: 425px) {
