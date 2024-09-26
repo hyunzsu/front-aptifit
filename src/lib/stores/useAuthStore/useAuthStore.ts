@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type TUser = {
   email: string;
-  name: string;
+  user_name: string;
 };
 
 type TAuthState = {
