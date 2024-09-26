@@ -8,15 +8,14 @@ import { LoginFormData, loginSchema } from "@/schemas/signup";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
-import { saveToSessionStorage } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { GoogleLoginButton, NaverLoginButton, KakaoLoginButton } from "../";
 import { useAuthStore } from "@/lib/stores";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
   const { login } = useAuthStore();
+  const router = useRouter();
 
   const {
     register,
@@ -52,12 +51,8 @@ export default function LoginForm() {
         const { user_name, email, access_token } = result;
 
         // 응답 데이터
-        saveToSessionStorage(
-          "user",
-          JSON.stringify({ user_name: user_name, email: email })
-        );
-        // saveToSessionStorage("access_token", JSON.stringify(access_token));
-        login(access_token);
+        login(access_token, { name: user_name, email: email });
+        alert("로그인이 됐습니다!");
         router.push("/");
       } else {
         // 에러가 있을 때 에러 메시지에 접근
