@@ -48,12 +48,16 @@ export default function LoginForm() {
       const result = await response.json();
 
       if (response.ok) {
-        const { user_name, email, access_token } = result;
-
         // 응답 데이터
-        login(access_token, { user_name: user_name, email: email });
-        alert("로그인이 됐습니다!");
-        router.push("/");
+        login(result);
+
+        if (result.isAdditionalUserInfo) {
+          alert("로그인이 됐습니다!");
+          router.push("/");
+        } else {
+          alert("아직 입력하지 않은 정보가 있습니다!");
+          router.push("/add-user-info");
+        }
       } else {
         // 에러가 있을 때 에러 메시지에 접근
         console.error("에러 발생:", result.error);

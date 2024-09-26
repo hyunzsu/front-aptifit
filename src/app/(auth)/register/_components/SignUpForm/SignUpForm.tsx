@@ -40,7 +40,7 @@ export default function SignUpForm() {
           body: JSON.stringify({
             email: email,
             password: password,
-            user_name: username,
+            name: username,
             phone: phoneNumber,
           }),
         }
@@ -49,12 +49,11 @@ export default function SignUpForm() {
       const result = await response.json();
 
       if (response.ok) {
-        const { user_name, email, access_token } = result;
-
         // 응답 데이터
-        login(access_token, { user_name: user_name, email: email });
+
+        login(result);
         alert("회원가입에 성공했습니다!");
-        router.push("/");
+        router.push("/add-user-info");
       } else {
         // 에러가 있을 때 에러 메시지에 접근
         console.error("에러 발생:", result.error);
