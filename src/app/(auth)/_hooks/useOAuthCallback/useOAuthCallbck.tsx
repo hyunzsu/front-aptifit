@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getOAuthCodeFromURL } from "../../_utils";
+import { useAuthStore } from "@/lib/stores";
 
 const useOAuthCallbck = () => {
   const { provider } = useParams();
   const router = useRouter();
+  const { login } = useAuthStore();
 
   useEffect(() => {
     // OAuth 인증코드를 서버로 전송하는 기능
@@ -28,7 +30,16 @@ const useOAuthCallbck = () => {
         const result = await res.json();
 
         if (res.ok) {
-          router.push(result.redirect_url); // redirect_url이 있을 경우 해당 url로 이동시킨다
+          // 응답 데이터
+          login(result);
+
+          if (result.IsAdditionalUserInfo) {
+            alert("로그인 성공!");
+            router.push("/");
+          } else {
+            alert("아직 입력하지 않은 정보가 있습니다!");
+            router.push("/add-user-info");
+          }
         } else {
           // 에러가 있을 때 에러 메시지에 접근
           console.error("에러 발생:", result.error);
