@@ -1,24 +1,24 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { saveToSessionStorage, getFromSessionStorage } from "@/lib/utils";
+// import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/stores";
 
 export default function OAuthComplete() {
-  const router = useRouter();
-
-  const accessToken = new URL(window.location.href).searchParams.get(
-    "access_token"
-  );
+  const { login } = useAuthStore(); // 상태 값도 가져옴
+  // const router = useRouter();
 
   useEffect(() => {
-    // 1. URL담긴 accessToken을 로컬스토리지에 저장
-    saveToSessionStorage("access_token", JSON.stringify(accessToken));
+    const accessTokenURL =
+      new URL(window.location.href).searchParams.get("access_token") || "";
+    const name = new URL(window.location.href).searchParams.get("name") || "";
+    const email = new URL(window.location.href).searchParams.get("email") || "";
 
-    // 2. accessToken을 로컬스토리지에 저장한 후 메인페이지로 이동
-    if (getFromSessionStorage("access_token")) {
-      // router.push("/");
-    }
+    login(accessTokenURL, { name: name, email: email });
+
+    // router.push("/");
+    alert("로그인 성공!");
+    window.location.href = "http://localhost:3000";
   }, []);
 
   return <main>OAuthComplete</main>;
