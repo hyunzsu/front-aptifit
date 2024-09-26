@@ -51,7 +51,7 @@ export default function LoginForm() {
         const { user_name, email, access_token } = result;
 
         // 응답 데이터
-        login(access_token, { name: user_name, email: email });
+        login(access_token, { user_name: user_name, email: email });
         alert("로그인이 됐습니다!");
         router.push("/");
       } else {
