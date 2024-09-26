@@ -7,12 +7,13 @@ import { SignupFormData, signupSchema } from "@/schemas/signup";
 import s from "./SignUpForm.module.css";
 import { useState } from "react";
 import Image from "next/image";
-import { saveToSessionStorage } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/stores";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { login } = useAuthStore();
   const router = useRouter();
 
   const {
@@ -51,12 +52,8 @@ export default function SignUpForm() {
         const { user_name, email, access_token } = result;
 
         // 응답 데이터
-        saveToSessionStorage(
-          "user",
-          JSON.stringify({ user_name: user_name, email: email })
-        );
-        saveToSessionStorage("access_token", JSON.stringify(access_token));
-
+        login(access_token, { user_name: user_name, email: email });
+        alert("회원가입에 성공했습니다!");
         router.push("/");
       } else {
         // 에러가 있을 때 에러 메시지에 접근
