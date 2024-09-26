@@ -117,6 +117,7 @@ export default function Section04() {
           color="black"
         />
         <div className={s.line}></div>
+        <p className={s.jobName}>바이오의약품생산관리자</p>
         <Accordion
           examples={mockCareerData.details.filter((item) => item.answer !== "")}
         />

@@ -2,22 +2,22 @@
 .section {
   background-color: var(--cl-gray-light);
   width: 100%;
+  min-height: 100vh;
+  padding: var(--spc-64) 0;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  /* height: 100vh; */
 }
 
 /* 전체 내용 컨테이너 */
 .sectionContainer {
-  max-width: 1140px;
-  width: 1140px;
+  width: 100%;
+  max-width: 1180px;
+  padding: var(--spc-64) var(--spc-20);
   margin: 0 auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding-top: 100px;
-  padding-bottom: 100px;
 }
 
 /* 캐러셀 구분 라인 */
@@ -35,9 +35,22 @@
   margin-bottom: var(--spc-64);
 }
 
-@media (max-width: 425) {
-  .container {
-    width: 320px;
-    padding: 0 var(--spc-16);
+@media (max-width: 425px) {
+  .section {
+    padding: var(--spc-40) var(--spc-16);
+  }
+
+  .sectionContainer {
+    max-width: 325px;
+    padding: var(--spc-40) 0;
+  }
+
+  .line {
+    margin: var(--spc-40) 0;
+  }
+
+  .jobName {
+    font-size: var(--fs-20);
+    margin-bottom: var(--spc-24);
   }
 }

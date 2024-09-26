@@ -1,6 +1,6 @@
 import SectionTitle from "@/components/sectionTitle/SectionTitle";
+// import Carousel from "@/components/Carousel/Carousel";
 import s from "./Section01.module.css";
-// import Carousel from "../../../components/Carousel/Carousel";
 
 export default function Section01() {
   return (
