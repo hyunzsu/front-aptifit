@@ -2,7 +2,7 @@
 .section {
   background-color: var(--cl-primary);
   width: 100%;
-  min-height: 100vh; /* height를 min-height로 변경 */
+  min-height: 100vh;
   padding: var(--spc-64) 0;
   display: flex;
   justify-content: center;
@@ -20,6 +20,18 @@
   flex-direction: column;
 }
 
+.carouselContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--spc-40);
+  min-width: 300px;
+  max-width: 600px;
+  width: 100%; /* 추가 */
+  margin-left: auto; /* 추가 */
+  margin-right: auto; /* 추가 */
+}
+
 /* 슬로건 (태그라인) */
 .taglineContainer {
   border-left: 4px solid var(--cl-white);
@@ -27,6 +39,7 @@
   display: flex;
   align-items: center;
   margin: 0 auto;
+  margin-top: var(--spc-64);
   margin-bottom: 40px;
 }
 
@@ -62,5 +75,9 @@
 
   .tagline {
     font-size: var(--fs-18); /* 모바일에서 폰트 크기 조정 */
+  }
+
+  .description {
+    padding: 0;
   }
 }
