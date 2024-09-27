@@ -46,7 +46,7 @@ export default function Carousel({
   // 화면 크기 변경 감지 및 actualItemsToShow 조정
   useEffect(() => {
     const handleResize = () => {
-      setActualItemsToShow(window.innerWidth <= 450 ? 1 : initialItemsToShow);
+      setActualItemsToShow(window.innerWidth <= 900 ? 1 : initialItemsToShow);
     };
 
     handleResize(); // 초기 실행

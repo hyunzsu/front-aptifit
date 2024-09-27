@@ -8,12 +8,12 @@
 .carousel {
   display: flex;
   transition: transform 0.5s ease;
-  margin: 0 -5px;
+  margin: 0 -10px;
 }
 
 .carouselItem {
   flex-shrink: 0;
-  padding: 0 10px;
+  padding: 12px 12px;
   box-sizing: border-box;
   display: grid;
   place-items: center;
@@ -32,7 +32,6 @@
   top: 50%;
   transform: translateY(-50%);
   background: none;
-  border: none;
   cursor: pointer;
   z-index: 10;
   width: 40px;
@@ -55,7 +54,7 @@
   display: none;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 425px) {
   .itemsToShow3 .carouselItem {
     flex: 0 0 100%;
   }
@@ -77,7 +76,10 @@
   }
 
   .arrow {
-    width: 30px;
-    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
   }
 }
