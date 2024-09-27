@@ -27,6 +27,14 @@ const useAuthStore = create((set) => ({
       user: { ...userData },
     });
   },
+  updateUser: (newData) => {
+    const oldData = JSON.parse(sessionStorage.getItem("user"));
+    const updatedUser = { ...oldData, ...newData };
+    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+    set({
+      user: updatedUser,
+    });
+  },
   removeUser: () => {
     sessionStorage.removeItem("user");
     set({
