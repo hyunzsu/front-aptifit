@@ -18,3 +18,8 @@
   padding-top: var(--spc-16);
   line-height: 150%;
 }
+
+.selectedCard {
+  background-color: var(--cl-primary);
+  color: var(--cl-white);
+}

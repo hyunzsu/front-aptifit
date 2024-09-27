@@ -9,6 +9,7 @@
   border-radius: 50px;
   font-weight: var(--fw-700);
   font-size: var(--fs-18);
+  background-color: var(--cl-white);
 }
 
 .active {
@@ -16,7 +17,7 @@
   color: var(--cl-white);
 }
 
-@media (max-width: 425px) {
+@media (max-width: 600px) {
   .tabNavigation {
     gap: var(--spc-10);
     overflow-x: auto;
@@ -31,10 +32,7 @@
   }
 
   .tabButton {
-    width: 84px;
-    height: 40px;
     font-size: var(--fs-16);
-    padding: 0;
     flex-shrink: 0;
   }
 }

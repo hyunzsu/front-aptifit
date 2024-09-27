@@ -1,36 +1,192 @@
+"use client";
+
+import React, { useState } from "react";
 import SectionTitle from "@/components/sectionTitle/SectionTitle";
-// import Card from "@/components/Card/Card";
+import Card from "@/components/Card/Card";
+import Carousel from "@/components/Carousel/Carousel";
+import Accordion from "@/components/Accordion/Accordion";
 import s from "./Section04.module.css";
-// import Carousel from "../../../components/Carousel/Carousel";
-import Accordion from "../../../../components/Accordion/Accordion";
+
+type JobData = {
+  id: number;
+  jobTitle: string;
+  summary: string;
+  details: {
+    id: number;
+    question: string;
+    answer: string;
+  }[];
+};
+
+const jobsData: JobData[] = [
+  {
+    id: 1,
+    jobTitle: "바이오의약품생산관리자",
+    summary: "바이오의약품 생산 과정을 총괄 관리하는 전문가",
+    details: [
+      {
+        id: 1,
+        question: "연봉",
+        answer: "평균 5000만원 ~ 7000만원 (경력에 따라 상이)",
+      },
+      { id: 2, question: "직업만족도", answer: "4.2/5.0 (업계 평균)" },
+      {
+        id: 3,
+        question: "관련직업",
+        answer: "제약회사 연구원, 바이오 공정 엔지니어, 품질관리 전문가",
+      },
+      {
+        id: 4,
+        question: "주요 진출 및 취업처",
+        answer: "대형 제약회사, 바이오테크 기업, 연구소, 정부 규제 기관",
+      },
+      {
+        id: 5,
+        question: "적합한 사람",
+        answer:
+          "꼼꼼하고 정확한 성격, 과학적 사고력, 문제 해결 능력이 뛰어난 사람",
+      },
+    ],
+  },
+  {
+    id: 2,
+    jobTitle: "임상심리학자",
+    summary: "심리적 문제를 진단하고 치료하는 전문가",
+    details: [
+      {
+        id: 1,
+        question: "연봉",
+        answer: "평균 4500만원 ~ 6500만원 (경력 및 근무 기관에 따라 상이)",
+      },
+      { id: 2, question: "직업만족도", answer: "4.0/5.0 (업계 평균)" },
+      {
+        id: 3,
+        question: "관련직업",
+        answer: "상담심리사, 정신과 의사, 학교 상담사",
+      },
+      {
+        id: 4,
+        question: "주요 진출 및 취업처",
+        answer: "병원, 상담 센터, 학교, 기업 상담실",
+      },
+      {
+        id: 5,
+        question: "적합한 사람",
+        answer: "공감 능력이 뛰어나고, 분석적 사고력을 갖춘 사람",
+      },
+    ],
+  },
+  {
+    id: 3,
+    jobTitle: "조직심리컨설턴트",
+    summary: "기업의 조직 문화와 효율성을 개선하는 전문가",
+    details: [
+      {
+        id: 1,
+        question: "연봉",
+        answer: "평균 5500만원 ~ 8000만원 (경력 및 프로젝트에 따라 상이)",
+      },
+      { id: 2, question: "직업만족도", answer: "4.3/5.0 (업계 평균)" },
+      {
+        id: 3,
+        question: "관련직업",
+        answer: "인사 컨설턴트, 기업 교육 전문가, 조직개발 전문가",
+      },
+      {
+        id: 4,
+        question: "주요 진출 및 취업처",
+        answer: "컨설팅 회사, 대기업 인사팀, 정부 기관",
+      },
+      {
+        id: 5,
+        question: "적합한 사람",
+        answer: "커뮤니케이션 능력이 뛰어나고, 전략적 사고를 할 수 있는 사람",
+      },
+    ],
+  },
+  {
+    id: 4,
+    jobTitle: "인지행동치료사",
+    summary: "인지와 행동의 변화를 통해 심리적 문제를 해결하는 전문가",
+    details: [
+      {
+        id: 1,
+        question: "연봉",
+        answer: "평균 4000만원 ~ 6000만원 (경력 및 근무 형태에 따라 상이)",
+      },
+      { id: 2, question: "직업만족도", answer: "4.1/5.0 (업계 평균)" },
+      {
+        id: 3,
+        question: "관련직업",
+        answer: "심리치료사, 정신건강 상담사, 행동분석가",
+      },
+      {
+        id: 4,
+        question: "주요 진출 및 취업처",
+        answer: "정신건강 클리닉, 병원, 개인 상담소",
+      },
+      {
+        id: 5,
+        question: "적합한 사람",
+        answer: "논리적 사고력과 환자에 대한 이해력이 높은 사람",
+      },
+    ],
+  },
+  {
+    id: 5,
+    jobTitle: "학교상담사",
+    summary: "학생들의 심리적, 학업적 문제를 상담하는 전문가",
+    details: [
+      {
+        id: 1,
+        question: "연봉",
+        answer: "평균 3500만원 ~ 5000만원 (경력 및 학교 유형에 따라 상이)",
+      },
+      { id: 2, question: "직업만족도", answer: "3.9/5.0 (업계 평균)" },
+      {
+        id: 3,
+        question: "관련직업",
+        answer: "교사, 청소년 상담사, 진로 상담사",
+      },
+      {
+        id: 4,
+        question: "주요 진출 및 취업처",
+        answer: "초·중·고등학교, 대학 상담센터, 청소년 상담 기관",
+      },
+      {
+        id: 5,
+        question: "적합한 사람",
+        answer: "아동·청소년에 대한 이해도가 높고, 의사소통 능력이 뛰어난 사람",
+      },
+    ],
+  },
+];
 
 export default function Section04() {
-  const examples = [
-    {
-      id: 1,
-      question: "주요 진출 및 위업처",
-      answer:
-        "공식 사이트가 아닙니다. 녹색친구들 마곡 입주 예정자가 만든 임시 사이트이며 **비영리적** 목적으로 입주민간의 정보 공유를 위해 운영되고 있습니다. 이 곳에 올라오는 모든 정보는 오픈채팅방과 녹색친구들 공지사항을 기반으로 구성되어있습니다. 다소 부정확한 정보가 있을 수 있으니 중요한 정보는 녹색친구들에 문의바랍니다.",
-    },
-    {
-      id: 2,
-      question: "적합한 사람",
-      answer:
-        "A. **입주자 대상자 발표:** 2024.08.09 B. 계약서 작성일: 2024.08.14 ~ 2024.08.20 (6일) C. 입주일 가능일: 잔금 납부일부터 ~ 2024.09.06",
-    },
-    {
-      id: 3,
-      question: "하는 일",
-      answer:
-        "음식물쓰레기는 현재 카드키 발급예정입니다. 당분간 지하 1층 커뮤니티 공간에 가져다주시면 처리해드립니다.",
-    },
-    {
-      id: 4,
-      question: "경력 개발 방법 - 대학교과목",
-      answer:
-        "공식 사이트가 아닙니다. 녹색친구들 마곡 입주 예정자가 만든 임시 사이트이며 **비영리적** 목적으로 입주민간의 정보 공유를 위해 운영되고 있습니다. 이 곳에 올라오는 모든 정보는 오픈채팅방과 녹색친구들 공지사항을 기반으로 구성되어있습니다. 다소 부정확한 정보가 있을 수 있으니 중요한 정보는 녹색친구들에 문의바랍니다.",
-    },
-  ];
+  const [selectedJobIndex, setSelectedJobIndex] = useState<number>(0);
+
+  const handleCardClick = (index: number) => {
+    setSelectedJobIndex(index);
+  };
+
+  const carouselItems = jobsData.map((job, index) => (
+    <Card
+      key={job.id}
+      title={"0" + job.id}
+      description={
+        <div>
+          <p className={s.cardJobTitle}>{job.jobTitle}</p>
+          <p className={s.cardJobContent}>{job.summary}</p>
+        </div>
+      }
+      titleClassName={s.cardJobNumber}
+      descriptionClassName={s.cardJobDescription}
+      onClick={() => handleCardClick(index)}
+      isSelected={index === selectedJobIndex}
+      className={s.jobCard}
+    />
+  ));
+
   return (
     <section className={s.section}>
       <div className={s.sectionContainer}>
@@ -39,9 +195,17 @@ export default function Section04() {
           description="심리학을 배운 진우님의 미래를 살펴봐보세요!"
           color="black"
         />
+        <div className={s.carouselContainer}>
+          <Carousel items={carouselItems} itemsToShow={3} />
+        </div>
+
         <div className={s.line}></div>
-        <p className={s.jobName}>바이오의약품생산관리자</p>
-        <Accordion examples={examples} />
+        <p className={s.jobName}>{jobsData[selectedJobIndex].jobTitle}</p>
+        <Accordion
+          examples={jobsData[selectedJobIndex].details.filter(
+            (item) => item.answer !== ""
+          )}
+        />
       </div>
     </section>
   );
