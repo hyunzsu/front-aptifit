@@ -3,6 +3,7 @@ import s from "./RenderContent.module.css";
 import Card from "@/components/Card/Card";
 import { Category } from "@/lib/constants/categories";
 import { convertTo100Scale } from "../../../../lib/utils/scoreConversion";
+import ResultChart from "../ResultChart/ResultChart";
 
 type RenderContentProps = {
   categoryData: CategoryData;
@@ -15,29 +16,31 @@ export default function RenderContent({
 }: RenderContentProps) {
   return (
     <div className={s.categoryContent}>
-      {/* 분포도 - 차트 */}
-
-      {/* 분포도 - 카드 */}
       <div className={s.cardContainer}>
         <Card
           title={`A. 나의 ${activeCategory} 분포도`}
           description={
-            <div className={s.detailGrid}>
-              {categoryData.details.map((detail: DetailItem) => (
-                <div
-                  key={`${detail.field}-${detail.score}`}
-                  className={s.detail}
-                >
-                  <div className={s.fieldContainer}>
-                    <h3 className={s.field}>{detail.field}</h3>
-                    <span className={s.score}>
-                      {convertTo100Scale(detail.score)}점
-                    </span>
+            <>
+              {/* 분포도 - 차트 */}
+              <ResultChart details={categoryData.details} />
+              {/* 분포도 - 카드 */}
+              <div className={s.detailGrid}>
+                {categoryData.details.map((detail: DetailItem) => (
+                  <div
+                    key={`${detail.field}-${detail.score}`}
+                    className={s.detail}
+                  >
+                    <div className={s.fieldContainer}>
+                      <h3 className={s.field}>{detail.field}</h3>
+                      <span className={s.score}>
+                        {convertTo100Scale(detail.score)}점
+                      </span>
+                    </div>
+                    <p className={s.content}>{detail.content}</p>
                   </div>
-                  <p className={s.content}>{detail.content}</p>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </>
           }
         />
       </div>
