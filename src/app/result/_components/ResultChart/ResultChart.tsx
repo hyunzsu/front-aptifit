@@ -44,6 +44,7 @@ export default function ResultChart({ details }: ResultChartProps) {
                 data: details.map((detail) => convertTo100Scale(detail.score)),
                 backgroundColor: isMobile ? "#DEE7FC" : "#7685E5",
                 borderColor: isMobile ? "#DEE7FC" : "#7685E5",
+                hoverBackgroundColor: isMobile ? "#7685E5" : "#1F4298", // hover 시 색상
                 borderWidth: 0,
                 borderRadius: 10,
                 barThickness: isMobile ? 40 : undefined,
@@ -73,7 +74,9 @@ export default function ResultChart({ details }: ResultChartProps) {
               tooltip: { enabled: false },
             },
             layout: {
-              padding: { top: 30, right: 20, bottom: 36, left: 20 },
+              padding: isMobile
+                ? { top: 0, right: 20, bottom: 0, left: 0 }
+                : { top: 30, right: 20, bottom: 36, left: 20 },
             },
           },
           plugins: [
@@ -90,7 +93,7 @@ export default function ResultChart({ details }: ResultChartProps) {
                   ctx.fillStyle = "#000";
                   ctx.textAlign = "center";
                   ctx.textBaseline = isMobile ? "middle" : "bottom";
-                  ctx.font = "bold 16px Arial";
+                  ctx.font = "600 16px Pretendard";
                   if (isMobile) {
                     ctx.fillText(`${datapoint}점`, chartArea.right, yPos);
                     ctx.textAlign = "left";
