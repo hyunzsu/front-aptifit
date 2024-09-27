@@ -9,10 +9,6 @@
   color: var(--cl-black);
 }
 
-.dark {
-  color: var(--cl-white);
-}
-
 .innerContainer {
   display: flex;
   align-items: center;
@@ -25,15 +21,20 @@
 .logo {
   font-size: var(--fs-40);
   font-weight: var(--fw-900);
+}
+
+.whiteLogo {
   color: var(--cl-white);
+}
+
+.blackLogo {
+  color: var(--cl-black);
 }
 
 .ul {
   display: flex;
   gap: var(--spc-16);
   align-items: center;
-  font-size: var(--fs-18);
-  font-weight: var(--fw-600);
 }
 
 .li {
@@ -42,28 +43,21 @@
   transition: all 200ms ease-in-out;
 }
 
-.primary:hover {
-  background-color: var(--cl-white);
-  color: var(--cl-black);
-}
-
 .link {
   display: block;
   padding: var(--spc-8) var(--spc-16);
   border-radius: 8px;
-  color: var(--cl-white);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-600);
   transition: all 200ms ease-in-out;
 }
 
 .link:hover {
-  background-color: var(--cl-white);
-  color: var(--cl-black);
   transition: all 200ms ease-in-out;
 }
 
 .logoutButton {
   display: block;
-  color: var(--cl-white);
   background: transparent;
   font-size: var(--fs-18);
   font-weight: var(--fw-600);
@@ -73,9 +67,25 @@
 }
 
 .logoutButton:hover {
-  background-color: var(--cl-white);
-  color: var(--cl-black);
   transition: all 200ms ease-in-out;
+}
+
+.whiteText {
+  color: var(--cl-white);
+}
+
+.whiteText:hover {
+  color: var(--cl-black);
+  background-color: var(--cl-white);
+}
+
+.blackText {
+  color: var(--cl-black);
+}
+
+.blackText:hover {
+  color: var(--cl-white);
+  background-color: var(--cl-primary);
 }
 
 @media (max-width: 425px) {
