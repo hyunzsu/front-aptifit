@@ -35,7 +35,7 @@ export default function ResultChart({ details }: ResultChartProps) {
           chartInstanceRef.current.destroy();
         }
 
-        const chartConfig: ChartConfiguration = {
+        const chartConfig: ChartConfiguration<"bar", number[], string> = {
           type: "bar",
           data: {
             labels: details.map((detail) => detail.field),
@@ -73,7 +73,7 @@ export default function ResultChart({ details }: ResultChartProps) {
               tooltip: { enabled: false },
             },
             layout: {
-              padding: { top: 30, right: 20, bottom: 36, left: 20 }, // bottom padding 증가
+              padding: { top: 30, right: 20, bottom: 36, left: 20 },
             },
           },
           plugins: [
@@ -94,18 +94,16 @@ export default function ResultChart({ details }: ResultChartProps) {
                   if (isMobile) {
                     ctx.fillText(`${datapoint}점`, chartArea.right, yPos);
                     ctx.textAlign = "left";
-                    ctx.fillText(
-                      chart.data.labels[index] as string,
-                      chartArea.left + 13, // 모바일에서 제목 왼쪽에 13px 패딩 추가
-                      yPos
-                    );
+                    const label = chart.data.labels && chart.data.labels[index];
+                    if (typeof label === "string") {
+                      ctx.fillText(label, chartArea.left + 13, yPos);
+                    }
                   } else {
                     ctx.fillText(`${datapoint}점`, xPos, chartArea.top - 10);
-                    ctx.fillText(
-                      chart.data.labels[index] as string,
-                      xPos,
-                      chartArea.bottom + 20 + 16 // 16px 추가
-                    );
+                    const label = chart.data.labels && chart.data.labels[index];
+                    if (typeof label === "string") {
+                      ctx.fillText(label, xPos, chartArea.bottom + 20 + 16);
+                    }
                   }
                 });
                 ctx.restore();
