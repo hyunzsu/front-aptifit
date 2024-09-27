@@ -161,6 +161,7 @@ const jobsData: JobData[] = [
     ],
   },
 ];
+
 export default function Section04() {
   const [selectedJobIndex, setSelectedJobIndex] = useState<number>(0);
 
@@ -178,6 +179,8 @@ export default function Section04() {
           <p className={s.cardJobContent}>{job.summary}</p>
         </div>
       }
+      titleClassName={s.cardJobNumber}
+      descriptionClassName={s.cardJobDescription}
       onClick={() => handleCardClick(index)}
       isSelected={index === selectedJobIndex}
       className={s.jobCard}
