@@ -1,0 +1,33 @@
+.cardContainer {
+  margin: 50px 0;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spc-32);
+}
+
+.detail {
+  background-color: var(--cl-gray-light);
+  padding: var(--spc-16);
+  border-radius: var(--bd-20);
+  height: 150px;
+}
+
+.fieldContainer {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--cl-gray-strong);
+  padding-bottom: var(--spc-16);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+}
+
+.score {
+  color: var(--cl-primary);
+}
+
+.content {
+  padding-top: var(--spc-16);
+}
