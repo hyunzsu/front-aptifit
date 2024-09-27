@@ -13,24 +13,44 @@ export default function HomePage() {
 
   const startTest = async () => {
     // 1. 로그인 유무 파악 -> /login
-    if (!user) {
-      alert("로그인 페이지로 이동합니다!");
-      router.push("/login");
-      return;
-    }
+    // if (!user) {
+    //   alert("로그인 페이지로 이동합니다!");
+    //   router.push("/login");
+    //   return;
+    // }
 
-    // 2. 추가 정보 파악
-    if (!user.IsAdditionalUserInfo) {
-      alert("아직 입력하지 않은 정보가 있습니다!");
-      router.push("/add-user-info");
-      return;
-    }
+    // // 2. 추가 정보 파악
+    // if (!user.IsAdditionalUserInfo) {
+    //   alert("아직 입력하지 않은 정보가 있습니다!");
+    //   router.push("/add-user-info");
+    //   return;
+    // }
 
-    // 3. 결제 유무 파악 -> /payment
-    if (!user.IsPayment) {
-      alert("결제정보가 없습니다!");
-      router.push("/coupon");
-      return;
+    // // 3. 결제 유무 파악 -> /payment
+    // if (!user.IsPayment) {
+    //   alert("결제정보가 없습니다!");
+    //   router.push("/coupon");
+    //   return;
+    // }
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/submit_responses_university`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.access_token}`,
+          },
+          credentials: "include",
+          body: JSON.stringify({ user_id: user.user_id }),
+        }
+      );
+
+      const result = await res.json();
+      console.log(result);
+    } catch (error) {
+      console.error(error);
     }
 
     // try {
