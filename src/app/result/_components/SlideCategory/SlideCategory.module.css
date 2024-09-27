@@ -1,0 +1,17 @@
+.tabNavigation {
+  display: flex;
+  gap: var(--spc-16);
+  margin-top: 40px;
+}
+
+.tabButton {
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+}
+
+.active {
+  background: var(--cl-primary);
+  color: var(--cl-white);
+}
