@@ -3,9 +3,16 @@
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/stores";
 
+/* 
+useLogin
+
+fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각각 저장해
+로그인 상태를 만들고 추가 회원정보의 유무를 파악해 페이지 이동을 수행한다.
+*/
+
 const useLogin = () => {
+  const { user, setUser, setAccessToken } = useAuthStore();
   const router = useRouter();
-  const { login } = useAuthStore();
 
   const handleLogin = async ({ email, password }) => {
     try {
@@ -25,6 +32,7 @@ const useLogin = () => {
       );
 
       const fetchResult = await response.json();
+      const { access_token, ...rest } = fetchResult;
 
       if (!response.ok) {
         console.error("에러 발생:", fetchResult.error);
@@ -32,11 +40,10 @@ const useLogin = () => {
         return;
       }
 
-      login(fetchResult);
+      setUser(rest);
+      setAccessToken(access_token);
 
-      if (!fetchResult.IsAdditionalUserInfo) {
-        console.log(fetchResult.IsAdditionalUserInfo);
-        alert("아직 입력하지 않은 정보가 있습니다!");
+      if (!user.IsAdditionalUserInfo) {
         router.push("/add-user-info");
       } else {
         alert("로그인이 됐습니다!");
