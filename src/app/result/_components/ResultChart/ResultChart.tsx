@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Chart, ChartConfiguration, registerables } from "chart.js";
 import { DetailItem } from "@/lib/types";
 import { convertTo100Scale } from "@/lib/utils/scoreConversion";
+import s from "./ResultChart.module.css";
 
 Chart.register(...registerables);
 
@@ -44,7 +45,8 @@ export default function ResultChart({ details }: ResultChartProps) {
                 backgroundColor: isMobile ? "#DEE7FC" : "#7685E5",
                 borderColor: isMobile ? "#DEE7FC" : "#7685E5",
                 borderWidth: 0,
-                borderRadius: 4,
+                borderRadius: 10,
+                barThickness: isMobile ? 40 : undefined,
               },
             ],
           },
@@ -71,7 +73,7 @@ export default function ResultChart({ details }: ResultChartProps) {
               tooltip: { enabled: false },
             },
             layout: {
-              padding: { top: 30, right: 20, bottom: 20, left: 20 },
+              padding: { top: 30, right: 20, bottom: 36, left: 20 }, // bottom padding 증가
             },
           },
           plugins: [
@@ -88,13 +90,13 @@ export default function ResultChart({ details }: ResultChartProps) {
                   ctx.fillStyle = "#000";
                   ctx.textAlign = "center";
                   ctx.textBaseline = isMobile ? "middle" : "bottom";
-                  ctx.font = "12px Arial";
+                  ctx.font = "bold 16px Arial";
                   if (isMobile) {
                     ctx.fillText(`${datapoint}점`, chartArea.right, yPos);
                     ctx.textAlign = "left";
                     ctx.fillText(
                       chart.data.labels[index] as string,
-                      chartArea.left,
+                      chartArea.left + 13, // 모바일에서 제목 왼쪽에 13px 패딩 추가
                       yPos
                     );
                   } else {
@@ -102,7 +104,7 @@ export default function ResultChart({ details }: ResultChartProps) {
                     ctx.fillText(
                       chart.data.labels[index] as string,
                       xPos,
-                      chartArea.bottom + 20
+                      chartArea.bottom + 20 + 16 // 16px 추가
                     );
                   }
                 });
@@ -124,8 +126,8 @@ export default function ResultChart({ details }: ResultChartProps) {
   }, [details, isMobile]);
 
   return (
-    <div style={{ width: "100%", height: isMobile ? "300px" : "400px" }}>
-      <canvas ref={chartRef} style={{ width: "100%", height: "100%" }} />
+    <div className={s.chartContainer}>
+      <canvas ref={chartRef} className={s.chartCanvas} />
     </div>
   );
 }
