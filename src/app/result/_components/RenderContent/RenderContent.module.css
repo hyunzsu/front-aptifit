@@ -12,7 +12,7 @@
   background-color: var(--cl-gray-light);
   padding: var(--spc-16);
   border-radius: var(--bd-20);
-  height: 150px;
+  min-height: 150px;
 }
 
 .fieldContainer {
