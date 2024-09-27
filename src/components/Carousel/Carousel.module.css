@@ -2,11 +2,13 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+  padding: 0 30px;
 }
 
 .carousel {
   display: flex;
   transition: transform 0.5s ease;
+  margin: 0 -5px;
 }
 
 .carouselItem {
@@ -17,6 +19,14 @@
   place-items: center;
 }
 
+.itemsToShow1 .carouselItem {
+  flex: 0 0 100%;
+}
+
+.itemsToShow3 .carouselItem {
+  flex: 0 0 33.333%;
+}
+
 .arrow {
   position: absolute;
   top: 50%;
@@ -25,12 +35,49 @@
   border: none;
   cursor: pointer;
   z-index: 10;
+  width: 40px;
+  height: 40px;
 }
 
 .left {
-  left: 10px;
+  left: 0;
 }
 
 .right {
-  right: 10px;
+  right: 0;
+}
+
+.desktopArrow {
+  display: block;
+}
+
+.mobileArrow {
+  display: none;
+}
+
+@media (max-width: 450px) {
+  .itemsToShow3 .carouselItem {
+    flex: 0 0 100%;
+  }
+
+  .carouselContainer {
+    padding: 0 30px;
+  }
+
+  .carousel {
+    margin: 0 -20px;
+  }
+
+  .desktopArrow {
+    display: none;
+  }
+
+  .mobileArrow {
+    display: block;
+  }
+
+  .arrow {
+    width: 30px;
+    height: 30px;
+  }
 }
