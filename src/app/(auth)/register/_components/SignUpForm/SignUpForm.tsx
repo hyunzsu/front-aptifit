@@ -23,7 +23,7 @@ export default function SignUpForm() {
     mode: "onChange", // 실시간 유효성 검사
   });
 
-  const onSubmit = async (data: SignupFormData) => {
+  const onSubmit = (data: SignupFormData) => {
     const { username: name, phoneNumber: phone, password, email } = data;
     handleRegister({ name, phone, password, email });
   };

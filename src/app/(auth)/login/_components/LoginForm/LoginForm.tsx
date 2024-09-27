@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { GoogleLoginButton, NaverLoginButton, KakaoLoginButton } from "../";
-import useLogin from "@/lib/hooks/useLogin/useLogin";
+import { useLogin } from "@/lib/hooks";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +24,7 @@ export default function LoginForm() {
     mode: "onChange",
   });
 
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = (data: LoginFormData) => {
     const { email, password } = data;
     handleLogin({ email, password });
   };
