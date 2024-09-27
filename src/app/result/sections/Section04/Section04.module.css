@@ -27,12 +27,31 @@
   margin: var(--spc-64) 0;
 }
 
+.carouselContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--spc-40);
+}
+
 /* 직업 이름 */
 .jobName {
   font-size: var(--fs-28);
   font-weight: var(--fw-700);
   line-height: 150%;
   margin-bottom: var(--spc-64);
+}
+
+/* 카드 컴포넌트 */
+.cardJobTitle {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+  margin-bottom: var(--spc-8);
+}
+
+.cardJobContent {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-400);
 }
 
 @media (max-width: 425px) {
