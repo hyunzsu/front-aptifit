@@ -31,3 +31,9 @@
 .content {
   padding-top: var(--spc-16);
 }
+
+@media (max-width: 600px) {
+  .detailGrid {
+    display: none;
+  }
+}
