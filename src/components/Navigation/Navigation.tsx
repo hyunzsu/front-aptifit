@@ -45,6 +45,11 @@ export default function Navigation() {
         </h1>
         <ul className={s.ul}>
           <li className={`${s.li}`}>
+            <Link className={s.link} href="/coupon">
+              쿠폰 등록
+            </Link>
+          </li>
+          <li className={`${s.li}`}>
             <Link className={s.link} href="/result">
               결과지
             </Link>

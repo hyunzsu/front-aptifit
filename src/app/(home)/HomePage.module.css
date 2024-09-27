@@ -28,6 +28,12 @@
   margin-bottom: var(--spc-8);
 }
 
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
 .button {
   padding: var(--spc-12) var(--spc-24);
   font-size: var(--fs-18);
