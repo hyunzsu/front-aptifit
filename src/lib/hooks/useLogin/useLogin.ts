@@ -11,7 +11,7 @@ fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각�
 */
 
 const useLogin = () => {
-  const { user, setUser, setAccessToken } = useAuthStore();
+  const { setUser, setAccessToken } = useAuthStore();
   const router = useRouter();
 
   const handleLogin = async ({ email, password }) => {
@@ -43,7 +43,7 @@ const useLogin = () => {
       setUser(rest);
       setAccessToken(access_token);
 
-      if (!user.IsAdditionalUserInfo) {
+      if (!rest.IsAdditionalUserInfo) {
         router.push("/add-user-info");
       } else {
         alert("로그인이 됐습니다!");
