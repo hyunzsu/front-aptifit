@@ -13,7 +13,7 @@ export default function HomePage() {
 
   const startTest = () => {
     const {
-      isPayment,
+      IsPayment,
       IsAdditionalUserInfo,
       page,
       responses,
@@ -36,7 +36,7 @@ export default function HomePage() {
     }
 
     //3. 결제 유무 파악 -> /payment
-    if (!isPayment) {
+    if (!IsPayment) {
       alert("결제정보가 없습니다!");
       router.push("/payment");
       return;

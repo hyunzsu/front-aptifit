@@ -23,7 +23,7 @@ export default function AddUserInfoPage() {
   const [desiredMajor, setDesiredMajor] = useState("");
   const [desiredCareer, setDesiredCareer] = useState("");
 
-  const { logout } = useAuthStore();
+  const { login, logout } = useAuthStore();
   const router = useRouter();
 
   const handleInput = (e, setState) => {
@@ -61,6 +61,11 @@ export default function AddUserInfoPage() {
         router.push("/login"); // 로그인 페이지로 이동
         return;
       }
+
+      const oldData = JSON.parse(sessionStorage.getItem("user"));
+      const newData = { ...oldData, result };
+
+      login(newData);
 
       alert("데이터가 정상적으로 등록됐습니다!");
       router.push("/");

@@ -34,7 +34,8 @@ const useLogin = () => {
 
       login(fetchResult);
 
-      if (!fetchResult.isAdditionalUserInfo) {
+      if (!fetchResult.IsAdditionalUserInfo) {
+        console.log(fetchResult.IsAdditionalUserInfo);
         alert("아직 입력하지 않은 정보가 있습니다!");
         router.push("/add-user-info");
       } else {
