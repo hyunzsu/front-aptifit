@@ -12,6 +12,7 @@ import {
   majorField1,
   majorField2,
 } from "@/lib/constants";
+import { postDataWithAuth } from "@/lib/services";
 import s from "./AddUserInfoPage.module.css";
 
 export default function AddUserInfoPage() {
@@ -30,42 +31,39 @@ export default function AddUserInfoPage() {
   };
 
   const handleClick = async () => {
+    if (
+      !school ||
+      !grade ||
+      !major ||
+      !secondaryMajor ||
+      !desiredMajor ||
+      !desiredCareer
+    ) {
+      alert("채워지지 않은 값이 있습니다!");
+      return;
+    }
+
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/addinformation`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${
-              JSON.parse(sessionStorage.getItem("user")).access_token
-            }`,
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            school: school,
-            grade: grade,
-            major: major,
-            secondary_major: secondaryMajor,
-            desired_major: desiredMajor,
-            desired_career: desiredCareer,
-          }),
-        }
-      );
+      const result = await postDataWithAuth("addinformation", {
+        school: school,
+        grade: grade,
+        major: major,
+        secondary_major: secondaryMajor,
+        desired_major: desiredMajor,
+        desired_career: desiredCareer,
+      });
 
-      const result = await response.json();
+      // 사용자 정보 업데이트 로직 필요
 
-      if (response.ok) {
-        alert("데이터가 정상적으로 등록됐습니다!");
-        router.push("/");
+      if (result.status === 401) {
+        logout(); // Zustand logout 훅 호출
+        alert("로그인이 만료됐습니다");
+        router.push("/login"); // 로그인 페이지로 이동
+        return;
       }
 
-      if (response.status === 401) {
-        console.error("에러 발생:", result.error);
-        alert("로그인이 만료됐습니다!");
-        logout();
-        router.push("/login");
-      }
+      alert("데이터가 정상적으로 등록됐습니다!");
+      router.push("/");
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
     }

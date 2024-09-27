@@ -7,14 +7,12 @@ import { SignupFormData, signupSchema } from "@/schemas/signup";
 import s from "./SignUpForm.module.css";
 import { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/lib/stores";
+import { useRegister } from "@/lib/hooks";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { login } = useAuthStore();
-  const router = useRouter();
+  const { handleRegister } = useRegister();
 
   const {
     register, // 입력 필드 등록 함수
@@ -26,42 +24,8 @@ export default function SignUpForm() {
   });
 
   const onSubmit = async (data: SignupFormData) => {
-    const { username, phoneNumber, password, email } = data;
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            email: email,
-            password: password,
-            name: username,
-            phone: phoneNumber,
-          }),
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // 응답 데이터
-
-        login(result);
-        alert("회원가입에 성공했습니다!");
-        router.push("/add-user-info");
-      } else {
-        // 에러가 있을 때 에러 메시지에 접근
-        console.error("에러 발생:", result.error);
-        alert(result.error);
-      }
-    } catch (error) {
-      console.error("데이터 전송 중 오류가 발생했습니다:", error);
-    }
+    const { username: name, phoneNumber: phone, password, email } = data;
+    handleRegister({ name, phone, password, email });
   };
 
   return (

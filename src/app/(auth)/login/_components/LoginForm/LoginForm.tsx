@@ -8,14 +8,12 @@ import { LoginFormData, loginSchema } from "@/schemas/signup";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { GoogleLoginButton, NaverLoginButton, KakaoLoginButton } from "../";
-import { useAuthStore } from "@/lib/stores";
+import useLogin from "@/lib/hooks/useLogin/useLogin";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const { login } = useAuthStore();
-  const router = useRouter();
+  const { handleLogin } = useLogin();
 
   const {
     register,
@@ -28,44 +26,7 @@ export default function LoginForm() {
 
   const onSubmit = async (data: LoginFormData) => {
     const { email, password } = data;
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        }
-      );
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // 응답 데이터
-        login(result);
-
-        if (result.isAdditionalUserInfo) {
-          alert("로그인이 됐습니다!");
-          router.push("/");
-        } else {
-          alert("아직 입력하지 않은 정보가 있습니다!");
-          router.push("/add-user-info");
-        }
-      } else {
-        // 에러가 있을 때 에러 메시지에 접근
-        console.error("에러 발생:", result.error);
-        alert(result.error);
-      }
-    } catch (error) {
-      console.error("데이터 전송 중 오류가 발생했습니다:", error);
-    }
+    handleLogin({ email, password });
   };
 
   return (
