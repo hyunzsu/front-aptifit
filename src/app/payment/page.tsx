@@ -1,7 +1,23 @@
+"use client";
+
 import { Title } from "@/components";
+import { useCoupon } from "@/lib/hooks";
+import { useState } from "react";
 import s from "./PaymentPage.module.css";
 
 export default function PaymentPage() {
+  const [coupon, setCoupon] = useState("");
+
+  const { handleCoupon } = useCoupon();
+
+  const handleInput = (e, setState) => {
+    setState(e.target.value);
+  };
+
+  const handleClick = () => {
+    handleCoupon(coupon);
+  };
+
   return (
     <main className={s.PaymentPage}>
       <div className={s.container}>
@@ -36,10 +52,14 @@ export default function PaymentPage() {
               className={s.couponInput}
               type="text"
               placeholder="쿠폰 번호"
+              value={coupon}
+              onChange={(e) => handleInput(e, setCoupon)}
             />
-            <button className={s.couponButton}>등록</button>
+            <button className={s.couponButton} onClick={handleClick}>
+              등록
+            </button>
           </div>
-          <span className={s.error}>유효한 번호가 아닙니다!</span>
+          {/* <span className={s.error}>유효한 번호가 아닙니다!</span> */}
         </div>
         {/* 약관동의 섹션 */}
         <div className={s.sectionContainer}>
