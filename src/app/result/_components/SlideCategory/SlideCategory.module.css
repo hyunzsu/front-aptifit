@@ -1,0 +1,40 @@
+.tabNavigation {
+  display: flex;
+  gap: var(--spc-16);
+  margin-top: 40px;
+}
+
+.tabButton {
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-weight: var(--fw-700);
+  font-size: var(--fs-18);
+}
+
+.active {
+  background: var(--cl-primary);
+  color: var(--cl-white);
+}
+
+@media (max-width: 425px) {
+  .tabNavigation {
+    gap: var(--spc-10);
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  .tabNavigation::-webkit-scrollbar {
+    display: none; /* WebKit */
+  }
+
+  .tabButton {
+    width: 84px;
+    height: 40px;
+    font-size: var(--fs-16);
+    padding: 0;
+    flex-shrink: 0;
+  }
+}
