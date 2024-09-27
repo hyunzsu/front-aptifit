@@ -5,53 +5,37 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components";
 import { MajorCardSlider } from "./_components";
 import s from "./HomePage.module.css";
-import { postDataWithAuth } from "@/lib/services";
+import { useAuthStore } from "@/lib/stores";
+import { useStartTest } from "@/lib/hooks";
 
 export default function HomePage() {
+  const { handleTest } = useStartTest();
+  const { user } = useAuthStore();
   const router = useRouter();
-  const user = JSON.parse(sessionStorage.getItem("user")) || {};
 
-  const startTest = async () => {
+  const startTest = () => {
     // 1. 로그인 유무 파악 -> /login
-    // if (!user) {
-    //   alert("로그인 페이지로 이동합니다!");
-    //   router.push("/login");
-    //   return;
-    // }
-
-    // // 2. 추가 정보 파악
-    // if (!user.IsAdditionalUserInfo) {
-    //   alert("아직 입력하지 않은 정보가 있습니다!");
-    //   router.push("/add-user-info");
-    //   return;
-    // }
-
-    // // 3. 결제 유무 파악 -> /payment
-    // if (!user.IsPayment) {
-    //   alert("결제정보가 없습니다!");
-    //   router.push("/coupon");
-    //   return;
-    // }
-
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/submit_responses_university`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user.access_token}`,
-          },
-          credentials: "include",
-          body: JSON.stringify({ user_id: user.user_id }),
-        }
-      );
-
-      const result = await res.json();
-      console.log(result);
-    } catch (error) {
-      console.error(error);
+    if (!user) {
+      alert("로그인 페이지로 이동합니다!");
+      router.push("/login");
+      return;
     }
+
+    // 2. 추가 정보 파악
+    if (!user.IsAdditionalUserInfo) {
+      alert("아직 입력하지 않은 정보가 있습니다!");
+      router.push("/add-user-info");
+      return;
+    }
+
+    // 3. 결제 유무 파악 -> /payment
+    if (!user.IsPayment) {
+      alert("결제정보가 없습니다!");
+      router.push("/payment");
+      return;
+    }
+
+    handleTest();
 
     // try {
     //   const result = await postDataWithAuth("submit_responses_university", {
@@ -77,10 +61,10 @@ export default function HomePage() {
     // }
   };
 
-  const continueTest = async () => {
-    try {
-    } catch (error) {}
-  };
+  // const continueTest = async () => {
+  //   try {
+  //   } catch (error) {}
+  // };
 
   return (
     <main className={s.HomePage}>
@@ -94,14 +78,14 @@ export default function HomePage() {
             pageType="main"
             onClick={startTest}
           />
-          {user.page && (
+          {/* {user.page && (
             <Button
               label="이어하기"
               type="button"
               pageType="main"
               onClick={continueTest}
             />
-          )}
+          )} */}
         </div>
       </div>
       <Image
