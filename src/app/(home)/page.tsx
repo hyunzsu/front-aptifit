@@ -36,35 +36,7 @@ export default function HomePage() {
     }
 
     handleTest();
-
-    // try {
-    //   const result = await postDataWithAuth("submit_responses_university", {
-    //     page: 1,
-    //   });
-    //   console.log(result);
-    // } catch (error) {
-    //   console.error(error.message);
-    // }
-
-    // //4. 테스트 페이지 이동
-    // if (user.page > 10 && user.responses && user.questions) {
-    //   alert("테스트 페이지로 이동합니다!");
-    //   router.push(`/test/${user.page}`);
-    //   return;
-    // }
-
-    // //5. 다 풀고, 결과지 데이터가 있으면 result로 이동
-    // if (user.page === 10 && user.result) {
-    //   alert("결과지 페이지로 이동합니다!");
-    //   router.push(`/result`);
-    //   return;
-    // }
   };
-
-  // const continueTest = async () => {
-  //   try {
-  //   } catch (error) {}
-  // };
 
   return (
     <main className={s.HomePage}>
