@@ -1,3 +1,4 @@
+export { default as useAddUserInfo } from "./useAddUserInfo/useAddUserInfo";
 export { default as useCoupon } from "./useCoupon/useCoupon";
 export { default as useLogin } from "./useLogin/useLogin";
 export { default as useLogout } from "./useLogout/useLogout";

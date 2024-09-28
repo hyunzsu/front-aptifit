@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Title } from "@/components";
-import { useAuthStore } from "@/lib/stores";
 import { DropdownFilter, CombinedDropdownFilter } from "./_components";
 import {
   gradeField,
@@ -12,7 +10,7 @@ import {
   majorField1,
   majorField2,
 } from "@/lib/constants";
-import { postDataWithAuth } from "@/lib/services";
+import { useAddUserInfo } from "@/lib/hooks";
 import s from "./AddUserInfoPage.module.css";
 
 export default function AddUserInfoPage() {
@@ -23,8 +21,7 @@ export default function AddUserInfoPage() {
   const [desiredMajor, setDesiredMajor] = useState("");
   const [desiredCareer, setDesiredCareer] = useState("");
 
-  const { login, logout } = useAuthStore();
-  const router = useRouter();
+  const { handleAddUserInfo } = useAddUserInfo();
 
   const handleInput = (e, setState) => {
     setState(e.target.value);
@@ -43,35 +40,14 @@ export default function AddUserInfoPage() {
       return;
     }
 
-    try {
-      const result = await postDataWithAuth("addinformation", {
-        school: school,
-        grade: grade,
-        major: major,
-        secondary_major: secondaryMajor,
-        desired_major: desiredMajor,
-        desired_career: desiredCareer,
-      });
-
-      // 사용자 정보 업데이트 로직 필요
-
-      if (result.status === 401) {
-        logout(); // Zustand logout 훅 호출
-        alert("로그인이 만료됐습니다");
-        router.push("/login"); // 로그인 페이지로 이동
-        return;
-      }
-
-      const oldData = JSON.parse(sessionStorage.getItem("user"));
-      const newData = { ...oldData, result };
-
-      login(newData);
-
-      alert("데이터가 정상적으로 등록됐습니다!");
-      router.push("/");
-    } catch (error) {
-      console.error("데이터 전송 중 오류가 발생했습니다:", error);
-    }
+    handleAddUserInfo(
+      school,
+      grade,
+      major,
+      secondaryMajor,
+      desiredMajor,
+      desiredCareer
+    );
   };
 
   return (
