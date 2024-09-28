@@ -5,16 +5,16 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/stores";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const { isLoggedIn } = useAuthStore();
+  const { user } = useAuthStore();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!user) {
       router.push("/login"); // 로그인 페이지로 리디렉션
     }
   }, []);
 
-  if (!isLoggedIn) {
+  if (!user) {
     return null; // 리디렉션 중에는 아무것도 렌더링하지 않음
   }
 
