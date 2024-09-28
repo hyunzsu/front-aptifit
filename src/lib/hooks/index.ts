@@ -2,6 +2,7 @@ export { default as useAddUserInfo } from "./useAddUserInfo/useAddUserInfo";
 export { default as useCoupon } from "./useCoupon/useCoupon";
 export { default as useLogin } from "./useLogin/useLogin";
 export { default as useLogout } from "./useLogout/useLogout";
+export { default as useOAuth } from "./useOAuth/useOAuth";
 export { default as useRegister } from "./useRegister/useRegister";
 export { default as useStartTest } from "./useStartTest/useStartTest";
 export { default as useQuizLogic } from "@/lib/hooks/useQuizLogic";
