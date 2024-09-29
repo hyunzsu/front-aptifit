@@ -16,13 +16,13 @@ import {
   saveTestData,
   formValidation,
 } from "@/lib/utils/testUtils";
-
-import submitResponses from "@/lib/services/submitResponses";
+import { useAuthStore } from "@/lib/stores";
 
 export default function useTestLogic() {
   const [questions, setQuestions] = useState<string[]>([]);
   const [responses, setResponses] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
+  const { access_token } = useAuthStore();
 
   const router = useRouter();
   const params = useParams();
@@ -66,9 +66,7 @@ export default function useTestLogic() {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${JSON.parse(
-                sessionStorage.getItem("access_token")
-              )}`,
+              Authorization: `Bearer ${access_token}`,
             },
             body: JSON.stringify({ page, user_id, responses }),
           }
