@@ -44,8 +44,8 @@ export default function useTestLogic() {
       return;
     }
 
-    if (nextPage === 7) {
-      sessionStorage.removeItem("bootcamp7");
+    if (nextPage === 9) {
+      sessionStorage.removeItem("aptifit9");
       router.push("/result");
       return;
     }
@@ -53,10 +53,36 @@ export default function useTestLogic() {
     setLoading(true);
 
     const savedData = loadTestData(params.id as string);
+
     if (savedData) {
-      const submitData = await submitResponses(savedData);
-      saveTestData(nextPage.toString(), submitData);
-      router.push(`/test/${nextPage}`);
+      // const submitData = await submitResponses(savedData);
+
+      const { page, user_id, responses } = savedData;
+
+      try {
+        const fetchResult = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/submit_responses_university`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${JSON.parse(
+                sessionStorage.getItem("access_token")
+              )}`,
+            },
+            body: JSON.stringify({ page, user_id, responses }),
+          }
+        );
+        const result = await fetchResult.json();
+
+        if (!fetchResult.ok) {
+          console.error("😢 submitResponses 성공했는데 문제가 생겼습니다!");
+        }
+        saveTestData(nextPage.toString(), result);
+        router.push(`/test/${nextPage}`);
+      } catch (error) {
+        console.error("😢 submitResponses 실패했습니다!");
+      }
     }
 
     setLoading(false);

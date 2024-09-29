@@ -34,11 +34,14 @@ const submitResponses = async (data: {
   try {
     // 서버에 POST 요청 보내기
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SUBMIT_RESPONSES_HANLA}`,
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/submit_responses_university`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(
+            sessionStorage.getItem(access_token)
+          )}`,
         },
         body: JSON.stringify({ page, user_id, responses }),
       }
