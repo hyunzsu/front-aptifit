@@ -32,12 +32,26 @@ const useStartTest = () => {
       );
 
       const fetchResult = await response.json();
+      const { questions, responses, page, user_id } = fetchResult;
 
       if (!response.ok) {
         console.error("에러 발생:", fetchResult.error);
         alert(fetchResult.error);
         return;
       }
+
+      sessionStorage.setItem(
+        "aptifit1",
+        JSON.stringify({
+          questions: questions,
+          responses: responses,
+          page: page,
+          user_id: user_id,
+        })
+      );
+
+      alert("테스트 페이지로 이동합니다!");
+      router.push("/test/1");
 
       console.log(fetchResult);
     } catch (error) {
