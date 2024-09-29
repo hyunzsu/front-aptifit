@@ -1,0 +1,147 @@
+.TestOption {
+  display: flex;
+  gap: 40px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.radio {
+  appearance: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  border: 4px solid #c6cfff;
+  transition: all 200ms linear;
+}
+
+.radioLarge {
+  width: 60px;
+  height: 60px;
+}
+
+.radioMediumLarge {
+  width: 50px;
+  height: 50px;
+}
+
+.radioMedium {
+  width: 40px;
+  height: 40px;
+}
+
+.radioSmall {
+  width: 30px;
+  height: 30px;
+}
+
+.radio:checked {
+  border: 4px solid #1f4298;
+  background-color: #1f4298;
+  transition: all 200ms linear;
+}
+
+.radio:checked::before {
+  content: "✓";
+  position: absolute;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radioLarge:checked::before {
+  font-size: 50px;
+}
+
+.radioMediumLarge:checked::before {
+  font-size: 40px;
+}
+
+.radioMedium:checked::before {
+  font-size: 30px;
+}
+
+.radioSmall:checked::before {
+  font-size: 20px;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 600;
+  position: absolute;
+  white-space: nowrap;
+  bottom: -32px;
+}
+
+/* 모바일 */
+@media (max-width: 425px) {
+  .TestOption {
+    gap: 20px;
+  }
+
+  .radio {
+    border: 2px solid #c6cfff;
+  }
+
+  .radioLarge {
+    width: 45px;
+    height: 45px;
+  }
+
+  .radioMediumLarge {
+    width: 35px;
+    height: 35px;
+  }
+
+  .radioMedium {
+    width: 28px;
+    height: 28px;
+  }
+
+  .radioSmall {
+    width: 25px;
+    height: 25px;
+  }
+
+  .radioLarge:checked::before {
+    font-size: 40px; /* 큰 버튼일 때 체크 표시 크기 */
+  }
+
+  .radioMediumLarge:checked::before {
+    font-size: 30px; /* 중간 큰 버튼일 때 체크 표시 크기 */
+  }
+
+  .radioMedium:checked::before {
+    font-size: 23px; /* 중간 버튼일 때 체크 표시 크기 */
+  }
+
+  .radioSmall:checked::before {
+    font-size: 20px; /* 작은 버튼일 때 체크 표시 크기 */
+  }
+
+  .labelLeft {
+    left: 0;
+  }
+
+  .labelRight {
+    right: 0;
+  }
+}
+
+@media (max-width: 375px) {
+  .TestOption {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .TestOption {
+    gap: 8px;
+  }
+}
