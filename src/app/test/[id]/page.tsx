@@ -39,7 +39,6 @@ export default function Test() {
 
   // 각 QuizItem에 대한 ref 생성
   const quizRefs = useRef<(HTMLDivElement | null)[]>([]);
-
   // 페이지 로드 시 첫 번째 문제로 스크롤
   useEffect(() => {
     if (quizRefs.current[1]) {
@@ -66,10 +65,12 @@ export default function Test() {
 
   return (
     <div className={s.test}>
+      {/* 섹션 제목 */}
       <div className={s.fixedHeader}>
         <TestTitle />
         <ProgressBar responses={responses} />
       </div>
+      {/* 퀴즈 문제 */}
       <div className={s.testSection}>
         {questions.map((question, index) => (
           <div
