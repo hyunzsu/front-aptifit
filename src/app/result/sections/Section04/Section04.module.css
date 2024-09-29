@@ -1,0 +1,118 @@
+/* 섹션 전체 */
+.section {
+  background-color: var(--cl-gray-light);
+  width: 100%;
+  min-height: 100vh;
+  padding: var(--spc-64) 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 전체 내용 컨테이너 */
+.sectionContainer {
+  width: 100%;
+  max-width: 1180px;
+  padding: var(--spc-64) var(--spc-20);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 캐러셀 구분 라인 */
+.line {
+  width: 100%;
+  border: 1px solid var(--cl-gray-strong);
+  margin: var(--spc-64) 0;
+}
+
+.carouselContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--spc-40);
+}
+
+/* 직업 이름 */
+.jobCard {
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  max-width: 300px;
+}
+
+/* 직업 이름 */
+.jobName {
+  font-size: var(--fs-28);
+  font-weight: var(--fw-700);
+  line-height: 150%;
+  margin-bottom: var(--spc-64);
+}
+
+/* 카드 컴포넌트 */
+.cardJobNumber {
+  font-size: var(--fs-28);
+  border: 0;
+  padding-bottom: 0;
+}
+
+.cardJobDescription {
+  padding-top: var(--spc-12);
+}
+
+.cardJobTitle {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-700);
+  margin-bottom: var(--spc-8);
+}
+
+.cardJobContent {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-400);
+}
+
+@media (max-width: 425px) {
+  .section {
+    padding: var(--spc-40) var(--spc-16);
+  }
+
+  .sectionContainer {
+    max-width: 325px;
+    padding: var(--spc-40) 0;
+  }
+
+  .line {
+    margin: var(--spc-40) 0;
+  }
+
+  /* 카드 스타일 */
+  .cardJobNumber {
+    font-size: var(--fs-20);
+  }
+
+  .cardJobDescription {
+    padding-top: var(--spc-8);
+  }
+
+  .jobCard {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    max-width: 200px;
+  }
+
+  .cardJobTitle {
+    font-size: var(--fs-16);
+  }
+
+  .cardJobContent {
+    font-size: var(--fs-14);
+  }
+
+  .jobName {
+    font-size: var(--fs-20);
+    margin-bottom: var(--spc-24);
+  }
+}

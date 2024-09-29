@@ -23,3 +23,13 @@
 .black {
   color: var(--cl-black);
 }
+
+@media (max-width: 425px) {
+  .title {
+    font-size: var(--fs-28);
+  }
+
+  .description {
+    font-size: var(--fs-18);
+  }
+}

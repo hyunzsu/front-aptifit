@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="kr">
       <body className={pretendard.className}>
-        <Navigation />
+        {/* <Navigation /> */}
         {children}
       </body>
     </html>

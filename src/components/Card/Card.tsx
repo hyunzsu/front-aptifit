@@ -19,8 +19,6 @@
  *   description={<Button onClick={handleClick}>자세히 보기</Button>}
  * />
  */
-
-import React from "react";
 import s from "./Card.module.css";
 
 type CardProps = {
@@ -38,6 +36,10 @@ type CardProps = {
   titleClassName?: string;
   /** 설명에 적용할 추가 CSS 클래스 */
   descriptionClassName?: string;
+  /** 카드 클릭 이벤트 핸들러 */
+  onClick?: () => void;
+  /** 카드가 선택되었는지 여부 */
+  isSelected?: boolean;
 };
 
 export default function Card({
@@ -48,6 +50,8 @@ export default function Card({
   className,
   titleClassName,
   descriptionClassName,
+  onClick,
+  isSelected,
 }: CardProps) {
   const cardStyle: React.CSSProperties = {
     width: width,
@@ -55,7 +59,13 @@ export default function Card({
   };
 
   return (
-    <div className={`${s.card} ${className || ""}`} style={cardStyle}>
+    <div
+      className={`${s.card} ${className || ""} ${
+        isSelected ? s.selectedCard : ""
+      }`}
+      style={cardStyle}
+      onClick={onClick}
+    >
       <h2 className={`${s.title} ${titleClassName || ""}`}>{title}</h2>
       <div className={`${s.description} ${descriptionClassName || ""}`}>
         {description}

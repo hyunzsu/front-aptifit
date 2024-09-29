@@ -1,0 +1,83 @@
+/* 섹션 전체 */
+.section {
+  background-color: var(--cl-primary);
+  width: 100%;
+  min-height: 100vh;
+  padding: var(--spc-64) 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 전체 내용 컨테이너 */
+.sectionContainer {
+  width: 100%;
+  max-width: 1180px;
+  padding: var(--spc-64) var(--spc-20);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.carouselContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--spc-40);
+  min-width: 260px;
+  max-width: 600px;
+  width: 100%; /* 추가 */
+  margin-left: auto; /* 추가 */
+  margin-right: auto; /* 추가 */
+}
+
+/* 슬로건 (태그라인) */
+.taglineContainer {
+  border-left: 4px solid var(--cl-white);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: var(--spc-64);
+  margin-bottom: 40px;
+}
+
+.tagline {
+  color: var(--cl-white);
+  font-size: var(--fs-28);
+  font-weight: var(--fw-700);
+  padding-left: var(--spc-16);
+}
+
+/* 학과 설명 */
+.description {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-500);
+  color: var(--cl-white);
+  line-height: 150%;
+  padding: 0 var(--spc-40);
+}
+
+@media (max-width: 425px) {
+  .section {
+    padding: var(--spc-40) var(--spc-16);
+  }
+
+  .sectionContainer {
+    max-width: 325px;
+    padding: var(--spc-40) 0;
+  }
+
+  .taglineContainer {
+    height: 54px;
+  }
+
+  .tagline {
+    font-size: var(--fs-18); /* 모바일에서 폰트 크기 조정 */
+  }
+
+  .description {
+    padding: 0;
+  }
+}

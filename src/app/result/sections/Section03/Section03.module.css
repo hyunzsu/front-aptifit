@@ -1,0 +1,21 @@
+/* 섹션 전체 */
+.section {
+  background-color: var(--cl-tertiary);
+  width: 100%;
+  min-height: 100vh;
+  padding: var(--spc-64) 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 전체 내용 컨테이너 */
+.sectionContainer {
+  width: 100%;
+  max-width: 1180px;
+  padding: var(--spc-64) var(--spc-20);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
