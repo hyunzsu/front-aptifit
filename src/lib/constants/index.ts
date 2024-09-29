@@ -3,5 +3,5 @@ export {
   major2,
   majorField1,
   majorField2,
-  grade,
+  gradeField,
 } from "./addUserInfo/addUserInfo";

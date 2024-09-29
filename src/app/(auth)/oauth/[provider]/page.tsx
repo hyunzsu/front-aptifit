@@ -1,10 +1,14 @@
 "use client";
 
-import { useOAuthCallback } from "@/app/(auth)/_hooks";
+import { useEffect } from "react";
+import { useOAuth } from "@/lib/hooks";
 
 const OAuthPage = () => {
-  // OAuth인증코드를 서버로 전송
-  useOAuthCallback();
+  const { sendOAuthCodeToServer } = useOAuth();
+
+  useEffect(() => {
+    sendOAuthCodeToServer();
+  }, []);
 
   return <main>OAuthPage 콜백 페이지</main>;
 };

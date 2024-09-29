@@ -7,11 +7,13 @@ import s from "./DropdownFilter.module.css";
 type TDropdownFilter = {
   defaultValue: string;
   data: string[];
+  setState: any;
 };
 
 export default function DropdownFilter({
   defaultValue,
   data,
+  setState,
 }: TDropdownFilter) {
   const [selectedValue, setIsSelectedValue] = useState(defaultValue);
   const [isFilterActive, setIsFilterActive] = useState(false);
@@ -22,6 +24,7 @@ export default function DropdownFilter({
 
   const handleSelectedValue = (e) => {
     setIsSelectedValue(e.target.textContent);
+    setState(e.target.textContent);
     setIsFilterActive(false);
   };
 

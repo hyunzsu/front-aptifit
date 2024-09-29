@@ -8,9 +8,12 @@ import { LoginFormData, loginSchema } from "@/schemas/signup";
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import { GoogleLoginButton, NaverLoginButton, KakaoLoginButton } from "../";
+import { useLogin } from "@/lib/hooks";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const { handleLogin } = useLogin();
 
   const {
     register,
@@ -22,7 +25,8 @@ export default function LoginForm() {
   });
 
   const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+    const { email, password } = data;
+    handleLogin({ email, password });
   };
 
   return (
@@ -64,35 +68,14 @@ export default function LoginForm() {
         {isSubmitting ? "Loading..." : "로그인"}
       </button>
 
-        <Link href="/register" className={s.signupLink}>
-          회원가입
-        </Link>
+      <Link href="/register" className={s.signupLink}>
+        회원가입
+      </Link>
 
       <div className={s.socialLogin}>
-        <button type="button" className={s.socialButton}>
-          <Image
-            src="/icons/kakao.svg"
-            alt="카카오 아이콘"
-            width={60}
-            height={60}
-          />
-        </button>
-        <button type="button" className={s.socialButton}>
-          <Image
-            src="/icons/naver.svg"
-            alt="네이버 아이콘"
-            width={60}
-            height={60}
-          />
-        </button>
-        <button type="button" className={s.socialButton}>
-          <Image
-            src="/icons/google.svg"
-            alt="구글 아이콘"
-            width={60}
-            height={60}
-          />
-        </button>
+        <GoogleLoginButton />
+        <NaverLoginButton />
+        <KakaoLoginButton />
       </div>
     </form>
   );

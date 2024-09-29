@@ -9,6 +9,7 @@ export default function CombinedDropdownFilter({
   defaultValue2,
   data1,
   data2,
+  setState,
 }) {
   const [selectedValue1, setSelectedValue1] = useState(defaultValue1);
   const [isFilter1Active, setIsFilter1Active] = useState(false);
@@ -32,6 +33,7 @@ export default function CombinedDropdownFilter({
 
   const handleSelectedValue2 = (e) => {
     setSelectedValue2(e.target.textContent);
+    setState(e.target.textContent);
     setIsFilter2Active(false);
   };
 
