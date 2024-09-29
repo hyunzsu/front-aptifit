@@ -68,6 +68,7 @@ export default function useTestLogic() {
               "Content-Type": "application/json",
               Authorization: `Bearer ${access_token}`,
             },
+            credentials: "include",
             body: JSON.stringify({ page, user_id, responses }),
           }
         );
