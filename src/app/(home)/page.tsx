@@ -9,10 +9,11 @@ import { useAuthStore } from "@/lib/stores";
 import { useStartTest } from "@/lib/hooks";
 
 export default function HomePage() {
-  const { handleTest } = useStartTest();
+  const { handleStartTest, handleContinueTest } = useStartTest();
   const { user } = useAuthStore();
   const router = useRouter();
 
+  // 처음 테스트 시작할떄
   const startTest = () => {
     // 1. 로그인 유무 파악 -> /login
     if (!user) {
@@ -35,7 +36,12 @@ export default function HomePage() {
       return;
     }
 
-    handleTest();
+    handleStartTest();
+  };
+
+  // 테스트 이어할때
+  const continueTest = () => {
+    handleContinueTest();
   };
 
   return (
@@ -50,14 +56,14 @@ export default function HomePage() {
             pageType="main"
             onClick={startTest}
           />
-          {/* {user.page && (
+          {user.page && (
             <Button
               label="이어하기"
               type="button"
               pageType="main"
               onClick={continueTest}
             />
-          )} */}
+          )}
         </div>
       </div>
       <Image
