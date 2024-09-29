@@ -14,7 +14,7 @@ const useStartTest = () => {
   const { user, access_token } = useAuthStore();
   const router = useRouter();
 
-  const handleTest = async () => {
+  const handleStartTest = async () => {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/submit_responses_university`,
@@ -59,7 +59,53 @@ const useStartTest = () => {
     }
   };
 
-  return { handleTest };
+  const handleContinueTest = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/continue_responses_university`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access_token}`,
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            user_id: user.user_id,
+            page: user.page,
+          }),
+        }
+      );
+
+      const fetchResult = await response.json();
+      const { questions, responses, page, user_id } = fetchResult;
+
+      if (!response.ok) {
+        console.error("에러 발생:", fetchResult.error);
+        alert(fetchResult.error);
+        return;
+      }
+
+      sessionStorage.setItem(
+        `aptifit${page}`,
+        JSON.stringify({
+          questions: questions,
+          responses: responses,
+          page: page,
+          user_id: user_id,
+        })
+      );
+
+      alert("테스트 페이지로 이동합니다!");
+      router.push(`/test/${page}`);
+
+      console.log(fetchResult);
+    } catch (error) {
+      console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    }
+  };
+
+  return { handleStartTest, handleContinueTest };
 };
 
 export default useStartTest;
