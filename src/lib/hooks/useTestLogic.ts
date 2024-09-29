@@ -44,7 +44,7 @@ export default function useTestLogic() {
       return;
     }
 
-    if (nextPage === 9) {
+    if (nextPage >= 10) {
       sessionStorage.removeItem("aptifit9");
       router.push("/result");
       return;
