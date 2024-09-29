@@ -13,7 +13,7 @@
  * @returns 저장된 데이터 객체 또는 null
  */
 export const loadTestData = (pageId: string | string[]) => {
-  const savedData = sessionStorage.getItem(`bootcamp${pageId}`);
+  const savedData = sessionStorage.getItem(`aptifit${pageId}`);
   if (savedData) {
     return JSON.parse(savedData);
   }
@@ -28,7 +28,7 @@ export const loadTestData = (pageId: string | string[]) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const saveTestData = (pageId: string, data: any) => {
-  sessionStorage.setItem(`bootcamp${pageId}`, JSON.stringify(data));
+  sessionStorage.setItem(`aptifit${pageId}`, JSON.stringify(data));
 };
 
 /**
