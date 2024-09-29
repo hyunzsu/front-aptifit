@@ -1,0 +1,33 @@
+.NewTestPage {
+  height: 200vh;
+}
+
+/* 헤더 */
+.TestHeaderSection {
+  background-color: white;
+  position: fixed;
+  max-width: 1140px;
+  width: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 1;
+  padding: 0 16px;
+  padding-top: 10rem;
+}
+
+.TitleContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+/* 테스트 본문 */
+.TestSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
