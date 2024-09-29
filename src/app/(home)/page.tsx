@@ -56,7 +56,7 @@ export default function HomePage() {
             pageType="main"
             onClick={startTest}
           />
-          {user.page && (
+          {user?.page && (
             <Button
               label="이어하기"
               type="button"
