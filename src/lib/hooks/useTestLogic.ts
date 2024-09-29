@@ -45,8 +45,39 @@ export default function useTestLogic() {
     }
 
     if (nextPage >= 10) {
-      sessionStorage.removeItem("aptifit9");
-      router.push("/result");
+      // sessionStorage.removeItem("aptifit9");
+
+      const savedData = loadTestData(params.id as string);
+
+      if (savedData) {
+        const { page, user_id, responses } = savedData;
+
+        try {
+          const fetchResult = await fetch(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/submit_responses_university`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access_token}`,
+              },
+              credentials: "include",
+              body: JSON.stringify({ page, user_id, responses }),
+            }
+          );
+          const result = await fetchResult.json();
+
+          if (!fetchResult.ok) {
+            console.error("😢 submitResponses 성공했는데 문제가 생겼습니다!");
+          }
+          saveTestData(nextPage.toString(), result);
+          router.push(`/result`);
+        } catch (error) {
+          console.error("😢 submitResponses 실패했습니다!");
+        }
+      }
+
+      setLoading(false);
       return;
     }
 
