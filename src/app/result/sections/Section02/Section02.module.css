@@ -1,0 +1,68 @@
+/* 섹션 전체 */
+.section {
+  background-color: var(--cl-secondary);
+  width: 100%;
+  min-height: 100vh;
+  padding: var(--spc-64) 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 전체 내용 컨테이너 */
+.sectionContainer {
+  width: 100%;
+  max-width: 1180px;
+  padding: var(--spc-64) var(--spc-20);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* 카드 컨테이너 */
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 100px;
+  width: 100%;
+  gap: 24px;
+}
+
+.card {
+  width: 45%;
+  min-height: 230px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.desktopView {
+  display: block;
+}
+
+.mobileView {
+  display: none;
+}
+
+@media (max-width: 425px) {
+  .section {
+    padding: var(--spc-40) var(--spc-16);
+  }
+
+  .sectionContainer {
+    max-width: 325px;
+    padding: var(--spc-40) 0;
+  }
+
+  .desktopView {
+    display: none;
+  }
+
+  .mobileView {
+    display: block;
+    margin-top: 40px;
+  }
+}

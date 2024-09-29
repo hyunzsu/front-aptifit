@@ -7,7 +7,7 @@
  * 사용자는 좌우 화살표를 클릭하여 아이템들을 탐색할 수 있습니다.
  *
  * 주요 기능:
- * 1. 아이템 표시 (1개 또는 3개)
+ * 1. 아이템 표시 (화면 크기에 따라 1개 또는 3개)
  * 2. 좌우 네비게이션
  * 3. 아이템 변경 및 클릭 이벤트 처리
  *
@@ -18,7 +18,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import styles from "./Carousel.module.css";
+import s from "./Carousel.module.css";
 
 // Carousel 컴포넌트의 props 타입 정의
 type CarouselProps = {
@@ -30,15 +30,31 @@ type CarouselProps = {
 
 export default function Carousel({
   items,
-  itemsToShow,
+  itemsToShow: initialItemsToShow,
   onItemChange,
   onItemClick,
 }: CarouselProps) {
   // 현재 표시 중인 아이템의 인덱스 상태
   const [currentIndex, setCurrentIndex] = useState(0);
+  // 실제로 표시되는 아이템 수 상태
+  const [actualItemsToShow, setActualItemsToShow] =
+    useState(initialItemsToShow);
 
   // 캐러셀 컨테이너에 대한 ref
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  // 화면 크기 변경 감지 및 actualItemsToShow 조정
+  useEffect(() => {
+    const handleResize = () => {
+      setActualItemsToShow(window.innerWidth <= 900 ? 1 : initialItemsToShow);
+    };
+
+    handleResize(); // 초기 실행
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [initialItemsToShow]);
 
   // 아이템 변경 시 콜백 함수 호출
   useEffect(() => {
@@ -49,15 +65,13 @@ export default function Carousel({
 
   // 다음 슬라이드로 이동하는 함수
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex + itemsToShow >= items.length ? 0 : prevIndex + 1
-    );
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
   };
 
   // 이전 슬라이드로 이동하는 함수
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? items.length - itemsToShow : prevIndex - 1
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + items.length) % items.length
     );
   };
 
@@ -68,27 +82,66 @@ export default function Carousel({
     }
   };
 
+  // itemsToShow에 따른 버튼 이미지 경로 설정
+  const leftButtonSrc =
+    initialItemsToShow === 3
+      ? "/icons/left_arrow_alt.svg"
+      : "/icons/left_arrow.svg";
+  const rightButtonSrc =
+    initialItemsToShow === 3
+      ? "/icons/right_arrow_alt.svg"
+      : "/icons/right_arrow.svg";
+
+  // 모바일 버튼 이미지 경로 및 크기 설정
+  const mobileLeftButtonSrc =
+    initialItemsToShow === 3
+      ? "/icons/left_arrow_mobile_alt.svg"
+      : "/icons/left_arrow_mobile.svg";
+  const mobileRightButtonSrc =
+    initialItemsToShow === 3
+      ? "/icons/right_arrow_mobile_alt.svg"
+      : "/icons/right_arrow_mobile.svg";
+  const mobileArrowSize = initialItemsToShow === 3 ? 30 : 40;
+
   return (
-    <div className={styles.carouselContainer}>
+    <div
+      className={`${s.carouselContainer} ${
+        s[`itemsToShow${actualItemsToShow}`]
+      }`}
+    >
       {/* 이전 버튼 */}
-      <button className={`${styles.arrow} ${styles.left}`} onClick={prevSlide}>
-        <Image src="/icons/left_arrow.svg" alt="이전" width={40} height={40} />
+      <button className={`${s.arrow} ${s.left}`} onClick={prevSlide}>
+        <Image
+          src={leftButtonSrc}
+          alt="이전"
+          width={40}
+          height={40}
+          className={s.desktopArrow}
+        />
+        <Image
+          src={mobileLeftButtonSrc}
+          alt="이전"
+          width={mobileArrowSize}
+          height={mobileArrowSize}
+          className={s.mobileArrow}
+        />
       </button>
 
       {/* 캐러셀 아이템 컨테이너 */}
       <div
-        className={styles.carousel}
+        className={s.carousel}
         ref={carouselRef}
         style={{
-          transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
+          transform: `translateX(-${
+            currentIndex * (100 / actualItemsToShow)
+          }%)`,
         }}
       >
         {/* 각 아이템 렌더링 */}
         {items.map((item, index) => (
           <div
             key={index}
-            className={styles.carouselItem}
-            style={{ flex: `0 0 ${100 / itemsToShow}%` }}
+            className={s.carouselItem}
             onClick={() => handleItemClick(index)}
           >
             {item}
@@ -97,8 +150,21 @@ export default function Carousel({
       </div>
 
       {/* 다음 버튼 */}
-      <button className={`${styles.arrow} ${styles.right}`} onClick={nextSlide}>
-        <Image src="/icons/right_arrow.svg" alt="다음" width={40} height={40} />
+      <button className={`${s.arrow} ${s.right}`} onClick={nextSlide}>
+        <Image
+          src={rightButtonSrc}
+          alt="다음"
+          width={40}
+          height={40}
+          className={s.desktopArrow}
+        />
+        <Image
+          src={mobileRightButtonSrc}
+          alt="다음"
+          width={mobileArrowSize}
+          height={mobileArrowSize}
+          className={s.mobileArrow}
+        />
       </button>
     </div>
   );

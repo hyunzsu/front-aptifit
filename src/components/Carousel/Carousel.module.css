@@ -2,19 +2,29 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+  padding: 0 30px;
 }
 
 .carousel {
   display: flex;
   transition: transform 0.5s ease;
+  margin: 0 -10px;
 }
 
 .carouselItem {
   flex-shrink: 0;
-  padding: 0 10px;
+  padding: 12px 12px;
   box-sizing: border-box;
   display: grid;
   place-items: center;
+}
+
+.itemsToShow1 .carouselItem {
+  flex: 0 0 100%;
+}
+
+.itemsToShow3 .carouselItem {
+  flex: 0 0 33.333%;
 }
 
 .arrow {
@@ -22,15 +32,54 @@
   top: 50%;
   transform: translateY(-50%);
   background: none;
-  border: none;
   cursor: pointer;
   z-index: 10;
+  width: 40px;
+  height: 40px;
 }
 
 .left {
-  left: 10px;
+  left: 0;
 }
 
 .right {
-  right: 10px;
+  right: 0;
+}
+
+.desktopArrow {
+  display: block;
+}
+
+.mobileArrow {
+  display: none;
+}
+
+@media (max-width: 425px) {
+  .itemsToShow3 .carouselItem {
+    flex: 0 0 100%;
+  }
+
+  .carouselContainer {
+    padding: 0 30px;
+  }
+
+  .carousel {
+    margin: 0 -20px;
+  }
+
+  .desktopArrow {
+    display: none;
+  }
+
+  .mobileArrow {
+    display: block;
+  }
+
+  .arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+  }
 }
