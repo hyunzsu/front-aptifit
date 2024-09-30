@@ -21,9 +21,19 @@ function NewTestPage() {
           <Progressbar />
         </header>
         {/* 02. 문제 */}
-        <div className={s.TestSection}>
-          <TestItem />
-          <TestOption />
+        <div className={s.TestBodySection}>
+          <div className={s.TestQuestion}>
+            <TestItem />
+            <TestOption />
+          </div>
+          <div className={s.TestQuestion}>
+            <TestItem />
+            <TestOption />
+          </div>
+          <div className={s.TestQuestion}>
+            <TestItem />
+            <TestOption />
+          </div>
         </div>
       </LayoutContainer>
     </main>
