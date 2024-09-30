@@ -78,7 +78,6 @@ const useStartTest = () => {
       );
 
       const fetchResult = await response.json();
-      const { questions, responses, page, user_id } = fetchResult;
 
       if (!response.ok) {
         console.error("에러 발생:", fetchResult.error);
@@ -86,18 +85,38 @@ const useStartTest = () => {
         return;
       }
 
+      if (fetchResult.page === 10) {
+        sessionStorage.setItem(
+          `aptifit${fetchResult.page}`,
+          JSON.stringify({
+            major1: fetchResult.major1,
+            major2: fetchResult.major2,
+            major3: fetchResult.major3,
+            major4: fetchResult.major4,
+            major5: fetchResult.major5,
+            name: fetchResult.name,
+            page: fetchResult.page,
+            user_id: fetchResult.user_id,
+          })
+        );
+
+        alert("결과지 페이지로 이동합니다!");
+        router.push(`/result`);
+        return;
+      }
+
       sessionStorage.setItem(
-        `aptifit${page}`,
+        `aptifit${fetchResult.page}`,
         JSON.stringify({
-          questions: questions,
-          responses: responses,
-          page: page,
-          user_id: user_id,
+          questions: fetchResult.questions,
+          responses: fetchResult.responses,
+          page: fetchResult.page,
+          user_id: fetchResult.user_id,
         })
       );
 
       alert("테스트 페이지로 이동합니다!");
-      router.push(`/test/${page}`);
+      router.push(`/test/${fetchResult.page}`);
 
       console.log(fetchResult);
     } catch (error) {
