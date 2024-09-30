@@ -2,129 +2,116 @@
 
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/stores";
+import { postDataWithAuth } from "@/lib/services";
+import { saveDataToSessionStorage } from "@/lib/utils";
 
 /* 
-useStartTest
+useStartTest (Auth O)
 
 fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각각 저장해
 로그인 상태를 만들고 추가 회원정보 페이지 이동을 수행한다.
 */
 
 const useStartTest = () => {
-  const { user, access_token } = useAuthStore();
+  const { user, access_token, removeUser, removeAccessToken } = useAuthStore();
   const router = useRouter();
 
-  const handleStartTest = async () => {
+  /* 1. 테스트 시작 */
+  const handleInitializeTest = async () => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/submit_responses_university`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${access_token}`,
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            user_id: user.user_id,
-          }),
-        }
+      // 1. /submit_responses_univeristy로 POST 통신을 수행
+      const response = await postDataWithAuth(
+        "submit_responses_university",
+        access_token,
+        { user_id: user.user_id, page: user.page }
       );
 
+      // 2. fetchResult에서 데이터 설렉션 진행
       const fetchResult = await response.json();
       const { questions, responses, page, user_id } = fetchResult;
 
+      // 에러 핸들링
       if (!response.ok) {
-        console.error("에러 발생:", fetchResult.error);
-        alert(fetchResult.error);
-        return;
-      }
-
-      sessionStorage.setItem(
-        "aptifit1",
-        JSON.stringify({
-          questions: questions,
-          responses: responses,
-          page: page,
-          user_id: user_id,
-        })
-      );
-
-      alert("테스트 페이지로 이동합니다!");
-      router.push("/test/1");
-
-      console.log(fetchResult);
-    } catch (error) {
-      console.error("데이터 전송 중 오류가 발생했습니다:", error);
-    }
-  };
-
-  const handleContinueTest = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/continue_responses_university`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${access_token}`,
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            user_id: user.user_id,
-            page: user.page,
-          }),
+        // 세션만료 에러면 로그인 페이지로 이동
+        if (response.status === 401) {
+          removeUser(user);
+          removeAccessToken(access_token);
+          alert("로그인이 만료되어 재로그인이 필요합니다!");
+          router.push("/login");
+        } else {
+          // 그 외의 에러
+          console.error("로그인 실패:", fetchResult.error);
+          alert(fetchResult.error);
         }
-      );
-
-      const fetchResult = await response.json();
-
-      if (!response.ok) {
-        console.error("에러 발생:", fetchResult.error);
-        alert(fetchResult.error);
-        return;
       }
 
-      if (fetchResult.page === 10) {
-        sessionStorage.setItem(
-          `aptifit${fetchResult.page}`,
-          JSON.stringify({
-            major1: fetchResult.major1,
-            major2: fetchResult.major2,
-            major3: fetchResult.major3,
-            major4: fetchResult.major4,
-            major5: fetchResult.major5,
-            name: fetchResult.name,
-            page: fetchResult.page,
-            user_id: fetchResult.user_id,
-          })
-        );
+      // 3. 세션스토리지에 데이터 저장
+      saveDataToSessionStorage(`aptifit${page}`, {
+        questions: questions,
+        responses: responses,
+        page: page,
+        user_id: user_id,
+      });
 
-        alert("결과지 페이지로 이동합니다!");
-        router.push(`/result`);
-        return;
-      }
-
-      sessionStorage.setItem(
-        `aptifit${fetchResult.page}`,
-        JSON.stringify({
-          questions: fetchResult.questions,
-          responses: fetchResult.responses,
-          page: fetchResult.page,
-          user_id: fetchResult.user_id,
-        })
-      );
-
-      alert("테스트 페이지로 이동합니다!");
-      router.push(`/test/${fetchResult.page}`);
-
-      console.log(fetchResult);
+      // 4. `/test/${page}`로 이동
+      alert("테스트를 시작합니다!");
+      router.push(`test/${page}`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
     }
   };
 
-  return { handleStartTest, handleContinueTest };
+  /* 2. 결과지 호출하기 */
+  const handleInitializeResult = async () => {
+    try {
+      // 1. /submit_responses_univeristy로 POST 통신을 수행
+      const response = await postDataWithAuth(
+        "submit_responses_university",
+        access_token,
+        { user_id: user.user_id, page: user.page }
+      );
+
+      // 2. fetchResult에서 데이터 설렉션 진행
+      const fetchResult = await response.json();
+      const { name, page, user_id, major1, major2, major3, major4, major5 } =
+        fetchResult;
+
+      // 에러 핸들링
+      if (!response.ok) {
+        // 세션만료 에러면 로그인 페이지로 이동
+        if (response.status === 401) {
+          removeUser(user);
+          removeAccessToken(access_token);
+          alert("로그인이 만료되어 재로그인이 필요합니다!");
+          router.push("/login");
+        } else {
+          // 그 외의 에러
+          console.error("로그인 실패:", fetchResult.error);
+          alert(fetchResult.error);
+        }
+      }
+
+      // 3. 세션스토리지에 데이터 저장
+      saveDataToSessionStorage(`aptifit10`, {
+        name,
+        page,
+        user_id,
+        major1,
+        major2,
+        major3,
+        major4,
+        major5,
+      });
+
+      // 4. `/result`로 이동
+      alert("테스트를 시작합니다!");
+      router.push(`/result`);
+    } catch (error) {
+      console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    }
+  };
+
+  return { handleInitializeTest, handleInitializeResult };
 };
 
 export default useStartTest;

@@ -1,2 +1,2 @@
-export { default as getFromSessionStorage } from "./getFromSessionStorage/getFromSessionStorage";
-export { default as saveToSessionStorage } from "./saveToSessionStorage/saveToSessionStorage";
+export { default as getDataFromSessionStorage } from "./getDataFromSessionStorage";
+export { default as saveDataToSessionStorage } from "./saveDataToSessionStorage";

@@ -10,7 +10,7 @@ import { useStartTest } from "@/lib/hooks";
 import { Navigation } from "@/components";
 
 export default function HomePage() {
-  const { handleStartTest, handleContinueTest } = useStartTest();
+  const { handleInitializeResult, handleInitializeTest } = useStartTest();
   const { user } = useAuthStore();
   const router = useRouter();
 
@@ -37,12 +37,14 @@ export default function HomePage() {
       return;
     }
 
-    handleStartTest();
-  };
+    // 4. 결과지 유저일 경우
+    if (user.page === 9) {
+      handleInitializeResult();
+      return;
+    }
 
-  // 테스트 이어할때
-  const continueTest = () => {
-    handleContinueTest();
+    // 5. 테스트 페이지 호출
+    handleInitializeTest();
   };
 
   return (
@@ -52,22 +54,12 @@ export default function HomePage() {
         <div className={s.titleContainer}>
           <p className={s.subtitle}>AI 기반 진단도구로 쉽고 빠르게</p>
           <p className={s.title}>너만의 전공적성을 찾아봐</p>
-          <div className={s.buttonContainer}>
-            <Button
-              label="시작하기"
-              type="button"
-              pageType="main"
-              onClick={startTest}
-            />
-            {user?.page && (
-              <Button
-                label="이어하기"
-                type="button"
-                pageType="main"
-                onClick={continueTest}
-              />
-            )}
-          </div>
+          <Button
+            label="시작하기"
+            type="button"
+            pageType="main"
+            onClick={startTest}
+          />
         </div>
         <Image
           className={s.iphone}
