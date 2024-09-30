@@ -34,15 +34,16 @@ const useStartTest = () => {
       if (!response.ok) {
         // 세션만료 에러면 로그인 페이지로 이동
         if (response.status === 401) {
-          removeUser(user);
-          removeAccessToken(access_token);
+          removeUser();
+          removeAccessToken();
           alert("로그인이 만료되어 재로그인이 필요합니다!");
           router.push("/login");
-        } else {
-          // 그 외의 에러
-          console.error("로그인 실패:", fetchResult.error);
-          alert(fetchResult.error);
+          return;
         }
+        // 그 외의 에러
+        console.error("로그인 실패:", fetchResult.error);
+        alert(fetchResult.error);
+        return;
       }
 
       // 3. 세션스토리지에 데이터 저장

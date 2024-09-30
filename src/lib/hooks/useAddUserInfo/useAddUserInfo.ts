@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/stores";
+import { postDataWithAuth } from "@/lib/services";
 
 /* 
 useAddUserInfo
@@ -11,7 +12,8 @@ fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각�
 */
 
 const useAddUserInfo = () => {
-  const { user, updateUser, removeUser, access_token } = useAuthStore();
+  const { user, updateUser, removeUser, access_token, removeAccessToken } =
+    useAuthStore();
   const router = useRouter();
 
   const handleAddUserInfo = async (
@@ -23,42 +25,36 @@ const useAddUserInfo = () => {
     desired_career
   ) => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/addinformation`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${access_token}`,
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            user_id: user.user_id,
-            school: school,
-            grade: grade,
-            major: major,
-            secondary_major: secondary_major,
-            desired_major: desired_major,
-            desired_career: desired_career,
-          }),
-        }
-      );
+      // 1. /submit_responses_univeristy로 POST 통신을 수행
+      const response = await postDataWithAuth("addinformation", access_token, {
+        user_id: user.user_id,
+        school: school,
+        grade: grade,
+        major: major,
+        secondary_major: secondary_major,
+        desired_major: desired_major,
+        desired_career: desired_career,
+      });
 
       const fetchResult = await response.json();
 
+      // 에러 핸들링
       if (!response.ok) {
-        if (fetchResult.status === 401) {
+        // 세션만료 에러면 로그인 페이지로 이동
+        if (response.status === 401) {
           removeUser();
-          alert("로그인이 만료됐습니다");
-          router.push("/login"); // 로그인 페이지로 이동
+          removeAccessToken();
+          alert("로그인이 만료되어 재로그인이 필요합니다!");
+          router.push("/login");
           return;
         }
-
-        console.error("에러 발생:", fetchResult.error);
+        // 그 외의 에러
+        console.error("로그인 실패:", fetchResult.error);
         alert(fetchResult.error);
         return;
       }
-      console.log(fetchResult);
+
+      // 3. user 스토어, 세션 스토리지의 IsAdditionalUserInfo 업데이트 후 `/`로 이동
       updateUser({ IsAdditionalUserInfo: true });
       alert("회원 정보 등록에 성공했습니다!");
       router.push("/");
