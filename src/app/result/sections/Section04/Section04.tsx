@@ -1,24 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import SectionTitle from "@/components/sectionTitle/SectionTitle";
 import Card from "@/components/Card/Card";
 import Carousel from "@/components/Carousel/Carousel";
 import Accordion from "@/components/Accordion/Accordion";
 import s from "./Section04.module.css";
+import { useResultStore } from "@/lib/stores";
+
+type JobDetail = {
+  id: number;
+  question: string;
+  answer: string;
+};
 
 type JobData = {
   id: number;
   jobTitle: string;
   summary: string;
-  details: {
-    id: number;
-    question: string;
-    answer: string;
-  }[];
+  details: JobDetail[];
 };
-
-const jobsData: JobData[] = [
+{
+  /* <Accordion
+          examples={jobsData[selectedJobIndex].details.filter(
+            (item) => item.answer !== ""
+          )}
+        /> */
+}
+/* MockUp 데이터 테스트용 유지 */
+const MockUp: JobData[] = [
   {
     id: 1,
     jobTitle: "바이오의약품생산관리자",
@@ -162,8 +172,72 @@ const jobsData: JobData[] = [
   },
 ];
 
+/* 실제 들어가야될 데이터 제목과 순서 */
+const titleMap: { [key: string]: string } = {
+  annualSalary: "연봉",
+  jobSatisfaction: "직업 만족도",
+  relatedJobs: "관련 직업",
+  employmentOpportunities: "주요 진출 및 취업처",
+  suitablePerson: "적합한 사람",
+  jobResponsibilities: "하는 일",
+  requiredKnowledge: "필요 역량 - 지식",
+  requiredSkills: "필요 역량 - 기술",
+  requiredAttitude: "필요 역량 - 태도",
+  methodsRelatedMajor: "경력 개발 방법-관련 전공",
+  methodsUniversityCourses: "경력 개발 방법-대학 교과목",
+  methodsNonCurricularPrograms: "경력 개발 방법-대학 내 비교과 프로그램",
+  methodsVocationalTraining: "경력 개발 방법-직업훈련 및 능력 개발 과정",
+  methodsWorkExperience: "경력 개발 방법-일경험",
+  methodsCertifications: "경력 개발 방법-자격증",
+  methodsSelfDirectedActivities: "경력 개발 방법-자기주도적 활동",
+  careerPath: "진출자 전공 영역",
+  relatedInformationSources: "경력 경로",
+  adviceForYouth: "관심 청년을 위한 핵심 조언",
+  infoSource: "관련 정보처",
+  jobOutlook: "전망",
+  jobPerformanceSkills: "업무 수행 능력",
+  workEnvironment: "업무 환경",
+  personalityTraits: "적합한 성격",
+  interests: "흥미",
+  values: "가치관",
+  importance: "업무 활동 중요도",
+  level: "업무 활동 수준",
+  requiredSkillsAndKnowledge: "필요 기술 및 지식",
+  expertAnalysis: "전문가가 분석한 일자리 전망",
+};
+
 export default function Section04() {
+  const { currentMajor, majors } = useResultStore();
   const [selectedJobIndex, setSelectedJobIndex] = useState<number>(0);
+
+  // 현재 선택된 학과의 career 데이터를 가져와 가공합니다.
+  const jobsData: JobData[] = useMemo(() => {
+    const currentMajorData = majors[currentMajor];
+    if (!currentMajorData) return [];
+
+    return currentMajorData.career.map((career, index) => ({
+      id: index + 1,
+      jobTitle: career.jobTitle,
+      summary: career.summary,
+      details: Object.entries(career.details)
+        .filter(([key, value]) => {
+          // value가 객체인 경우 (예: annualSalary), 그 객체의 첫 번째 값을 사용
+          const actualValue =
+            typeof value === "object" ? Object.values(value)[0] : value;
+          return actualValue !== "" && actualValue != null;
+        })
+        .map(([key, value], detailIndex) => {
+          // value가 객체인 경우, 그 객체의 첫 번째 값을 사용
+          const actualValue =
+            typeof value === "object" ? Object.values(value)[0] : value;
+          return {
+            id: detailIndex + 1,
+            question: key,
+            answer: actualValue as string,
+          };
+        }),
+    }));
+  }, [currentMajor, majors]);
 
   const handleCardClick = (index: number) => {
     setSelectedJobIndex(index);
@@ -192,20 +266,25 @@ export default function Section04() {
       <div className={s.sectionContainer}>
         <SectionTitle
           title="04 커리어로드맵"
-          description="심리학을 배운 진우님의 미래를 살펴봐보세요!"
+          description={`${currentMajor}을 배운 진우님의 미래를 살펴봐보세요!`}
           color="black"
         />
         <div className={s.carouselContainer}>
           <Carousel items={carouselItems} itemsToShow={3} />
         </div>
 
-        <div className={s.line}></div>
-        <p className={s.jobName}>{jobsData[selectedJobIndex].jobTitle}</p>
-        <Accordion
+        {jobsData.length > 0 && (
+          <>
+            <div className={s.line}></div>
+            <p className={s.jobName}>{jobsData[selectedJobIndex].jobTitle}</p>
+            <Accordion examples={jobsData[selectedJobIndex].details} />
+            {/* <Accordion
           examples={jobsData[selectedJobIndex].details.filter(
             (item) => item.answer !== ""
           )}
-        />
+        /> */}
+          </>
+        )}
       </div>
     </section>
   );
