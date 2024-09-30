@@ -6,11 +6,12 @@ import { Button } from "@/components";
 import { MajorCardSlider } from "./_components";
 import s from "./HomePage.module.css";
 import { useAuthStore } from "@/lib/stores";
-import { useStartTest } from "@/lib/hooks";
+import { useTest, useResult } from "@/lib/hooks";
 import { Navigation } from "@/components";
 
 export default function HomePage() {
-  const { handleInitializeResult, handleInitializeTest } = useStartTest();
+  const { handleInitializeTest } = useTest();
+  const { handleInitializeResult } = useResult();
   const { user } = useAuthStore();
   const router = useRouter();
 
