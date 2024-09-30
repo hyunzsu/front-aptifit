@@ -2,9 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/stores";
+import { postData } from "@/lib/services";
 
 /* 
-useLogin
+useLogin (Auth O)
 
 fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각각 저장해
 로그인 상태를 만들고 추가 회원정보의 유무를 파악해 페이지 이동을 수행한다.
@@ -16,37 +17,31 @@ const useLogin = () => {
 
   const handleLogin = async ({ email, password }) => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        }
-      );
+      // 1. /login으로 POST 통신을 수행
+      const response = await postData("login", {
+        email,
+        password,
+      });
 
+      // 2. fetchResult에서 데이터 설렉션 진행
       const fetchResult = await response.json();
       const { access_token, ...rest } = fetchResult;
 
       if (!response.ok) {
-        console.error("에러 발생:", fetchResult.error);
+        console.error("로그인 실패:", fetchResult.error);
         alert(fetchResult.error);
         return;
       }
 
+      // 3. user, access_token 스토어 업데이트 및 세션 스토리지 저장
       setUser(rest);
       setAccessToken(access_token);
 
+      // 4. 추가정보X일 시에 `/add-user-info`로 이동 OR `/`로 이동
       if (!rest.IsAdditionalUserInfo) {
         router.push("/add-user-info");
       } else {
-        alert("로그인이 됐습니다!");
+        alert("로그인 성공!");
         router.push("/");
       }
     } catch (error) {
