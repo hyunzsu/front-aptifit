@@ -14,7 +14,12 @@ const options = [
   { value: 7, label: "매우 그렇다" },
 ];
 
-export default function TestOption({ questionId, responses, setResponses }) {
+export default function TestOption({
+  questionId,
+  responses,
+  setResponses,
+  onNext,
+}) {
   const { id } = useParams();
 
   const handleValueChange = (e) => {
@@ -31,6 +36,8 @@ export default function TestOption({ questionId, responses, setResponses }) {
     };
 
     sessionStorage.setItem(`aptifit${id}`, JSON.stringify(newSavedData));
+
+    onNext();
   };
 
   return (
