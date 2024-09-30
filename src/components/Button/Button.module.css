@@ -1,5 +1,5 @@
 .button {
-  font-weight: var(--font-700);
+  font-weight: var(--fw-700);
   font-size: var(--fs-18);
   border-radius: var(--bd-10);
   text-align: center;
@@ -15,7 +15,15 @@
 /* 메인 페이지 버튼 */
 .main {
   background-color: var(--cl-white);
+  font-weight: var(--fw-600);
   color: var(--cl-black);
+  transition: all 200ms linear;
+}
+
+.main:hover {
+  background-color: var(--cl-primary);
+  color: var(--cl-white);
+  transition: all 200ms linear;
 }
 
 /* 테스트 페이지 버튼 */
