@@ -55,7 +55,7 @@
   transition: all 200ms ease-in-out;
 }
 
-.logoutButton {
+.button {
   display: block;
   background: transparent;
   font-size: var(--fs-18);
@@ -65,7 +65,7 @@
   transition: all 200ms ease-in-out;
 }
 
-.logoutButton:hover {
+.button:hover {
   transition: all 200ms ease-in-out;
 }
 

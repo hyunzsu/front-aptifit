@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { useLogout } from "@/lib/hooks";
+import { useLogout, useResult } from "@/lib/hooks";
 import { useAuthStore } from "@/lib/stores";
 import s from "./Navigation.module.css";
 
@@ -12,19 +12,19 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   const { user } = useAuthStore();
+  const { handleInitializeResult } = useResult();
   const { handleLogout } = useLogout();
   const pathname = usePathname();
 
+  /* 라우트별 네비게이션 컬러 테마 
+    
+    네비게이션의 배경이 투명색으로 특정 라우트의 배경에 맞춰 컬러 메타를 변경한다
+  */
   const logoTheme =
     pathname === "/" || pathname === "/result" ? s.whiteLogo : s.blackLogo;
 
   const textTheme =
     pathname === "/" || pathname === "/result" ? s.whiteText : s.blackText;
-
-  /* 로그아웃 함수 */
-  const logout = () => {
-    handleLogout();
-  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -37,6 +37,7 @@ export default function Navigation() {
           <Link href="/">APTIFIT</Link>
         </h1>
         <ul className={s.ul}>
+          {/* 모바일용 메뉴 버튼 */}
           {!isOpen ? (
             <button className={s.mobileMenuButton} onClick={toggleMenu}>
               <Image
@@ -57,11 +58,18 @@ export default function Navigation() {
             </button>
           )}
 
-          <li className={`${s.li}`}>
-            <Link className={`${s.link} ${textTheme}`} href="/result">
-              결과지
-            </Link>
-          </li>
+          {/* 결과지 */}
+          {user?.page === 10 && (
+            <li className={`${s.li}`}>
+              <button
+                className={`${s.button} ${textTheme}`}
+                onClick={handleInitializeResult}
+              >
+                결과지
+              </button>
+            </li>
+          )}
+
           {!user ? (
             <li className={s.li}>
               <Link className={`${s.link} ${textTheme}`} href="/login">
@@ -71,8 +79,8 @@ export default function Navigation() {
           ) : (
             <li className={s.li}>
               <button
-                className={`${s.logoutButton} ${textTheme}`}
-                onClick={logout}
+                className={`${s.button} ${textTheme}`}
+                onClick={handleLogout}
               >
                 로그아웃
               </button>
