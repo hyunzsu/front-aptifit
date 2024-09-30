@@ -1,6 +1,8 @@
-/* .NewTestPage {
-  height: 200dvh;
-} */
+.NewTestPage {
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
+}
 
 /* 헤더 */
 .TestHeaderSection {
@@ -25,16 +27,17 @@
 
 /* 테스트 본문 */
 .TestBodySection {
+  position: relative;
   height: 100dvh;
-  overflow-y: hidden;
+  transition: transform 0.8s ease-in-out;
 }
 
 .TestQuestion {
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100dvh;
 }
 
 .fadeout {
@@ -45,4 +48,37 @@
 .fadein {
   opacity: 1;
   transition: all 200ms linear;
+}
+
+/* 버튼 */
+.submitButton {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 15rem;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #282828;
+  background-color: #eeeeee;
+  transition: all 200ms ease-in-out;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  animation-delay: 1s;
+}
+
+.submitButton:hover {
+  color: white;
+  background-color: var(--cl-primary);
+  transition: all 200ms ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* 애니메이션 시작 시 opacity 0 */
+  }
+  to {
+    opacity: 1; /* 애니메이션 끝날 때 opacity 1 */
+  }
 }
