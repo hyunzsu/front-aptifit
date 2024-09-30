@@ -70,7 +70,16 @@ export default function useTestLogic() {
           if (!fetchResult.ok) {
             console.error("😢 submitResponses 성공했는데 문제가 생겼습니다!");
           }
-          saveTestData(nextPage.toString(), result);
+          saveTestData(nextPage.toString(), {
+            page: result.page,
+            user_id: result.user_id,
+            name: result.name,
+            major1: result.major1,
+            major2: result.major2,
+            major3: result.major3,
+            major4: result.major4,
+            major5: result.major5,
+          });
           router.push(`/result`);
         } catch (error) {
           console.error("😢 submitResponses 실패했습니다!");
@@ -108,7 +117,13 @@ export default function useTestLogic() {
         if (!fetchResult.ok) {
           console.error("😢 submitResponses 성공했는데 문제가 생겼습니다!");
         }
-        saveTestData(nextPage.toString(), result);
+
+        saveTestData(nextPage.toString(), {
+          questions: result.questions,
+          responses: result.responses,
+          page: result.page,
+          user_id: result.user_id,
+        });
         router.push(`/test/${nextPage}`);
       } catch (error) {
         console.error("😢 submitResponses 실패했습니다!");
