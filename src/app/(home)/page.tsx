@@ -38,7 +38,7 @@ export default function HomePage() {
     }
 
     // 4. 결과지 유저일 경우
-    if (user.page === 9) {
+    if (user.page === 10) {
       handleInitializeResult();
       return;
     }
