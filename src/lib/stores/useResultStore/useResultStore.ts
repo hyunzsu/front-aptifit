@@ -37,7 +37,7 @@ type Result = {
 // 학과 정보 타입
 type Major = {
   major_title: string;
-  careers: Career[];
+  career: Career[];
   result: Result;
 };
 
