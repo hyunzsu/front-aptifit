@@ -1,3 +1,6 @@
+"use client";
+
+import { useParams } from "next/navigation";
 import a from "@/app/styles/modules/a11y.module.css";
 import s from "./TestOption.module.css";
 
@@ -11,7 +14,25 @@ const options = [
   { value: 7, label: "매우 그렇다" },
 ];
 
-export default function TestOption() {
+export default function TestOption({ questionId, responses, setResponses }) {
+  const { id } = useParams();
+
+  const handleValueChange = (e) => {
+    // responses 상태변수 업데이트
+    const newResponses = [...responses];
+    newResponses[questionId] = parseInt(e.target.value);
+    setResponses(newResponses);
+
+    // 세션스토리지에 저장된 responses 값 업데이트
+    const savedData = JSON.parse(sessionStorage.getItem(`aptifit${id}`));
+    const newSavedData = {
+      ...savedData,
+      responses: newResponses,
+    };
+
+    sessionStorage.setItem(`aptifit${id}`, JSON.stringify(newSavedData));
+  };
+
   return (
     <div className={s.TestOption}>
       {options.map((option, index) => {
@@ -34,7 +55,9 @@ export default function TestOption() {
               className={`${s.radio} ${sizeClass}`}
               type="radio"
               value={value}
-              name="test-options"
+              name={`question-${questionId}`}
+              checked={responses[questionId] === value}
+              onChange={handleValueChange}
             />
             <label className={a.a11y} htmlFor="">
               {label}
