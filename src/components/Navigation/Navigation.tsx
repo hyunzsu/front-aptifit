@@ -1,12 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { useLogout } from "@/lib/hooks";
 import { useAuthStore } from "@/lib/stores";
 import s from "./Navigation.module.css";
 
 export default function Navigation() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const { user } = useAuthStore();
   const { handleLogout } = useLogout();
   const pathname = usePathname();
@@ -22,6 +26,10 @@ export default function Navigation() {
     handleLogout();
   };
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <nav className={`${s.Navigation}`}>
       <div className={s.innerContainer}>
@@ -29,6 +37,14 @@ export default function Navigation() {
           <Link href="/">APTIFIT</Link>
         </h1>
         <ul className={s.ul}>
+          <button className={s.mobileMenuButton} onClick={toggleMenu}>
+            <Image
+              src="/icons/menu.svg"
+              alt="메뉴 버튼"
+              width={30}
+              height={30}
+            />
+          </button>
           <li className={`${s.li}`}>
             <Link className={`${s.link} ${textTheme}`} href="/result">
               결과지
@@ -52,6 +68,23 @@ export default function Navigation() {
           )}
         </ul>
       </div>
+      {/* 모바일 */}
+      <ul
+        className={`${s.mobileNavigation} ${
+          isOpen ? s.mobileNavigationOpen : ""
+        }`}
+      >
+        <li className={`${s.mobileLi}`}>
+          <Link className={`${s.mobileLink} ${textTheme}`} href="/result">
+            결과지
+          </Link>
+        </li>
+        <li className={`${s.mobileLi}`}>
+          <Link className={`${s.mobileLink} ${textTheme}`} href="/login">
+            로그인
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 }
