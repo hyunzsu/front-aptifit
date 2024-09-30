@@ -37,14 +37,26 @@ export default function Navigation() {
           <Link href="/">APTIFIT</Link>
         </h1>
         <ul className={s.ul}>
-          <button className={s.mobileMenuButton} onClick={toggleMenu}>
-            <Image
-              src="/icons/menu.svg"
-              alt="메뉴 버튼"
-              width={30}
-              height={30}
-            />
-          </button>
+          {!isOpen ? (
+            <button className={s.mobileMenuButton} onClick={toggleMenu}>
+              <Image
+                src="/icons/menu.svg"
+                alt="메뉴 열기 버튼"
+                width={30}
+                height={30}
+              />
+            </button>
+          ) : (
+            <button className={s.mobileMenuButton} onClick={toggleMenu}>
+              <Image
+                src="/icons/close.svg"
+                alt="메뉴 닫기 버튼"
+                width={30}
+                height={30}
+              />
+            </button>
+          )}
+
           <li className={`${s.li}`}>
             <Link className={`${s.link} ${textTheme}`} href="/result">
               결과지
