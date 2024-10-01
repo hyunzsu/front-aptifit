@@ -1,15 +1,13 @@
-.progressBarContainer {
+.Progressbar {
+  background-color: #eaeaea;
+  border-radius: 100px;
   width: 100%;
-  height: 10px;
-  background-color: var(--cl-gray-strong);
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: var(--spc-40);
+  height: 12px;
 }
 
-.progressBar {
-  height: 100%;
-  background-color: var(--cl-primary);
+.percentagebar {
+  background-color: #1f4298;
+  border-radius: 100px;
   transition: width 0.3s ease-in-out;
-  border-radius: 5px;
+  height: 12px;
 }

@@ -8,6 +8,6 @@
 .percentagebar {
   background-color: #1f4298;
   border-radius: 100px;
-  width: 80%;
+  transition: width 0.3s ease-in-out;
   height: 12px;
 }
