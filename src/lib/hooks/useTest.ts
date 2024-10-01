@@ -61,7 +61,7 @@ const useTest = () => {
 
       // 1-5. `/test/${page}`로 이동
       alert("테스트를 시작합니다!");
-      router.push(`newtest/${page}`);
+      router.push(`test/${page}`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
     }
