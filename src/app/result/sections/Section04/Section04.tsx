@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import { useMemo } from "react";
 import SectionTitle from "@/components/sectionTitle/SectionTitle";
 import Card from "@/components/Card/Card";
 import Carousel from "@/components/Carousel/Carousel";
@@ -207,8 +207,8 @@ const titleMap: { [key: string]: string } = {
 };
 
 export default function Section04() {
-  const { currentMajor, majors } = useResultStore();
-  const [selectedJobIndex, setSelectedJobIndex] = useState<number>(0);
+  const { currentMajor, majors, currentCareerIndex, setCurrentCareerIndex } =
+    useResultStore();
 
   // 현재 선택된 학과의 career 데이터를 가져와 가공합니다.
   const jobsData: JobData[] = useMemo(() => {
@@ -221,18 +221,16 @@ export default function Section04() {
       summary: career.summary,
       details: Object.entries(career.details)
         .filter(([key, value]) => {
-          // value가 객체인 경우 (예: annualSalary), 그 객체의 첫 번째 값을 사용
           const actualValue =
             typeof value === "object" ? Object.values(value)[0] : value;
           return actualValue !== "" && actualValue != null;
         })
         .map(([key, value], detailIndex) => {
-          // value가 객체인 경우, 그 객체의 첫 번째 값을 사용
           const actualValue =
             typeof value === "object" ? Object.values(value)[0] : value;
           return {
             id: detailIndex + 1,
-            question: key,
+            question: titleMap[key] || key, // titleMap을 사용하여 키를 변환
             answer: actualValue as string,
           };
         }),
@@ -240,7 +238,7 @@ export default function Section04() {
   }, [currentMajor, majors]);
 
   const handleCardClick = (index: number) => {
-    setSelectedJobIndex(index);
+    setCurrentCareerIndex(index);
   };
 
   const carouselItems = jobsData.map((job, index) => (
@@ -256,7 +254,7 @@ export default function Section04() {
       titleClassName={s.cardJobNumber}
       descriptionClassName={s.cardJobDescription}
       onClick={() => handleCardClick(index)}
-      isSelected={index === selectedJobIndex}
+      isSelected={index === currentCareerIndex}
       className={s.jobCard}
     />
   ));
@@ -276,13 +274,8 @@ export default function Section04() {
         {jobsData.length > 0 && (
           <>
             <div className={s.line}></div>
-            <p className={s.jobName}>{jobsData[selectedJobIndex].jobTitle}</p>
-            <Accordion examples={jobsData[selectedJobIndex].details} />
-            {/* <Accordion
-          examples={jobsData[selectedJobIndex].details.filter(
-            (item) => item.answer !== ""
-          )}
-        /> */}
+            <p className={s.jobName}>{jobsData[currentCareerIndex].jobTitle}</p>
+            <Accordion examples={jobsData[currentCareerIndex].details} />
           </>
         )}
       </div>

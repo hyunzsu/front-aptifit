@@ -46,12 +46,15 @@ type ResultState = {
   name: string;
   majors: Record<string, Major>;
   currentMajor: string;
+  currentCareerIndex: number; // 새로 추가: 현재 선택된 직업 인덱스
   setName: (name: string) => void;
   setMajors: (majors: Record<string, Major>) => void;
   getMajorByTitle: (title: string) => Major | undefined;
   setCurrentMajor: (majorTitle: string) => void;
   getCurrentMajor: () => Major | undefined;
   checkStore: () => string;
+  setCurrentCareerIndex: (index: number) => void; // 새로 추가: 직업 인덱스 설정 함수
+  resetCurrentCareerIndex: () => void; // 새로 추가: 직업 인덱스 초기화 함수
 };
 
 /**
@@ -72,7 +75,6 @@ const getDataFromSessionStorage = (key: string) => {
  * @param key 세션 스토리지 키
  * @param value 저장할 데이터
  */
-
 const setDataToSessionStorage = (key: string, value: any) => {
   if (typeof window !== "undefined") {
     sessionStorage.setItem(key, JSON.stringify(value));
@@ -91,6 +93,7 @@ const useResultStore = create<ResultState>((set, get) => {
     name: storedData?.name || "",
     majors: storedData?.majors || {},
     currentMajor: storedData?.currentMajor || "",
+    currentCareerIndex: storedData?.currentCareerIndex || 0, // 새로 추가: 현재 직업 인덱스
 
     /**
      * 사용자 이름을 설정하는 함수
@@ -137,8 +140,9 @@ const useResultStore = create<ResultState>((set, get) => {
           setDataToSessionStorage("resultStoreData", {
             ...state,
             currentMajor: majorTitle,
+            currentCareerIndex: 0, // 새로운 학과 선택 시 직업 인덱스를 0으로 초기화
           });
-          return { currentMajor: majorTitle };
+          return { currentMajor: majorTitle, currentCareerIndex: 0 };
         }
         return state;
       });
@@ -151,6 +155,39 @@ const useResultStore = create<ResultState>((set, get) => {
     getCurrentMajor: () => get().majors[get().currentMajor],
 
     /**
+     * 현재 선택된 직업 인덱스를 설정하는 함수
+     * @param index 설정할 인덱스
+     */
+    setCurrentCareerIndex: (index: number) => {
+      set((state) => {
+        if (state.currentCareerIndex !== index) {
+          setDataToSessionStorage("resultStoreData", {
+            ...state,
+            currentCareerIndex: index,
+          });
+          return { currentCareerIndex: index };
+        }
+        return state;
+      });
+    },
+
+    /**
+     * 현재 선택된 직업 인덱스를 0으로 초기화하는 함수
+     */
+    resetCurrentCareerIndex: () => {
+      set((state) => {
+        if (state.currentCareerIndex !== 0) {
+          setDataToSessionStorage("resultStoreData", {
+            ...state,
+            currentCareerIndex: 0,
+          });
+          return { currentCareerIndex: 0 };
+        }
+        return state;
+      });
+    },
+
+    /**
      * 스토어의 현재 상태를 확인하는 함수 (디버깅용)
      * @returns 현재 스토어 상태 요약 문자열
      */
@@ -159,7 +196,9 @@ const useResultStore = create<ResultState>((set, get) => {
       console.log("현재 스토어 상태:", state);
       return `이름: ${state.name}, 학과들: ${Object.keys(state.majors).join(
         ", "
-      )}, 현재 선택된 학과: ${state.currentMajor}`;
+      )}, 현재 선택된 학과: ${state.currentMajor}, 현재 직업 인덱스: ${
+        state.currentCareerIndex
+      }`;
     },
   };
 });
