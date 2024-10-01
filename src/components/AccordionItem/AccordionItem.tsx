@@ -3,7 +3,7 @@ import s from "./AccordionItem.module.css";
 import { AccordionTable } from "@/lib/types";
 
 type ExampleItemProps = {
-  example: AccordionTable;
+  example: AccordionTable & { description?: string };
   isOpen: boolean;
   toggleAccordion: () => void;
 };
@@ -13,6 +13,14 @@ export default function AccordionItem({
   isOpen,
   toggleAccordion,
 }: ExampleItemProps) {
+  // 배열 데이터를 처리하는 함수
+  const formatAnswer = (answer: string | string[]) => {
+    if (Array.isArray(answer)) {
+      return answer.join("\n");
+    }
+    return answer;
+  };
+
   return (
     <div className={s.accordionItem}>
       {/* 질문 */}
@@ -28,7 +36,10 @@ export default function AccordionItem({
       </div>
       {/* 답변 */}
       <div className={`${s.answerWrapper} ${isOpen ? s.open : ""}`}>
-        <p className={s.answer}>{example.answer}</p>
+        {example.description && (
+          <p className={s.description}>{example.description}</p>
+        )}
+        <p className={s.answer}>{formatAnswer(example.answer)}</p>
       </div>
     </div>
   );

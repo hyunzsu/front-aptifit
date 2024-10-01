@@ -55,4 +55,12 @@
   font-weight: var(--fw-500);
   padding: 0 0 1rem;
   line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.description {
+  font-size: var(--fs-14);
+  line-height: 150%;
+  color: #939292;
+  margin-bottom: 10px;
 }
