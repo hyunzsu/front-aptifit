@@ -14,7 +14,6 @@ export default function RenderContent({
   categoryData,
   activeCategory,
 }: RenderContentProps) {
-  console.log(categoryData);
   return (
     <div className={s.categoryContent}>
       <div className={s.cardContainer}>
