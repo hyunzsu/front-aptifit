@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/lib/stores";
+import { useAuthStore, useResultStore } from "@/lib/stores";
 import { postDataWithAuth } from "@/lib/services";
 import { saveDataToSessionStorage } from "@/lib/utils";
 
@@ -13,6 +13,7 @@ fetch 통신 이후 결과지 데이터를 불러와 세션 스토리지에 저�
 
 const useResult = () => {
   const { user, access_token, removeUser, removeAccessToken } = useAuthStore();
+  const { setName, setMajors, setCurrentMajor } = useResultStore();
   const router = useRouter();
 
   const handleInitializeResult = async () => {
@@ -42,18 +43,29 @@ const useResult = () => {
           console.error("로그인 실패:", fetchResult.error);
           alert(fetchResult.error);
         }
+        return;
       }
 
-      // 3. 세션스토리지에 데이터 저장
-      saveDataToSessionStorage(`aptifit10`, {
+      // 3-1. Zustand store에 데이터 저장
+      const majorsData = {
+        [major1.major_title]: major1,
+        [major2.major_title]: major2,
+        [major3.major_title]: major3,
+        [major4.major_title]: major4,
+        [major5.major_title]: major5,
+      };
+      setName(name);
+      setMajors(majorsData);
+      setCurrentMajor(major1.major_title);
+
+      // 3-2. 세션스토리지에 데이터 저장
+      // ResultStore와 동일한 형식으로 저장
+      saveDataToSessionStorage("resultStoreData", {
         name,
-        page,
-        user_id,
-        major1,
-        major2,
-        major3,
-        major4,
-        major5,
+        majors: majorsData,
+        currentMajor: major1.major_title,
+        page: page,
+        user_id: user_id,
       });
 
       // 4. `/result`로 이동

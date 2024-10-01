@@ -1,22 +1,7 @@
-// Carousel.tsx
-
-/*
- * Carousel 컴포넌트
- *
- * 이 컴포넌트는 아이템들을 회전식으로 표시하는 캐러셀을 구현합니다.
- * 사용자는 좌우 화살표를 클릭하여 아이템들을 탐색할 수 있습니다.
- *
- * 주요 기능:
- * 1. 아이템 표시 (화면 크기에 따라 1개 또는 3개)
- * 2. 좌우 네비게이션
- * 3. 아이템 변경 및 클릭 이벤트 처리
- *
- * 작업자: 김도현
- */
-
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useResultStore } from "@/lib/stores";
 import Image from "next/image";
 import s from "./Carousel.module.css";
 
@@ -26,6 +11,7 @@ type CarouselProps = {
   itemsToShow: 1 | 3;
   onItemChange?: (index: number) => void;
   onItemClick?: (index: number) => void;
+  useGlobalState?: boolean;
 };
 
 export default function Carousel({
@@ -33,49 +19,66 @@ export default function Carousel({
   itemsToShow: initialItemsToShow,
   onItemChange,
   onItemClick,
+  useGlobalState = false,
 }: CarouselProps) {
-  // 현재 표시 중인 아이템의 인덱스 상태
-  const [currentIndex, setCurrentIndex] = useState(0);
-  // 실제로 표시되는 아이템 수 상태
+  const { currentCarouselIndex, setCurrentCarouselIndex } = useResultStore();
+  const [localCurrentIndex, setLocalCurrentIndex] = useState(0);
   const [actualItemsToShow, setActualItemsToShow] =
     useState(initialItemsToShow);
-
-  // 캐러셀 컨테이너에 대한 ref
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  // 화면 크기 변경 감지 및 actualItemsToShow 조정
+  const currentIndex = useGlobalState
+    ? currentCarouselIndex
+    : localCurrentIndex;
+
   useEffect(() => {
     const handleResize = () => {
       setActualItemsToShow(window.innerWidth <= 900 ? 1 : initialItemsToShow);
     };
 
-    handleResize(); // 초기 실행
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [initialItemsToShow]);
 
-  // 아이템 변경 시 콜백 함수 호출
   useEffect(() => {
     if (onItemChange) {
       onItemChange(currentIndex);
     }
   }, [currentIndex, onItemChange]);
 
-  // 다음 슬라이드로 이동하는 함수
+  const updateIndex = (newIndex: number) => {
+    if (useGlobalState) {
+      setCurrentCarouselIndex(newIndex);
+    } else {
+      setLocalCurrentIndex(newIndex);
+    }
+  };
+
+  const calculateNextIndex = (currentIndex: number) => {
+    const nextIndex = currentIndex + actualItemsToShow;
+    return nextIndex >= items.length ? 0 : nextIndex;
+  };
+
+  const calculatePrevIndex = (currentIndex: number) => {
+    const prevIndex = currentIndex - actualItemsToShow;
+    return prevIndex < 0
+      ? Math.floor((items.length - 1) / actualItemsToShow) * actualItemsToShow
+      : prevIndex;
+  };
+
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
+    const nextIndex = calculateNextIndex(currentIndex);
+    updateIndex(nextIndex);
   };
 
-  // 이전 슬라이드로 이동하는 함수
   const prevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + items.length) % items.length
-    );
+    const prevIndex = calculatePrevIndex(currentIndex);
+    updateIndex(prevIndex);
   };
 
-  // 아이템 클릭 시 처리하는 함수
   const handleItemClick = (index: number) => {
     if (onItemClick) {
       onItemClick(index);
@@ -92,7 +95,7 @@ export default function Carousel({
       ? "/icons/right_arrow_alt.svg"
       : "/icons/right_arrow.svg";
 
-  // 모바일 버튼 이미지 경로 및 크기 설정
+  // 모바일용 버튼 이미지 경로 및 크기 설정
   const mobileLeftButtonSrc =
     initialItemsToShow === 3
       ? "/icons/left_arrow_mobile_alt.svg"
@@ -109,7 +112,6 @@ export default function Carousel({
         s[`itemsToShow${actualItemsToShow}`]
       }`}
     >
-      {/* 이전 버튼 */}
       <button className={`${s.arrow} ${s.left}`} onClick={prevSlide}>
         <Image
           src={leftButtonSrc}
@@ -127,17 +129,15 @@ export default function Carousel({
         />
       </button>
 
-      {/* 캐러셀 아이템 컨테이너 */}
       <div
         className={s.carousel}
         ref={carouselRef}
         style={{
           transform: `translateX(-${
-            currentIndex * (100 / actualItemsToShow)
+            (currentIndex * 100) / actualItemsToShow
           }%)`,
         }}
       >
-        {/* 각 아이템 렌더링 */}
         {items.map((item, index) => (
           <div
             key={index}
@@ -149,7 +149,6 @@ export default function Carousel({
         ))}
       </div>
 
-      {/* 다음 버튼 */}
       <button className={`${s.arrow} ${s.right}`} onClick={nextSlide}>
         <Image
           src={rightButtonSrc}
