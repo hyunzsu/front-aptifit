@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { CATEGORIES, Category } from "@/lib/constants/categories";
 
 // 직업 세부 정보 타입
 type JobDetail = {
@@ -47,7 +48,8 @@ type ResultState = {
   majors: Record<string, Major>;
   currentMajor: string;
   currentCareerIndex: number;
-  currentCarouselIndex: number; // 새로 추가: 현재 캐러셀 인덱스
+  currentCarouselIndex: number;
+  currentCategory: Category; // 새로 추가: 현재 선택된 카테고리
   setName: (name: string) => void;
   setMajors: (majors: Record<string, Major>) => void;
   getMajorByTitle: (title: string) => Major | undefined;
@@ -56,8 +58,9 @@ type ResultState = {
   checkStore: () => string;
   setCurrentCareerIndex: (index: number) => void;
   resetCurrentCareerIndex: () => void;
-  setCurrentCarouselIndex: (index: number) => void; // 새로 추가: 캐러셀 인덱스 설정 함수
-  resetCurrentCarouselIndex: () => void; // 새로 추가: 캐러셀 인덱스 초기화 함수
+  setCurrentCarouselIndex: (index: number) => void;
+  resetCurrentCarouselIndex: () => void;
+  setCurrentCategory: (category: Category) => void; // 새로 추가: 카테고리 설정 함수
 };
 
 /**
@@ -78,7 +81,7 @@ const getDataFromSessionStorage = (key: string) => {
  * @param key 세션 스토리지 키
  * @param value 저장할 데이터
  */
-const setDataToSessionStorage = (key: string, value: any) => {
+const setDataToSessionStorage = (key: string, value: unknown) => {
   if (typeof window !== "undefined") {
     sessionStorage.setItem(key, JSON.stringify(value));
   }
@@ -97,12 +100,9 @@ const useResultStore = create<ResultState>((set, get) => {
     majors: storedData?.majors || {},
     currentMajor: storedData?.currentMajor || "",
     currentCareerIndex: storedData?.currentCareerIndex || 0,
-    currentCarouselIndex: storedData?.currentCarouselIndex || 0, // 새로 추가: 현재 캐러셀 인덱스
+    currentCarouselIndex: storedData?.currentCarouselIndex || 0,
+    currentCategory: storedData?.currentCategory || CATEGORIES[0], // 새로 추가: 현재 카테고리 초기화
 
-    /**
-     * 사용자 이름을 설정하는 함수
-     * @param name 설정할 이름
-     */
     setName: (name: string) => {
       set((state) => {
         if (state.name !== name) {
@@ -113,10 +113,6 @@ const useResultStore = create<ResultState>((set, get) => {
       });
     },
 
-    /**
-     * 학과 정보를 설정하는 함수
-     * @param majors 설정할 학과 정보
-     */
     setMajors: (majors: Record<string, Major>) => {
       set((state) => {
         if (JSON.stringify(state.majors) !== JSON.stringify(majors)) {
@@ -127,17 +123,8 @@ const useResultStore = create<ResultState>((set, get) => {
       });
     },
 
-    /**
-     * 학과 이름으로 학과 정보를 가져오는 함수
-     * @param title 학과 이름
-     * @returns 해당 학과 정보 또는 undefined
-     */
     getMajorByTitle: (title: string) => get().majors[title],
 
-    /**
-     * 현재 선택된 학과를 설정하는 함수
-     * @param majorTitle 설정할 학과 이름
-     */
     setCurrentMajor: (majorTitle: string) => {
       set((state) => {
         if (state.currentMajor !== majorTitle) {
@@ -145,28 +132,22 @@ const useResultStore = create<ResultState>((set, get) => {
             ...state,
             currentMajor: majorTitle,
             currentCareerIndex: 0,
-            currentCarouselIndex: 0, // 새로운 학과 선택 시 캐러셀 인덱스도 0으로 초기화
+            currentCarouselIndex: 0,
+            currentCategory: CATEGORIES[0], // 새로 추가: 카테고리 초기화
           });
           return {
             currentMajor: majorTitle,
             currentCareerIndex: 0,
-            currentCarouselIndex: 0, // 상태 업데이트에도 캐러셀 인덱스 초기화 추가
+            currentCarouselIndex: 0,
+            currentCategory: CATEGORIES[0], // 새로 추가: 상태 업데이트에도 카테고리 초기화 추가
           };
         }
         return state;
       });
     },
 
-    /**
-     * 현재 선택된 학과 정보를 가져오는 함수
-     * @returns 현재 선택된 학과 정보
-     */
     getCurrentMajor: () => get().majors[get().currentMajor],
 
-    /**
-     * 현재 선택된 직업 인덱스를 설정하는 함수
-     * @param index 설정할 인덱스
-     */
     setCurrentCareerIndex: (index: number) => {
       set((state) => {
         if (state.currentCareerIndex !== index) {
@@ -180,9 +161,6 @@ const useResultStore = create<ResultState>((set, get) => {
       });
     },
 
-    /**
-     * 현재 선택된 직업 인덱스를 0으로 초기화하는 함수
-     */
     resetCurrentCareerIndex: () => {
       set((state) => {
         if (state.currentCareerIndex !== 0) {
@@ -196,10 +174,6 @@ const useResultStore = create<ResultState>((set, get) => {
       });
     },
 
-    /**
-     * 현재 캐러셀 인덱스를 설정하는 함수
-     * @param index 설정할 인덱스
-     */
     setCurrentCarouselIndex: (index: number) => {
       set((state) => {
         if (state.currentCarouselIndex !== index) {
@@ -213,9 +187,6 @@ const useResultStore = create<ResultState>((set, get) => {
       });
     },
 
-    /**
-     * 현재 캐러셀 인덱스를 0으로 초기화하는 함수
-     */
     resetCurrentCarouselIndex: () => {
       set((state) => {
         if (state.currentCarouselIndex !== 0) {
@@ -229,18 +200,29 @@ const useResultStore = create<ResultState>((set, get) => {
       });
     },
 
-    /**
-     * 스토어의 현재 상태를 확인하는 함수 (디버깅용)
-     * @returns 현재 스토어 상태 요약 문자열
-     */
+    // 새로 추가: 현재 카테고리를 설정하는 함수
+    setCurrentCategory: (category: Category) => {
+      set((state) => {
+        if (state.currentCategory !== category) {
+          setDataToSessionStorage("resultStoreData", {
+            ...state,
+            currentCategory: category,
+          });
+          return { currentCategory: category };
+        }
+        return state;
+      });
+    },
+
     checkStore: () => {
       const state = get();
-      console.log("현재 스토어 상태:", state);
       return `이름: ${state.name}, 학과들: ${Object.keys(state.majors).join(
         ", "
       )}, 현재 선택된 학과: ${state.currentMajor}, 현재 직업 인덱스: ${
         state.currentCareerIndex
-      }, 현재 캐러셀 인덱스: ${state.currentCarouselIndex}`;
+      }, 현재 캐러셀 인덱스: ${state.currentCarouselIndex}, 현재 카테고리: ${
+        state.currentCategory
+      }`;
     },
   };
 });
