@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useTestScroll = (handlePrevQuestion) => {
+const useTestScroll = (handleNextQuestion, handlePrevQuestion) => {
   const [scrollTimeout, setScrollTimeout] = useState(null);
 
   // 1. 스크롤 이동 및 이동 방지
@@ -9,8 +9,16 @@ const useTestScroll = (handlePrevQuestion) => {
     if (scrollTimeout) return;
 
     // 휠을 위로 스크롤 -> 이전 질문
-    if (e.deltaY < 0) {
-      // 함수 참조의 문제로 인자로 직접 전달 받음!
+    // if (e.deltaY < 0) {
+    //   // 함수 참조의 문제로 인자로 직접 전달 받음!
+    //   handlePrevQuestion();
+    // }
+
+    if (e.deltaY > 0) {
+      // 휠을 아래로 스크롤 -> 다음 질문
+      handleNextQuestion();
+    } else if (e.deltaY < 0) {
+      // 휠을 위로 스크롤 -> 이전 질문
       handlePrevQuestion();
     }
 

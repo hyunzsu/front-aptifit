@@ -24,7 +24,10 @@ function NewTestPage() {
   const { responses, setResponses, questions } = useTestQuestion();
   const { currentIndex, handleNextQuestion, handlePrevQuestion } =
     useTestNavigation(responses, questions);
-  const { handleScroll } = useTestScroll(handlePrevQuestion);
+  const { handleScroll } = useTestScroll(
+    handleNextQuestion,
+    handlePrevQuestion
+  );
 
   const submitResponses = () => {
     console.log(responses);
