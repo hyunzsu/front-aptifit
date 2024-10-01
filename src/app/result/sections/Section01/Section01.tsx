@@ -10,8 +10,7 @@ import localmajorsData from "@/lib/data/majors.json";
 
 export default function Section01() {
   /* useResultStore에서 필요한 상태와 함수 */
-  const { setCurrentMajor, currentMajor, majors, checkStore } =
-    useResultStore();
+  const { setCurrentMajor, currentMajor, majors } = useResultStore();
 
   /**
    * 컴포넌트가 마운트되거나 majors, currentMajor, setCurrentMajor가 변경될 때 실행되는 useEffect
@@ -59,14 +58,6 @@ export default function Section01() {
     setCurrentMajor(majorTitles[index]);
   };
 
-  /**
-   * 디버깅 버튼 클릭 시 호출되는 함수입니다.
-   */
-  const handleCheckButtonClick = () => {
-    const summary = checkStore();
-    alert(summary);
-  };
-
   return (
     <section className={s.section}>
       <div className={s.sectionContainer}>
@@ -99,8 +90,6 @@ export default function Section01() {
           </>
         )}
       </div>
-      {/* 디버깅 버튼 */}
-      <button onClick={handleCheckButtonClick}>디버깅</button>
     </section>
   );
 }
