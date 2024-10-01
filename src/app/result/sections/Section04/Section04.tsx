@@ -32,8 +32,6 @@ export default function Section04() {
     const currentMajorData = majors[currentMajor];
     if (!currentMajorData) return [];
 
-    console.log(currentMajorData.career);
-
     return currentMajorData.career.map((career, index) => ({
       id: index + 1,
       jobTitle: career.jobTitle,
@@ -41,7 +39,6 @@ export default function Section04() {
       details: career.details
         .map((detail, detailIndex) => {
           const [key, value] = Object.entries(detail)[0];
-          console.log(`Key: ${key}, TitleMap value: ${titleMap[key]}`);
           return {
             id: detailIndex + 1,
             question: titleMap[key] || `Unknown Field: ${key}`,
