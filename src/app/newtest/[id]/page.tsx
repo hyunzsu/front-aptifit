@@ -1,5 +1,6 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import {
   useTest,
   useTestNavigation,
@@ -17,7 +18,8 @@ import {
 import s from "./NewTestPage.module.css";
 
 function NewTestPage() {
-  const { handleContinueTest } = useTest();
+  const { id } = useParams();
+  const { handleContinueTest, handleCompleteTest } = useTest();
   const { responses, setResponses, questions } = useTestQuestion();
   const { currentIndex, handleNextQuestion, handlePrevQuestion } =
     useTestNavigation(responses, questions);
@@ -27,10 +29,19 @@ function NewTestPage() {
   );
 
   const submitResponses = () => {
+    // 문제를 덜 풀었다면 넘어가기 X
     if (responses.includes(0)) {
       alert("아직 풀지 않은 문제가 있습니다!");
       return;
     }
+
+    // 테스트 마지막 페이지라면 결과지 호출
+    if (id === "9") {
+      handleCompleteTest();
+      return;
+    }
+
+    // 테스트 다음 페이지로 이동
     handleContinueTest();
   };
 
