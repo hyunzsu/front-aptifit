@@ -61,7 +61,7 @@ const useTest = () => {
 
       // 1-5. `/test/${page}`로 이동
       alert("테스트를 시작합니다!");
-      router.push(`test/${page}`);
+      router.push(`/newtest/${page}`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
     }
@@ -86,7 +86,7 @@ const useTest = () => {
 
       // 2-3. fetchResult에서 데이터 설렉션 진행
       const fetchResult = await response.json();
-      const { questions, responses, page, user_id } = fetchResult();
+      const { questions, responses, page, user_id } = fetchResult;
 
       // 2-4. 에러 핸들링
       if (!response.ok) {
@@ -114,14 +114,73 @@ const useTest = () => {
 
       // 2-6. user 스토어, 세션 스토리지의 page 업데이트 후 `/test/${page}`로 이동
       updateUser({ page: page });
-      alert("다음 테스트로 이동합니다!");
-      router.push(`test/${page}`);
+      alert(`테스트${page}로 이동합니다!`);
+      router.push(`/newtest/${page}`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
     }
   };
 
-  return { handleInitializeTest, handleContinueTest };
+  /* 3. 테스트 마무리 */
+  const handleCompleteTest = async () => {
+    // 2-1. 세션스토리지에 저장된 /aptifit/${id}의 데이터 접근
+    const testData = getDataFromSessionStorage(`aptifit${id}`);
+
+    try {
+      // 2-2. /submit_responses_univeristy로 POST 통신을 수행
+      const response = await postDataWithAuth(
+        "submit_responses_university",
+        access_token,
+        {
+          user_id: testData.user_id,
+          page: testData.page,
+          responses: testData.responses,
+        }
+      );
+
+      // 2-3. fetchResult에서 데이터 설렉션 진행
+      const fetchResult = await response.json();
+      const { name, page, user_id, major1, major2, major3, major4, major5 } =
+        fetchResult;
+
+      // 2-4. 에러 핸들링
+      if (!response.ok) {
+        // 세션만료 에러면 로그인 페이지로 이동
+        if (response.status === 401) {
+          removeUser();
+          removeAccessToken();
+          alert("로그인이 만료되어 재로그인이 필요합니다!");
+          router.push("/login");
+          return;
+        }
+        // 그 외의 에러
+        console.error("로그인 실패:", fetchResult.error);
+        alert(fetchResult.error);
+        return;
+      }
+
+      // 2-5. 세션스토리지에 테스트 데이터 저장
+      saveDataToSessionStorage(`aptifit${page}`, {
+        name,
+        page,
+        user_id,
+        major1,
+        major2,
+        major3,
+        major4,
+        major5,
+      });
+
+      // 2-6. user 스토어, 세션 스토리지의 page 업데이트 후 `/test/${page}`로 이동
+      updateUser({ page: page });
+      alert("결과지로 이동합니다!");
+      router.push(`/result`);
+    } catch (error) {
+      console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    }
+  };
+
+  return { handleInitializeTest, handleContinueTest, handleCompleteTest };
 };
 
 export default useTest;
