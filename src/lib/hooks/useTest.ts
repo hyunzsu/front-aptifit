@@ -61,7 +61,7 @@ const useTest = () => {
 
       // 1-5. `/test/${page}`로 이동
       alert("테스트를 시작합니다!");
-      router.push(`/newtest/${page}`);
+      router.push(`/test/${page}`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
     }
@@ -115,7 +115,7 @@ const useTest = () => {
       // 2-6. user 스토어, 세션 스토리지의 page 업데이트 후 `/test/${page}`로 이동
       updateUser({ page: page });
       alert(`테스트${page}로 이동합니다!`);
-      router.push(`/newtest/${page}`);
+      router.push(`/test/${page}`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
     }

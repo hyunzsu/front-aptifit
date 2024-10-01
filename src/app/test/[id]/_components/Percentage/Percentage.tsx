@@ -1,6 +1,6 @@
-import s from "./Progressbar.module.css";
+import s from "./Percentage.module.css";
 
-export default function Progressbar({ responses }) {
+export default function Percentage({ responses }) {
   // 0이 아닌 응답의 개수를 계산
   const completedCount = responses.filter((response) => response !== 0).length;
 
@@ -10,11 +10,8 @@ export default function Progressbar({ responses }) {
   );
 
   return (
-    <div className={s.Progressbar}>
-      <div
-        className={s.percentagebar}
-        style={{ width: `${progressPercentage}%` }}
-      ></div>
+    <div className={s.Percentage}>
+      <span className={s.score}>{progressPercentage}</span>%
     </div>
   );
 }
