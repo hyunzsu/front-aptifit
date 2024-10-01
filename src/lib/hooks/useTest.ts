@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useParams } from "next/navigation";
-import { useAuthStore } from "@/lib/stores";
+import { useAuthStore, useResultStore } from "@/lib/stores";
 import { postDataWithAuth } from "@/lib/services";
 import {
   getDataFromSessionStorage,
@@ -18,6 +18,7 @@ fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각�
 const useTest = () => {
   const { user, updateUser, removeUser, access_token, removeAccessToken } =
     useAuthStore();
+  const { setName, setMajors, setCurrentMajor } = useResultStore();
   const router = useRouter();
   const { id } = useParams();
 
@@ -159,16 +160,25 @@ const useTest = () => {
         return;
       }
 
+      // 2-5. Zustand store에 데이터 저장
+      const majorsData = {
+        [major1.major_title]: major1,
+        [major2.major_title]: major2,
+        [major3.major_title]: major3,
+        [major4.major_title]: major4,
+        [major5.major_title]: major5,
+      };
+      setName(name);
+      setMajors(majorsData);
+      setCurrentMajor(major1.major_title);
+
       // 2-5. 세션스토리지에 테스트 데이터 저장
-      saveDataToSessionStorage(`aptifit${page}`, {
+      saveDataToSessionStorage("resultStoreData", {
         name,
-        page,
-        user_id,
-        major1,
-        major2,
-        major3,
-        major4,
-        major5,
+        majors: majorsData,
+        currentMajor: major1.major_title,
+        page: page,
+        user_id: user_id,
       });
 
       // 2-6. user 스토어, 세션 스토리지의 page 업데이트 후 `/test/${page}`로 이동
