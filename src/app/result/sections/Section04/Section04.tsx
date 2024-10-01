@@ -13,7 +13,7 @@ type JobDetail = {
   id: number;
   question: string;
   answer: string;
-  description?: string; // 설명을 위한 새로운 필드 추가
+  description?: string;
 };
 
 type JobData = {
@@ -23,11 +23,11 @@ type JobData = {
   details: JobDetail[];
 };
 
-export default function Section04() {
+export default function Section04({ name }: { name: string }) {
   const { currentMajor, majors, currentCareerIndex, setCurrentCareerIndex } =
     useResultStore();
 
-  // 현재 선택된 학과의 career 데이터를 가져와 가공합니다.
+  // 현재 선택된 학과의 career 데이터를 가져와 가공
   const jobsData: JobData[] = useMemo(() => {
     const currentMajorData = majors[currentMajor];
     if (!currentMajorData) return [];
@@ -43,7 +43,7 @@ export default function Section04() {
             id: detailIndex + 1,
             question: titleMap[key] || `Unknown Field: ${key}`,
             answer: value as string,
-            description: descriptionMap[key], // 설명 추가
+            description: descriptionMap[key],
           };
         })
         .filter((item) => item.answer !== "" && item.answer != null),
@@ -77,7 +77,7 @@ export default function Section04() {
       <div className={s.sectionContainer}>
         <SectionTitle
           title="04 커리어로드맵"
-          description={`${currentMajor}을 배운 진우님의 미래를 살펴봐보세요!`}
+          description={`${currentMajor}을 배운 ${name}님의 미래를 살펴봐보세요!`}
           color="black"
         />
         <div className={s.carouselContainer}>

@@ -8,7 +8,7 @@ import s from "./Section01.module.css";
 import { useResultStore } from "@/lib/stores";
 import localmajorsData from "@/lib/data/majors.json";
 
-export default function Section01() {
+export default function Section01({ name }: { name: string }) {
   /* useResultStore에서 필요한 상태와 함수 */
   const { setCurrentMajor, currentMajor, majors } = useResultStore();
 
@@ -63,7 +63,7 @@ export default function Section01() {
       <div className={s.sectionContainer}>
         <SectionTitle
           title="01 학과순위"
-          description="진우님과 가장 어울리는 학과는 다음과 같습니다!"
+          description={`${name}님과 가장 어울리는 학과는 다음과 같습니다!`}
           color="white"
         />
         <div className={s.carouselContainer}>

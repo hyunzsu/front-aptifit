@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useMemo } from "react";
 import SectionTitle from "@/components/sectionTitle/SectionTitle";
 import Card from "@/components/Card/Card";
@@ -8,7 +7,19 @@ import s from "./Section02.module.css";
 import { useResultStore } from "@/lib/stores";
 import majorsData from "@/lib/data/majors.json";
 
-export default function Section02() {
+// majorsData의 타입을 정의합니다.
+type MajorData = {
+  major: string;
+  description: string;
+  summary: string;
+  id: number;
+  definition: string;
+  ideal_candiate: string;
+  curriculum: string;
+  sub_major: string;
+};
+
+export default function Section02({ name }: { name: string }) {
   /**
    * useResultStore에서 현재 선택된 학과 정보를 가져옵니다.
    */
@@ -27,38 +38,33 @@ export default function Section02() {
    * currentMajor가 변경될 때만 다시 계산합니다.
    */
   const localMajorData = useMemo(() => {
-    return majorsData.find((major) => major.major === currentMajor);
+    return (majorsData as MajorData[]).find(
+      (major) => major.major === currentMajor
+    );
   }, [currentMajor]);
 
   /**
    * 카드 데이터를 생성합니다.
    * localMajorData가 변경될 때만 다시 계산합니다.
    */
-  const cardData = useMemo(
-    () => [
-      {
-        id: 1,
-        title: "01 학과설명",
-        description: localMajorData?.definition || "정보가 없습니다.",
-      },
-      {
-        id: 2,
-        title: "02 인재상",
-        description: localMajorData?.ideal_candiate || "정보가 없습니다.",
-      },
-      {
-        id: 3,
-        title: "03 심화분야",
-        description: localMajorData?.sub_major || "정보가 없습니다.",
-      },
-      {
-        id: 4,
-        title: "04 커리큘럼",
-        description: localMajorData?.curriculum || "정보가 없습니다.",
-      },
-    ],
-    [localMajorData]
-  );
+  const cardData = useMemo(() => {
+    const fields = [
+      { id: 1, title: "01 학과설명", key: "definition" },
+      { id: 2, title: "02 인재상", key: "ideal_candiate" },
+      { id: 3, title: "03 심화분야", key: "sub_major" },
+      { id: 4, title: "04 커리큘럼", key: "curriculum" },
+    ];
+    const defaultMessage =
+      "결과지 정보가 없습니다. 새로고침해도 문제가 발생할 경우 관리자에게 문의해주세요.";
+
+    return fields.map(({ id, title, key }) => ({
+      id,
+      title,
+      description: localMajorData
+        ? (localMajorData[key as keyof MajorData] as string) || defaultMessage
+        : defaultMessage,
+    }));
+  }, [localMajorData]);
 
   /**
    * 아코디언 데이터를 생성합니다.
@@ -84,7 +90,7 @@ export default function Section02() {
       <div className={s.sectionContainer}>
         <SectionTitle
           title="02 학과소개"
-          description={`${currentMajor}의 A to Z, 진우님을 위해 쉽게 정리했어요!`}
+          description={`${currentMajor}의 A to Z, ${name}님을 위해 쉽게 정리했어요!`}
           color="white"
         />
         {/* Desktop view */}

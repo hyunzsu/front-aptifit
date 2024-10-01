@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 import { Section01, Section02, Section03, Section04 } from "./sections";
 import s from "./ResultPage.module.css";
@@ -19,25 +18,23 @@ const getDataFromSessionStorage = (key: string) => {
 };
 
 export default function ResultPage() {
-  const { setName, setMajors, setCurrentMajor, majors, currentMajor } =
+  const { setName, setMajors, setCurrentMajor, majors, currentMajor, name } =
     useResultStore();
 
   /**
    * 컴포넌트 마운트 시 세션 스토리지에서 데이터를 불러와 스토어를 초기화합니다.
    * 데이터가 없거나 불완전한 경우 적절히 처리합니다.
    */
-
   useEffect(() => {
     const storedData = getDataFromSessionStorage("resultStoreData");
     if (storedData) {
       const {
-        name,
+        name: storedName,
         majors: storedMajors,
         currentMajor: storedCurrentMajor,
       } = storedData;
-
       // 스토어 업데이트 (변경된 경우에만)
-      if (name) setName(name);
+      if (storedName) setName(storedName);
       if (storedMajors && Object.keys(storedMajors).length > 0)
         setMajors(storedMajors);
       if (storedCurrentMajor) setCurrentMajor(storedCurrentMajor);
@@ -49,10 +46,10 @@ export default function ResultPage() {
 
   return (
     <main className={s.ResultPage}>
-      <Section01 />
-      <Section02 />
-      <Section03 />
-      <Section04 />
+      <Section01 name={name} />
+      <Section02 name={name} />
+      <Section03 name={name} />
+      <Section04 name={name} />
     </main>
   );
 }
