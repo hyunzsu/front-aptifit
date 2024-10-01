@@ -1,19 +1,3 @@
-// Carousel.tsx
-
-/*
- * Carousel 컴포넌트
- *
- * 이 컴포넌트는 아이템들을 회전식으로 표시하는 캐러셀을 구현합니다.
- * 사용자는 좌우 화살표를 클릭하여 아이템들을 탐색할 수 있습니다.
- *
- * 주요 기능:
- * 1. 아이템 표시 (화면 크기에 따라 1개 또는 3개)
- * 2. 좌우 네비게이션
- * 3. 아이템 변경 및 클릭 이벤트 처리
- *
- * 작업자: 김도현
- */
-
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -22,10 +6,10 @@ import s from "./Carousel.module.css";
 
 // Carousel 컴포넌트의 props 타입 정의
 type CarouselProps = {
-  items: React.ReactNode[];
-  itemsToShow: 1 | 3;
-  onItemChange?: (index: number) => void;
-  onItemClick?: (index: number) => void;
+  items: React.ReactNode[]; // 캐러셀에 표시될 아이템 배열
+  itemsToShow: 1 | 3; // 한 번에 보여줄 아이템 수 (1 또는 3)
+  onItemChange?: (index: number) => void; // 아이템 변경 시 호출될 콜백 함수
+  onItemClick?: (index: number) => void; // 아이템 클릭 시 호출될 콜백 함수
 };
 
 export default function Carousel({
@@ -34,18 +18,18 @@ export default function Carousel({
   onItemChange,
   onItemClick,
 }: CarouselProps) {
-  // 현재 표시 중인 아이템의 인덱스 상태
+  // 현재 표시 중인 첫 번째 아이템의 인덱스
   const [currentIndex, setCurrentIndex] = useState(0);
-  // 실제로 표시되는 아이템 수 상태
+  // 실제로 화면에 표시되는 아이템 수 (반응형을 위해 사용)
   const [actualItemsToShow, setActualItemsToShow] =
     useState(initialItemsToShow);
-
-  // 캐러셀 컨테이너에 대한 ref
+  // 캐러셀 컨테이너에 대한 참조
   const carouselRef = useRef<HTMLDivElement>(null);
 
-  // 화면 크기 변경 감지 및 actualItemsToShow 조정
+  // 화면 크기 변경을 감지하고 actualItemsToShow를 조정하는 효과
   useEffect(() => {
     const handleResize = () => {
+      // 화면 너비가 900px 이하면 1개, 그 외에는 초기 설정값 사용
       setActualItemsToShow(window.innerWidth <= 900 ? 1 : initialItemsToShow);
     };
 
@@ -56,7 +40,7 @@ export default function Carousel({
     };
   }, [initialItemsToShow]);
 
-  // 아이템 변경 시 콜백 함수 호출
+  // 현재 인덱스가 변경될 때마다 onItemChange 콜백 호출
   useEffect(() => {
     if (onItemChange) {
       onItemChange(currentIndex);
@@ -65,14 +49,22 @@ export default function Carousel({
 
   // 다음 슬라이드로 이동하는 함수
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
+    setCurrentIndex((prevIndex) => {
+      const nextIndex = prevIndex + actualItemsToShow;
+      // 마지막 세트를 넘어가면 처음으로 돌아감
+      return nextIndex >= items.length ? 0 : nextIndex;
+    });
   };
 
   // 이전 슬라이드로 이동하는 함수
   const prevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + items.length) % items.length
-    );
+    setCurrentIndex((prevIndex) => {
+      const nextIndex = prevIndex - actualItemsToShow;
+      // 첫 번째 세트 이전으로 가면 마지막 세트로 이동
+      return nextIndex < 0
+        ? Math.max(items.length - actualItemsToShow, 0)
+        : nextIndex;
+    });
   };
 
   // 아이템 클릭 시 처리하는 함수
@@ -92,7 +84,7 @@ export default function Carousel({
       ? "/icons/right_arrow_alt.svg"
       : "/icons/right_arrow.svg";
 
-  // 모바일 버튼 이미지 경로 및 크기 설정
+  // 모바일용 버튼 이미지 경로 및 크기 설정
   const mobileLeftButtonSrc =
     initialItemsToShow === 3
       ? "/icons/left_arrow_mobile_alt.svg"
@@ -133,7 +125,7 @@ export default function Carousel({
         ref={carouselRef}
         style={{
           transform: `translateX(-${
-            currentIndex * (100 / actualItemsToShow)
+            (currentIndex * 100) / actualItemsToShow
           }%)`,
         }}
       >
