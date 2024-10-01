@@ -33,8 +33,8 @@ const useResult = () => {
       if (!response.ok) {
         // 세션만료 에러면 로그인 페이지로 이동
         if (response.status === 401) {
-          removeUser(user);
-          removeAccessToken(access_token);
+          removeUser();
+          removeAccessToken();
           alert("로그인이 만료되어 재로그인이 필요합니다!");
           router.push("/login");
         } else {
