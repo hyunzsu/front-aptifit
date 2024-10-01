@@ -268,7 +268,11 @@ export default function Section04() {
           color="black"
         />
         <div className={s.carouselContainer}>
-          <Carousel items={carouselItems} itemsToShow={3} />
+          <Carousel
+            items={carouselItems}
+            itemsToShow={3}
+            useGlobalState={true}
+          />
         </div>
 
         {jobsData.length > 0 && (
