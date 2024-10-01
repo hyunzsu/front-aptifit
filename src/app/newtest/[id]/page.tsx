@@ -1,6 +1,11 @@
 "use client";
 
-import { useTestNavigation, useTestQuestion, useTestScroll } from "@/lib/hooks";
+import {
+  useTest,
+  useTestNavigation,
+  useTestQuestion,
+  useTestScroll,
+} from "@/lib/hooks";
 import { LayoutContainer } from "@/components";
 import {
   Title,
@@ -12,15 +17,7 @@ import {
 import s from "./NewTestPage.module.css";
 
 function NewTestPage() {
-  // sessionStorage.setItem(
-  //   "aptifit1",
-  //   JSON.stringify({
-  //     page: 1,
-  //     responses: [0, 0, 0],
-  //     questions: ["1번 질문", "2번 질문", "3번 질문"],
-  //   })
-  // );
-
+  const { handleContinueTest } = useTest();
   const { responses, setResponses, questions } = useTestQuestion();
   const { currentIndex, handleNextQuestion, handlePrevQuestion } =
     useTestNavigation(responses, questions);
@@ -30,7 +27,11 @@ function NewTestPage() {
   );
 
   const submitResponses = () => {
-    console.log(responses);
+    if (responses.includes(0)) {
+      alert("아직 풀지 않은 문제가 있습니다!");
+      return;
+    }
+    handleContinueTest();
   };
 
   return (
@@ -40,9 +41,9 @@ function NewTestPage() {
         <header className={s.TestHeaderSection}>
           <div className={s.TitleContainer}>
             <Title />
-            <Percentage />
+            <Percentage responses={responses} />
           </div>
-          <Progressbar />
+          <Progressbar responses={responses} />
         </header>
         {/* 02. 문제 */}
         <div
@@ -60,7 +61,7 @@ function NewTestPage() {
                   currentIndex === index ? s.fadein : s.fadeout // 현재 문제만 애니메이션
                 }`}
               >
-                <TestItem question={question} />
+                <TestItem questionId={index} question={question} />
                 <TestOption
                   questionId={index}
                   responses={responses}
