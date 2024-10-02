@@ -17,7 +17,7 @@ function TestPage() {
   const { responses, setResponses, questions } = useTestQuestion();
   const { currentIndex, handleNextQuestion, handlePrevQuestion } =
     useTestNavigation(responses, questions);
-  const { handleScroll } = useTestScroll(
+  const { handleScroll, handleTouchStart, handleTouchMove } = useTestScroll(
     handleNextQuestion,
     handlePrevQuestion
   );
@@ -64,6 +64,8 @@ function TestPage() {
             transform: `translateY(-${currentIndex * 100}dvh)`,
           }} /* 100dvh씩 증가 */
           onWheel={handleScroll}
+          onTouchStart={handleTouchStart} // 모바일 터치 시작
+          onTouchMove={handleTouchMove} // 모바일 터치 이동
         >
           {questions.map((question, index) => {
             return (
