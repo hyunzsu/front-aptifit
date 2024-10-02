@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,11 +11,17 @@ import s from "./Navigation.module.css";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   const { user } = useAuthStore();
   const { loading: resultLoading, handleInitializeResult } = useResult();
   const { loading: logoutLoading, handleLogout } = useLogout();
   const pathname = usePathname();
+
+  /* 하이드레이션 미스매치 에러 해결 */
+  useEffect(() => {
+    setIsClient(true); // 클라이언트에서만 상태 처리
+  }, []);
 
   /* 라우트별 네비게이션 컬러 테마 
     
@@ -68,7 +74,7 @@ export default function Navigation() {
           )}
 
           {/* 결과지 */}
-          {user?.page === 10 && (
+          {isClient && user?.page === 10 && (
             <li className={`${s.li}`}>
               <button
                 className={`${s.button} ${textTheme}`}
@@ -79,21 +85,23 @@ export default function Navigation() {
             </li>
           )}
 
-          {!user ? (
+          {isClient && !user ? (
             <li className={s.li}>
               <Link className={`${s.link} ${textTheme}`} href="/login">
                 로그인
               </Link>
             </li>
           ) : (
-            <li className={s.li}>
-              <button
-                className={`${s.button} ${textTheme}`}
-                onClick={handleLogout}
-              >
-                로그아웃
-              </button>
-            </li>
+            isClient && (
+              <li className={s.li}>
+                <button
+                  className={`${s.button} ${textTheme}`}
+                  onClick={handleLogout}
+                >
+                  로그아웃
+                </button>
+              </li>
+            )
           )}
         </ul>
       </div>
