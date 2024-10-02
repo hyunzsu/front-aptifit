@@ -1,9 +1,3 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/lib/stores";
-import { postData } from "@/lib/services";
-
 /* 
 useRegister(Auth X)
 
@@ -11,11 +5,20 @@ fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각�
 로그인 상태를 만들고 추가 회원정보 페이지 이동을 수행한다.
 */
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/stores";
+import { postData } from "@/lib/services";
+
 const useRegister = () => {
+  const [loading, setLoading] = useState(false);
   const { setUser, setAccessToken } = useAuthStore();
+
   const router = useRouter();
 
   const handleRegister = async ({ name, phone, password, email }) => {
+    setLoading(true);
+
     try {
       // 1. /register로 POST 통신을 수행
       const response = await postData("register", {
@@ -40,13 +43,16 @@ const useRegister = () => {
       setAccessToken(access_token);
 
       // 4. `/add-user-info`로 이동
+      alert("추가 정보 등록이 필요합니다!");
       router.push("/add-user-info");
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { handleRegister };
+  return { loading, handleRegister };
 };
 
 export default useRegister;

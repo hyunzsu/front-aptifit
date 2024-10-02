@@ -1,5 +1,11 @@
-"use client";
+/* 
+useTest (Auth O)
 
+fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각각 저장해
+로그인 상태를 만들고 추가 회원정보 페이지 이동을 수행한다.
+*/
+
+import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useAuthStore, useResultStore } from "@/lib/stores";
 import { postDataWithAuth } from "@/lib/services";
@@ -8,14 +14,9 @@ import {
   saveDataToSessionStorage,
 } from "@/lib/utils";
 
-/* 
-useTest (Auth O)
-
-fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각각 저장해
-로그인 상태를 만들고 추가 회원정보 페이지 이동을 수행한다.
-*/
-
 const useTest = () => {
+  const [loading, setLoading] = useState(false);
+
   const { user, updateUser, removeUser, access_token, removeAccessToken } =
     useAuthStore();
   const { setName, setMajors, setCurrentMajor } = useResultStore();
@@ -24,6 +25,8 @@ const useTest = () => {
 
   /* 1. 테스트 시작 */
   const handleInitializeTest = async () => {
+    setLoading(true);
+
     try {
       // 1-1. /submit_responses_univeristy로 POST 통신을 수행
       const response = await postDataWithAuth(
@@ -65,11 +68,15 @@ const useTest = () => {
       router.push(`/test/${page}`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   /* 2. 테스트 전송 */
   const handleContinueTest = async () => {
+    setLoading(true);
+
     // 2-1. 세션스토리지에 저장된 /aptifit/${id}의 데이터 접근
     const testData = getDataFromSessionStorage(`aptifit${id}`);
 
@@ -119,11 +126,15 @@ const useTest = () => {
       router.push(`/test/${page}`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   /* 3. 테스트 마무리 */
   const handleCompleteTest = async () => {
+    setLoading(true);
+
     // 2-1. 세션스토리지에 저장된 /aptifit/${id}의 데이터 접근
     const testData = getDataFromSessionStorage(`aptifit${id}`);
 
@@ -187,10 +198,17 @@ const useTest = () => {
       router.push(`/result`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { handleInitializeTest, handleContinueTest, handleCompleteTest };
+  return {
+    loading,
+    handleInitializeTest,
+    handleContinueTest,
+    handleCompleteTest,
+  };
 };
 
 export default useTest;

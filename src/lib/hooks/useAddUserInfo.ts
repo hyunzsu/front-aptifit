@@ -1,9 +1,3 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/lib/stores";
-import { postDataWithAuth } from "@/lib/services";
-
 /* 
 useAddUserInfo
 
@@ -11,9 +5,16 @@ fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각�
 로그인 상태를 만들고 추가 회원정보 페이지 이동을 수행한다.
 */
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/stores";
+import { postDataWithAuth } from "@/lib/services";
+
 const useAddUserInfo = () => {
+  const [loading, setLoading] = useState(false);
   const { user, updateUser, removeUser, access_token, removeAccessToken } =
     useAuthStore();
+
   const router = useRouter();
 
   const handleAddUserInfo = async (
@@ -24,6 +25,8 @@ const useAddUserInfo = () => {
     desired_major,
     desired_career
   ) => {
+    setLoading(true);
+
     try {
       // 1. /submit_responses_univeristy로 POST 통신을 수행
       const response = await postDataWithAuth("addinformation", access_token, {
@@ -60,10 +63,12 @@ const useAddUserInfo = () => {
       router.push("/");
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { handleAddUserInfo };
+  return { loading, handleAddUserInfo };
 };
 
 export default useAddUserInfo;

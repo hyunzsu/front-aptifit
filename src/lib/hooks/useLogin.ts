@@ -1,9 +1,3 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/lib/stores";
-import { postData } from "@/lib/services";
-
 /* 
 useLogin (Auth O)
 
@@ -11,11 +5,20 @@ fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각�
 로그인 상태를 만들고 추가 회원정보의 유무를 파악해 페이지 이동을 수행한다.
 */
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/stores";
+import { postData } from "@/lib/services";
+
 const useLogin = () => {
+  const [loading, setLoading] = useState(false);
   const { setUser, setAccessToken } = useAuthStore();
+
   const router = useRouter();
 
   const handleLogin = async ({ email, password }) => {
+    setLoading(true);
+
     try {
       // 1. /login으로 POST 통신을 수행
       const response = await postData("login", {
@@ -46,10 +49,12 @@ const useLogin = () => {
       }
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { handleLogin };
+  return { loading, handleLogin };
 };
 
 export default useLogin;

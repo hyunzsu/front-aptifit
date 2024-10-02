@@ -1,22 +1,24 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useAuthStore, useResultStore } from "@/lib/stores";
-import { postDataWithAuth } from "@/lib/services";
-import { saveDataToSessionStorage } from "@/lib/utils";
-
 /* 
 useResult (Auth O)
 
 fetch 통신 이후 결과지 데이터를 불러와 세션 스토리지에 저장한다
 */
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuthStore, useResultStore } from "@/lib/stores";
+import { postDataWithAuth } from "@/lib/services";
+import { saveDataToSessionStorage } from "@/lib/utils";
+
 const useResult = () => {
+  const [loading, setLoading] = useState(false);
   const { user, access_token, removeUser, removeAccessToken } = useAuthStore();
   const { setName, setMajors, setCurrentMajor } = useResultStore();
   const router = useRouter();
 
   const handleInitializeResult = async () => {
+    setLoading(true);
+
     try {
       // 1. /submit_responses_univeristy로 POST 통신을 수행
       const response = await postDataWithAuth(
@@ -73,10 +75,12 @@ const useResult = () => {
       router.push(`/result`);
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { handleInitializeResult };
+  return { loading, handleInitializeResult };
 };
 
 export default useResult;

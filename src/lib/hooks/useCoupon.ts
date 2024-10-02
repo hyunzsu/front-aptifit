@@ -1,9 +1,3 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/lib/stores";
-import { postDataWithAuth } from "@/lib/services";
-
 /* 
 useCoupon
 
@@ -11,12 +5,20 @@ fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각�
 로그인 상태를 만들고 추가 회원정보 페이지 이동을 수행한다.
 */
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/stores";
+import { postDataWithAuth } from "@/lib/services";
+
 const useCoupon = () => {
+  const [loading, setLoading] = useState(false);
   const { user, updateUser, removeUser, access_token, removeAccessToken } =
     useAuthStore();
   const router = useRouter();
 
   const handleCoupon = async (coupon: string) => {
+    setLoading(true);
+
     try {
       // 1. /coupon으로 POST 통신을 수행
       const response = await postDataWithAuth("coupon", access_token, {
@@ -48,10 +50,12 @@ const useCoupon = () => {
       router.push("/");
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { handleCoupon };
+  return { loading, handleCoupon };
 };
 
 export default useCoupon;
