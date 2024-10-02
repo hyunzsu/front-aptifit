@@ -7,7 +7,7 @@ import {
   useTestQuestion,
   useTestScroll,
 } from "@/lib/hooks";
-import { LayoutContainer } from "@/components";
+import { LayoutContainer, Loading } from "@/components";
 import {
   Title,
   Percentage,
@@ -19,7 +19,7 @@ import s from "./TestPage.module.css";
 
 function TestPage() {
   const { id } = useParams();
-  const { handleContinueTest, handleCompleteTest } = useTest();
+  const { loading, handleContinueTest, handleCompleteTest } = useTest();
   const { responses, setResponses, questions } = useTestQuestion();
   const { currentIndex, handleNextQuestion, handlePrevQuestion } =
     useTestNavigation(responses, questions);
@@ -44,6 +44,14 @@ function TestPage() {
     // 테스트 다음 페이지로 이동
     handleContinueTest();
   };
+
+  if (loading) {
+    if (id === "9") {
+      return <Loading text="결과 로딩 중..." />;
+    }
+
+    return <Loading text="테스트 로딩 중..." />;
+  }
 
   return (
     <main className={s.TestPage}>

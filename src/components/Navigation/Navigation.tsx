@@ -4,6 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { Loading } from "@/components";
 import { useLogout, useResult } from "@/lib/hooks";
 import { useAuthStore } from "@/lib/stores";
 import s from "./Navigation.module.css";
@@ -12,8 +13,8 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   const { user } = useAuthStore();
-  const { handleInitializeResult } = useResult();
-  const { handleLogout } = useLogout();
+  const { loading: resultLoading, handleInitializeResult } = useResult();
+  const { loading: logoutLoading, handleLogout } = useLogout();
   const pathname = usePathname();
 
   /* 라우트별 네비게이션 컬러 테마 
@@ -29,6 +30,14 @@ export default function Navigation() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  if (logoutLoading) {
+    return <Loading text="로그아웃 중..." />;
+  }
+
+  if (resultLoading) {
+    return <Loading text="결과지 로딩 중..." />;
+  }
 
   return (
     <nav className={`${s.Navigation}`}>

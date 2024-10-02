@@ -8,11 +8,12 @@ import s from "./SignUpForm.module.css";
 import { useState } from "react";
 import Image from "next/image";
 import { useRegister } from "@/lib/hooks";
+import { Loading } from "@/components";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { handleRegister } = useRegister();
+  const { loading, handleRegister } = useRegister();
 
   const {
     register, // 입력 필드 등록 함수
@@ -27,6 +28,10 @@ export default function SignUpForm() {
     const { username: name, phoneNumber: phone, password, email } = data;
     handleRegister({ name, phone, password, email });
   };
+
+  if (loading) {
+    <Loading text="회원가입 진행 중..." />;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.form}>

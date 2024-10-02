@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components";
+import { Button, Loading } from "@/components";
 import { MajorCardSlider } from "./_components";
 import s from "./HomePage.module.css";
 import { useAuthStore } from "@/lib/stores";
@@ -10,8 +10,8 @@ import { useTest, useResult } from "@/lib/hooks";
 import { Navigation } from "@/components";
 
 export default function HomePage() {
-  const { handleInitializeTest } = useTest();
-  const { handleInitializeResult } = useResult();
+  const { loading: testLoading, handleInitializeTest } = useTest();
+  const { loading: resultLoading, handleInitializeResult } = useResult();
   const { user } = useAuthStore();
   const router = useRouter();
 
@@ -47,6 +47,14 @@ export default function HomePage() {
     // 5. 테스트 페이지 호출
     handleInitializeTest();
   };
+
+  if (testLoading) {
+    return <Loading text="테스트 로딩 중..." />;
+  }
+
+  if (resultLoading) {
+    return <Loading text="결과지 로딩 중..." />;
+  }
 
   return (
     <>

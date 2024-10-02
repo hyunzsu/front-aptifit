@@ -10,10 +10,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { GoogleLoginButton, NaverLoginButton, KakaoLoginButton } from "../";
 import { useLogin } from "@/lib/hooks";
+import { Loading } from "@/components";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const { handleLogin } = useLogin();
+  const { loading, handleLogin } = useLogin();
 
   const {
     register,
@@ -28,6 +29,10 @@ export default function LoginForm() {
     const { email, password } = data;
     handleLogin({ email, password });
   };
+
+  if (loading) {
+    return <Loading text="로그인 중..." />;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={s.form}>

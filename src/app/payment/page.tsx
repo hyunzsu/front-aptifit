@@ -1,6 +1,6 @@
 "use client";
 
-import { Title } from "@/components";
+import { Title, Loading } from "@/components";
 import { useCoupon } from "@/lib/hooks";
 import { useState } from "react";
 import s from "./PaymentPage.module.css";
@@ -8,7 +8,7 @@ import s from "./PaymentPage.module.css";
 export default function PaymentPage() {
   const [coupon, setCoupon] = useState("");
 
-  const { handleCoupon } = useCoupon();
+  const { loading, handleCoupon } = useCoupon();
 
   const handleInput = (e, setState) => {
     setState(e.target.value);
@@ -17,6 +17,10 @@ export default function PaymentPage() {
   const handleClick = () => {
     handleCoupon(coupon);
   };
+
+  if (loading) {
+    return <Loading text="결제 진행 중..." />;
+  }
 
   return (
     <main className={s.PaymentPage}>

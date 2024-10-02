@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Title } from "@/components";
+import { Title, Loading } from "@/components";
 import { DropdownFilter, CombinedDropdownFilter } from "./_components";
 import {
   gradeField,
@@ -21,7 +21,7 @@ export default function AddUserInfoPage() {
   const [desiredMajor, setDesiredMajor] = useState("");
   const [desiredCareer, setDesiredCareer] = useState("");
 
-  const { handleAddUserInfo } = useAddUserInfo();
+  const { loading, handleAddUserInfo } = useAddUserInfo();
 
   const handleInput = (e, setState) => {
     setState(e.target.value);
@@ -49,6 +49,10 @@ export default function AddUserInfoPage() {
       desiredCareer
     );
   };
+
+  if (loading) {
+    return <Loading text="회원정보 추가 중..." />;
+  }
 
   return (
     <main className={s.AddUserInfoPage}>
