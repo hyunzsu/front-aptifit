@@ -42,6 +42,7 @@ const useLogin = () => {
 
       // 4. 추가정보X일 시에 `/add-user-info`로 이동 OR `/`로 이동
       if (!rest.IsAdditionalUserInfo) {
+        alert("추가정보 입력이 필요합니다!");
         router.push("/add-user-info");
       } else {
         alert("로그인 성공!");
