@@ -1,4 +1,8 @@
 import { create } from "zustand";
+import {
+  getDataFromSessionStorage,
+  saveDataToSessionStorage,
+} from "@/lib/utils";
 
 // type TUser = {
 //   name: string;
@@ -6,8 +10,6 @@ import { create } from "zustand";
 //   IsPayment: boolean;
 //   IsAdditionalUserInfo: boolean;
 //   page: number;
-//   responses?: number[];
-//   questions?: string[];
 //   result?: any;
 //   access_token: string;
 // };
@@ -20,17 +22,17 @@ import { create } from "zustand";
 
 // Zustand 스토어 생성
 const useAuthStore = create((set) => ({
-  user: JSON.parse(sessionStorage.getItem("user")),
+  user: getDataFromSessionStorage("user"),
   setUser: (userData) => {
-    sessionStorage.setItem("user", JSON.stringify(userData));
+    saveDataToSessionStorage("user", userData);
     set({
       user: { ...userData },
     });
   },
   updateUser: (newData) => {
-    const oldData = JSON.parse(sessionStorage.getItem("user"));
+    const oldData = getDataFromSessionStorage("user");
     const updatedUser = { ...oldData, ...newData };
-    sessionStorage.setItem("user", JSON.stringify(updatedUser));
+    saveDataToSessionStorage("user", updatedUser);
     set({
       user: updatedUser,
     });
@@ -38,17 +40,17 @@ const useAuthStore = create((set) => ({
   removeUser: () => {
     sessionStorage.removeItem("user");
     set({
-      user: JSON.parse(sessionStorage.getItem("user")),
+      user: getDataFromSessionStorage("user"),
     });
   },
-  access_token: JSON.parse(sessionStorage.getItem("access_token")),
+  access_token: getDataFromSessionStorage("access_token"),
   setAccessToken: (tokenData) => {
-    sessionStorage.setItem("access_token", JSON.stringify(tokenData));
+    saveDataToSessionStorage("access_token", tokenData);
     set({ access_token: tokenData });
   },
   removeAccessToken: () => {
     sessionStorage.removeItem("access_token");
-    set({ access_token: JSON.parse(sessionStorage.getItem("access_token")) });
+    set({ access_token: getDataFromSessionStorage("user") });
   },
 }));
 
