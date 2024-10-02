@@ -111,16 +111,35 @@ export default function Navigation() {
           isOpen ? s.mobileNavigationOpen : ""
         }`}
       >
-        <li className={`${s.mobileLi}`}>
-          <Link className={`${s.mobileLink} ${textTheme}`} href="/result">
-            결과지
-          </Link>
-        </li>
-        <li className={`${s.mobileLi}`}>
-          <Link className={`${s.mobileLink} ${textTheme}`} href="/login">
-            로그인
-          </Link>
-        </li>
+        {isClient && user?.page === 10 && (
+          <li className={s.mobileLi}>
+            <button
+              className={`${s.mobileButton} ${textTheme}`}
+              onClick={handleInitializeResult}
+            >
+              결과지
+            </button>
+          </li>
+        )}
+
+        {isClient && !user ? (
+          <li className={s.mobileLi}>
+            <Link className={`${s.mobileLink} ${textTheme}`} href="/login">
+              로그인
+            </Link>
+          </li>
+        ) : (
+          isClient && (
+            <li className={s.mobileLi}>
+              <button
+                className={`${s.mobileButton} ${textTheme}`}
+                onClick={handleLogout}
+              >
+                로그아웃
+              </button>
+            </li>
+          )
+        )}
       </ul>
     </nav>
   );
