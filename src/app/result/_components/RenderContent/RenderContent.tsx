@@ -49,6 +49,7 @@ export default function RenderContent({
         <Card
           title={`B. 나의 ${activeCategory} 심층분석`}
           description={categoryData.descriptions}
+          isArray={true}
         />
       </div>
     </div>
