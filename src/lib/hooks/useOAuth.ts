@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/stores";
+import { sendOAuthCodeToServer } from "@/lib/services";
 
 /* 
 useOAuth
@@ -11,6 +13,7 @@ fetch 통신 이후 useAuthStore에 유저 데이터와 액세스 토큰을 각�
 */
 
 const useOAuth = () => {
+  const [loading, setLoading] = useState(false);
   const { provider } = useParams();
   const router = useRouter();
   const { setUser, setAccessToken } = useAuthStore();
@@ -18,47 +21,43 @@ const useOAuth = () => {
   const oAuthCode =
     new URL(window.location.href).searchParams.get("code") || "";
 
-  const sendOAuthCodeToServer = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/${provider}/callback`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            code: oAuthCode,
-          }).toString(),
-        }
-      );
+  const handleOAuthLogin = async () => {
+    setLoading(true);
 
+    try {
+      // 1. /${provider}/callback으로 POST 통신을 수행
+      const response = await sendOAuthCodeToServer(provider, oAuthCode);
+
+      // 2. fetchResult에서 데이터 설렉션 진행
       const fetchResult = await response.json();
       const { access_token, ...rest } = fetchResult;
 
       if (!response.ok) {
-        console.error("에러 발생:", fetchResult.error);
+        console.error("로그인 실패:", fetchResult.error);
         alert(fetchResult.error);
         return;
       }
 
+      // 3. user, access_token 스토어 업데이트 및 세션 스토리지 저장
       setUser(rest);
       setAccessToken(access_token);
 
+      // 4. 추가정보X일 시에 `/add-user-info`로 이동 OR `/`로 이동
       if (!rest.IsAdditionalUserInfo) {
-        router.push("/add-user-info");
         alert("추가정보 입력이 필요합니다!");
+        router.push("/add-user-info");
       } else {
-        alert("로그인이 됐습니다!");
+        alert("로그인 성공!");
         router.push("/");
       }
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { sendOAuthCodeToServer };
+  return { loading, handleOAuthLogin };
 };
 
 export default useOAuth;
