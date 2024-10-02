@@ -8,7 +8,13 @@ import {
   useTestScroll,
 } from "@/lib/hooks";
 import { LayoutContainer, Loading } from "@/components";
-import { Title, Percentage, TestItem, TestOption } from "./_components";
+import {
+  Title,
+  Percentage,
+  TestItem,
+  TestOption,
+  Progressbar,
+} from "./_components";
 import s from "./TestPage.module.css";
 
 function TestPage() {
@@ -56,6 +62,7 @@ function TestPage() {
             <Title />
             <Percentage responses={responses} />
           </div>
+          <Progressbar responses={responses} />
         </header>
         {/* 02. 문제 */}
         <div
