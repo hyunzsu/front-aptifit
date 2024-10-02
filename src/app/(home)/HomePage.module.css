@@ -8,7 +8,7 @@
 .titleContainer {
   width: 100%;
   position: absolute;
-  top: 20%;
+  top: 200px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -63,26 +63,30 @@
 /* 태블릿 */
 @media (max-width: 768px) {
   .titleContainer {
-    top: 25%;
+    top: 200px;
   }
 
   .iphone {
     width: 240px;
     height: 550px;
-    bottom: -160px;
+    bottom: -190px;
+  }
+
+  .cardAnimationContainer {
+    bottom: 15px;
   }
 }
 
 /* 모바일 */
 @media (max-width: 425px) {
   .titleContainer {
-    top: 30%;
+    top: 200px;
   }
 
   .iphone {
     width: 210px;
     height: 449px;
-    bottom: -100px;
+    bottom: -160px;
   }
 
   .title {
@@ -97,5 +101,9 @@
 
   .button {
     font-size: var(--fs-16);
+  }
+
+  .cardAnimationContainer {
+    bottom: -20px;
   }
 }
