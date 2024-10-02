@@ -17,6 +17,17 @@ const useCoupon = () => {
   const router = useRouter();
 
   const handleCoupon = async (coupon: string) => {
+    // 쿠폰 번호 미입력시
+    if (coupon.length === 0) {
+      alert("쿠폰 번호를 입력해주세요");
+      return;
+    }
+
+    if (coupon.length < 16) {
+      alert("쿠폰은 16자리입니다");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -50,6 +61,7 @@ const useCoupon = () => {
       router.push("/");
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+      alert(error);
     } finally {
       setLoading(false);
     }
