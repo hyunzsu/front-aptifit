@@ -127,7 +127,7 @@ export default function AddUserInfoPage() {
           />
         </div>
         {/* 등록버튼 */}
-        <button className={s.button} onClick={handleClick}>
+        <button className={s.button} onClick={handleClick} disabled={loading}>
           등록하기
         </button>
       </div>

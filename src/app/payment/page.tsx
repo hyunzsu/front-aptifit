@@ -59,6 +59,7 @@ export default function PaymentPage() {
             <button
               className={s.couponButton}
               onClick={() => handleCoupon(coupon)}
+              disabled={loading}
             >
               등록
             </button>
@@ -76,7 +77,9 @@ export default function PaymentPage() {
           </div>
         </div>
         {/* 결제버튼 섹션 */}
-        <button className={s.button}>결제하기</button>
+        <button className={s.button} disabled={loading}>
+          결제하기
+        </button>
       </div>
     </main>
   );

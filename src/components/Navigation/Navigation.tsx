@@ -71,6 +71,7 @@ export default function Navigation() {
               <button
                 className={`${s.button} ${textTheme}`}
                 onClick={handleInitializeResult}
+                disabled={resultLoading}
               >
                 결과지
               </button>
@@ -89,6 +90,7 @@ export default function Navigation() {
                 <button
                   className={`${s.button} ${textTheme}`}
                   onClick={handleLogout}
+                  disabled={logoutLoading}
                 >
                   로그아웃
                 </button>
@@ -124,7 +126,13 @@ export default function Navigation() {
         <ul className={s.mobileList}>
           {/* 결과지 */}
           {isClient && user?.page === 10 && pathname !== "/result" && (
-            <li className={s.mobileListItem}>결과지</li>
+            <button
+              className={s.mobileButton}
+              onClick={handleInitializeResult}
+              disabled={resultLoading}
+            >
+              결과지
+            </button>
           )}
 
           {isClient && !user ? (
@@ -142,6 +150,7 @@ export default function Navigation() {
                     toggleMenu(false);
                     handleLogout();
                   }}
+                  disabled={logoutLoading}
                 >
                   로그아웃
                 </button>

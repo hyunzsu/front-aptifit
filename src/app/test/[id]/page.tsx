@@ -95,7 +95,11 @@ function TestPage() {
         </div>
         {/* 03. 제출버튼 */}
         {currentIndex === responses.length - 1 && (
-          <button className={s.submitButton} onClick={submitResponses}>
+          <button
+            className={s.submitButton}
+            onClick={submitResponses}
+            disabled={loading}
+          >
             다음
           </button>
         )}
