@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Section01, Section02, Section03, Section04 } from "./sections";
 import s from "./ResultPage.module.css";
 import { useResultStore } from "@/lib/stores";
+import { Navigation } from "@/components";
 
 /**
  * 세션 스토리지에서 데이터를 가져오는 함수
@@ -45,11 +46,14 @@ export default function ResultPage() {
   }, [setName, setMajors, setCurrentMajor, majors, currentMajor]);
 
   return (
-    <main className={s.ResultPage}>
-      <Section01 name={name} />
-      <Section02 name={name} />
-      <Section03 name={name} />
-      <Section04 name={name} />
-    </main>
+    <>
+      <Navigation />
+      <main className={s.ResultPage}>
+        <Section01 name={name} />
+        <Section02 name={name} />
+        <Section03 name={name} />
+        <Section04 name={name} />
+      </main>
+    </>
   );
 }
