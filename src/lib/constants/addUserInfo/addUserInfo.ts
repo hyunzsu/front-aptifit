@@ -1,4 +1,10 @@
-export const gradeField = ["1학년", "2학년", "3학년", "4힉년"];
+export const gradeField = [
+  "1학년",
+  "2학년",
+  "3학년",
+  "4힉년 이상",
+  "대학원생(석/박사과정)",
+];
 
 export const majorField1 = [
   "인문",
@@ -170,6 +176,7 @@ export const major1 = {
 };
 
 export const majorField2 = [
+  "없음",
   "인문",
   "사회",
   "교육",
@@ -178,10 +185,10 @@ export const majorField2 = [
   "자연",
   "의약",
   "예체능",
-  "없음",
 ];
 
 export const major2 = {
+  없음: ["없음"],
   인문: [
     "문헌정보학",
     "문화콘텐츠학",
@@ -337,5 +344,4 @@ export const major2 = {
     "뷰티미용학",
     "연극영화학",
   ],
-  없음: ["없음"],
 };
