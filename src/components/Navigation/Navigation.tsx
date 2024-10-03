@@ -70,7 +70,10 @@ export default function Navigation() {
             <li className={`${s.li}`}>
               <button
                 className={`${s.button} ${textTheme}`}
-                onClick={handleInitializeResult}
+                onClick={() => {
+                  toggleMenu(false);
+                  handleInitializeResult();
+                }}
                 disabled={resultLoading}
               >
                 결과지
@@ -89,7 +92,10 @@ export default function Navigation() {
               <li className={s.li}>
                 <button
                   className={`${s.button} ${textTheme}`}
-                  onClick={handleLogout}
+                  onClick={() => {
+                    toggleMenu(false);
+                    handleLogout();
+                  }}
                   disabled={logoutLoading}
                 >
                   로그아웃
@@ -128,7 +134,10 @@ export default function Navigation() {
           {isClient && user?.page === 10 && pathname !== "/result" && (
             <button
               className={s.mobileButton}
-              onClick={handleInitializeResult}
+              onClick={() => {
+                toggleMenu(false);
+                handleInitializeResult();
+              }}
               disabled={resultLoading}
             >
               결과지
