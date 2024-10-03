@@ -48,6 +48,7 @@
   font-size: var(--fs-28);
   font-weight: var(--fw-700);
   padding-left: var(--spc-16);
+  line-height: 150%;
 }
 
 /* 학과 설명 */
