@@ -82,3 +82,9 @@
     opacity: 1; /* 애니메이션 끝날 때 opacity 1 */
   }
 }
+
+@media (max-width: 768px) {
+  .TestHeaderSection {
+    padding-top: 4rem;
+  }
+}
