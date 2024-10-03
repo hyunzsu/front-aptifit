@@ -66,7 +66,7 @@ export default function Navigation() {
           </button>
 
           {/* 결과지 */}
-          {isClient && user?.page === 10 && (
+          {isClient && user?.page === 10 && pathname !== "/result" && (
             <li className={`${s.li}`}>
               <button
                 className={`${s.button} ${textTheme}`}
@@ -123,7 +123,7 @@ export default function Navigation() {
         </header>
         <ul className={s.mobileList}>
           {/* 결과지 */}
-          {isClient && user?.page === 10 && (
+          {isClient && user?.page === 10 && pathname !== "/result" && (
             <li className={s.mobileListItem}>결과지</li>
           )}
 
