@@ -72,7 +72,6 @@ export default function Card({
       <div className={`${s.description} ${descriptionClassName || ""}`}>
         {isArray
           ? description.map((item, index) => {
-              console.log(item);
               return (
                 <p key={index} className={s.descriptionArray}>
                   {item}
