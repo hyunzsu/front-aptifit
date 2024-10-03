@@ -46,7 +46,7 @@ export default function Section03({ name }: { name: string }) {
       <div className={s.sectionContainer}>
         <SectionTitle
           title="03 나의 5대 적성요소 분석"
-          description={`${currentMajor}을 선택한 ${name}님의 적성을 분석한 상세 리포트를 살펴보세요!`}
+          description={`${currentMajor}을 추천받은 ${name}님의 적성을 분석한 상세 리포트를 살펴보세요!`}
           color="black"
         />
         {/* SlideCategory 컴포넌트에 현재 카테고리와 카테고리 변경 함수를 전달합니다. */}
