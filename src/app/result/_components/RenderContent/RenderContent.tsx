@@ -25,20 +25,22 @@ export default function RenderContent({
               <ResultChart details={categoryData.details} />
               {/* 분포도 - 카드 */}
               <div className={s.detailGrid}>
-                {categoryData.details.map((detail: DetailItem) => (
-                  <div
-                    key={`${detail.field}-${detail.score}`}
-                    className={s.detail}
-                  >
-                    <div className={s.fieldContainer}>
-                      <h3 className={s.field}>{detail.field}</h3>
-                      <span className={s.score}>
-                        {convertTo100Scale(detail.score)}점
-                      </span>
+                {categoryData.details.map(
+                  (detail: DetailItem, index: number) => (
+                    <div
+                      key={`${detail.field}-${detail.score}-${index}`}
+                      className={s.detail}
+                    >
+                      <div className={s.fieldContainer}>
+                        <h3 className={s.field}>{detail.field}</h3>
+                        <span className={s.score}>
+                          {convertTo100Scale(detail.score)}점
+                        </span>
+                      </div>
+                      <p className={s.content}>{detail.content}</p>
                     </div>
-                    <p className={s.content}>{detail.content}</p>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             </>
           }
