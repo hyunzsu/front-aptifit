@@ -53,11 +53,12 @@
 
 /* 학과 설명 */
 .description {
+  margin: 0 auto;
   font-size: var(--fs-18);
   font-weight: var(--fw-500);
   color: var(--cl-white);
   line-height: 150%;
-  padding: 0 var(--spc-40);
+  max-width: 768px;
 }
 
 @media (max-width: 425px) {
@@ -76,9 +77,5 @@
 
   .tagline {
     font-size: var(--fs-18); /* 모바일에서 폰트 크기 조정 */
-  }
-
-  .description {
-    padding: 0;
   }
 }
