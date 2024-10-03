@@ -52,6 +52,8 @@ const useOAuth = () => {
       }
     } catch (error) {
       console.error("데이터 전송 중 오류가 발생했습니다:", error);
+      alert(error);
+      router.push("/login");
     } finally {
       setLoading(false);
     }
