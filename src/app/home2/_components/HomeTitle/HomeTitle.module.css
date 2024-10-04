@@ -1,0 +1,63 @@
+.HomeTitle {
+  /* 부모가 flex라 flex:1을 함. 그 이유는 여백을 채우기 위해서 */
+  flex: 1;
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  color: var(--cl-white);
+  font-weight: var(--fw-700);
+  font-size: var(--fs-60);
+  margin-bottom: var(--spc-24);
+}
+
+.subtitle {
+  color: var(--cl-white);
+  font-weight: var(--fw-700);
+  font-size: var(--fs-40);
+  margin-bottom: var(--spc-8);
+}
+
+@media screen and (max-width: 1536px) {
+  .title {
+  }
+
+  .subtitle {
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .title {
+  }
+
+  .subtitle {
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+  }
+
+  .subtitle {
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 8.5vw;
+    margin-bottom: var(--spc-24);
+  }
+
+  .subtitle {
+    font-size: 6vw;
+    margin-bottom: var(--spc-8);
+  }
+
+  .button {
+    font-size: var(--fs-16);
+  }
+}
