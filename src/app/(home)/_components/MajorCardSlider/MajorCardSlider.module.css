@@ -1,12 +1,27 @@
 .slider {
-  width: 100vw;
   overflow: hidden;
+  height: 100%;
+  width: 100vw;
 }
 
 .slides {
   display: flex;
   gap: 16px;
   animation: slide 40s linear infinite; /* 애니메이션 시간 조정 가능 */
+}
+
+.slides img {
+  /* height: 50%;
+  width: 100%;
+  display: block;
+  object-fit: cover; */
+  height: 30vh; /* div의 높이를 따름 */
+  width: auto; /* 너비는 비율을 유지 */
+  display: block;
+  object-fit: cover; /* 필요에 따라 이미지 잘림 허용 (비율을 유지하면서 div를 채움) */
+  /* position: absolute;
+  z-index: 1;
+} */
 }
 
 @keyframes slide {
@@ -20,14 +35,14 @@
 
 /* 태블릿 */
 @media (max-width: 768px) {
-  .slides img {
+  /* .slides img {
     width: 150px;
-  }
+  } */
 }
 
 /* 모바일 */
 @media (max-width: 425px) {
-  .slides img {
+  /* .slides img {
     width: 120px;
-  }
+  } */
 }

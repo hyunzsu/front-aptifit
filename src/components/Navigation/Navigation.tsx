@@ -53,7 +53,7 @@ export default function Navigation() {
         </h1>
         <ul className={s.ul}>
           {/* 모바일용 메뉴 버튼 */}
-          <button
+          {/* <button
             className={s.mobileMenuButton}
             onClick={() => toggleMenu(true)}
           >
@@ -63,10 +63,10 @@ export default function Navigation() {
               width={30}
               height={30}
             />
-          </button>
+          </button> */}
 
           {/* 결과지 */}
-          {isClient && user?.page === 10 && pathname !== "/result" && (
+          {/* {isClient && user?.page === 10 && pathname !== "/result" && (
             <li className={`${s.li}`}>
               <button
                 className={`${s.button} ${textTheme}`}
@@ -79,7 +79,7 @@ export default function Navigation() {
                 결과지
               </button>
             </li>
-          )}
+          )} */}
 
           {isClient && !user ? (
             <li className={s.li}>
@@ -106,7 +106,7 @@ export default function Navigation() {
         </ul>
       </div>
       {/* 모바일 */}
-      <div
+      {/* <div
         className={`${s.mobileNavigation} ${
           isOpen ? s.mobileNavigationOpen : ""
         }`}
@@ -130,7 +130,7 @@ export default function Navigation() {
           </button>
         </header>
         <ul className={s.mobileList}>
-          {/* 결과지 */}
+          
           {isClient && user?.page === 10 && pathname !== "/result" && (
             <button
               className={s.mobileButton}
@@ -167,7 +167,7 @@ export default function Navigation() {
             )
           )}
         </ul>
-      </div>
+      </div> */}
     </nav>
   );
 }
