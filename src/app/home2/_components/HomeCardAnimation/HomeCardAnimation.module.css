@@ -1,0 +1,38 @@
+.HomeCardAnimation {
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.iphone {
+  background-color: blue;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+}
+
+@media screen and (max-width: 1536px) {
+  .iphone {
+    max-width: 300px; /* 300px로 조정 */
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .iphone {
+    max-width: 240px; /* 240px로 조정 */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .iphone {
+    max-width: 200px; /* 200px로 조정 */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .iphone {
+    max-width: 160px; /* 160px로 조정 */
+  }
+}
