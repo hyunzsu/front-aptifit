@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MajorCardsSlider } from "@/app/home2/_components";
 import s from "./HomeCardAnimation.module.css";
 
 export default function HomeCardAnimation() {
@@ -11,6 +12,7 @@ export default function HomeCardAnimation() {
         height={466}
         alt="아이폰"
       />
+      <MajorCardsSlider />
     </div>
   );
 }
