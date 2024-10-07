@@ -19,6 +19,10 @@
   line-height: 150%;
 }
 
+.descriptionArray {
+  margin-bottom: 8px;
+}
+
 .selectedCard {
   background-color: var(--cl-primary);
   color: var(--cl-white);

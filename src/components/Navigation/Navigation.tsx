@@ -33,8 +33,8 @@ export default function Navigation() {
   const textTheme =
     pathname === "/" || pathname === "/result" ? s.whiteText : s.blackText;
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
+  const toggleMenu = (state: boolean) => {
+    setIsOpen(state);
   };
 
   if (logoutLoading) {
@@ -53,37 +53,33 @@ export default function Navigation() {
         </h1>
         <ul className={s.ul}>
           {/* 모바일용 메뉴 버튼 */}
-          {!isOpen ? (
-            <button className={s.mobileMenuButton} onClick={toggleMenu}>
-              <Image
-                src="/icons/menu.svg"
-                alt="메뉴 열기 버튼"
-                width={30}
-                height={30}
-              />
-            </button>
-          ) : (
-            <button className={s.mobileMenuButton} onClick={toggleMenu}>
-              <Image
-                src="/icons/close.svg"
-                alt="메뉴 닫기 버튼"
-                width={30}
-                height={30}
-              />
-            </button>
-          )}
+          {/* <button
+            className={s.mobileMenuButton}
+            onClick={() => toggleMenu(true)}
+          >
+            <Image
+              src="/icons/menu.svg"
+              alt="메뉴 열기 버튼"
+              width={30}
+              height={30}
+            />
+          </button> */}
 
           {/* 결과지 */}
-          {isClient && user?.page === 10 && (
+          {/* {isClient && user?.page === 10 && pathname !== "/result" && (
             <li className={`${s.li}`}>
               <button
                 className={`${s.button} ${textTheme}`}
-                onClick={handleInitializeResult}
+                onClick={() => {
+                  toggleMenu(false);
+                  handleInitializeResult();
+                }}
+                disabled={resultLoading}
               >
                 결과지
               </button>
             </li>
-          )}
+          )} */}
 
           {isClient && !user ? (
             <li className={s.li}>
@@ -96,7 +92,11 @@ export default function Navigation() {
               <li className={s.li}>
                 <button
                   className={`${s.button} ${textTheme}`}
-                  onClick={handleLogout}
+                  onClick={() => {
+                    toggleMenu(false);
+                    handleLogout();
+                  }}
+                  disabled={logoutLoading}
                 >
                   로그아웃
                 </button>
@@ -106,22 +106,68 @@ export default function Navigation() {
         </ul>
       </div>
       {/* 모바일 */}
-      <ul
+      {/* <div
         className={`${s.mobileNavigation} ${
           isOpen ? s.mobileNavigationOpen : ""
         }`}
       >
-        <li className={`${s.mobileLi}`}>
-          <Link className={`${s.mobileLink} ${textTheme}`} href="/result">
-            결과지
-          </Link>
-        </li>
-        <li className={`${s.mobileLi}`}>
-          <Link className={`${s.mobileLink} ${textTheme}`} href="/login">
-            로그인
-          </Link>
-        </li>
-      </ul>
+        <header className={s.mobileHeader}>
+          <h1>
+            <Link className={s.mobileNavLogo} href="/">
+              APTIFIT
+            </Link>
+          </h1>
+          <button
+            className={s.mobileToggleButton}
+            onClick={() => toggleMenu(false)}
+          >
+            <Image
+              src="/icons/close.svg"
+              alt="메뉴 닫기 버튼"
+              width={30}
+              height={30}
+            />
+          </button>
+        </header>
+        <ul className={s.mobileList}>
+          
+          {isClient && user?.page === 10 && pathname !== "/result" && (
+            <button
+              className={s.mobileButton}
+              onClick={() => {
+                toggleMenu(false);
+                handleInitializeResult();
+              }}
+              disabled={resultLoading}
+            >
+              결과지
+            </button>
+          )}
+
+          {isClient && !user ? (
+            <li className={s.mobileListItem}>
+              <Link className={s.mobileLink} href="/login">
+                로그인
+              </Link>
+            </li>
+          ) : (
+            isClient && (
+              <li className={s.mobileListItem}>
+                <button
+                  className={s.mobileButton}
+                  onClick={() => {
+                    toggleMenu(false);
+                    handleLogout();
+                  }}
+                  disabled={logoutLoading}
+                >
+                  로그아웃
+                </button>
+              </li>
+            )
+          )}
+        </ul>
+      </div> */}
     </nav>
   );
 }

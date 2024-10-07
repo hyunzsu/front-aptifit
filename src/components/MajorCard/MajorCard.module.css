@@ -1,5 +1,5 @@
 .card {
-  width: 200px;
+  width: 180px;
   height: 250px;
   background-color: var(--cl-white);
   display: flex;
@@ -21,7 +21,7 @@
 }
 
 .majorName {
-  font-size: var(--fs-28);
+  font-size: var(--fs-20);
   font-weight: var(--fw-700);
   margin-top: var(--spc-24);
   text-align: center;
@@ -37,9 +37,5 @@
     width: 80px;
     height: 80px;
     padding: 60px 50px 0 50px;
-  }
-
-  .majorName {
-    font-size: var(--fs-20);
   }
 }

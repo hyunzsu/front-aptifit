@@ -7,24 +7,7 @@ import SectionTitle from "@/components/sectionTitle/SectionTitle";
 import SlideCategory from "../../_components/SlideCategory/SlideCategory";
 import RenderContent from "../../_components/RenderContent/RenderContent";
 import s from "./Section03.module.css";
-
-// 세부 항목 타입 정의
-type DetailItem = {
-  field: string;
-  score: number;
-  content: string;
-};
-
-// 카테고리 데이터 타입 정의
-type CategoryData = {
-  details: DetailItem[];
-  descriptions: string[];
-};
-
-// 전체 결과 데이터 타입 정의
-type ResultData = {
-  [key: string]: CategoryData;
-};
+import { ResultData } from "@/lib/types";
 
 export default function Section03({ name }: { name: string }) {
   // useResultStore에서 필요한 상태와 함수들을 가져옵니다.
@@ -46,7 +29,7 @@ export default function Section03({ name }: { name: string }) {
       <div className={s.sectionContainer}>
         <SectionTitle
           title="03 나의 5대 적성요소 분석"
-          description={`${currentMajor}을 선택한 ${name}님의 적성을 분석한 상세 리포트를 살펴보세요!`}
+          description={`${currentMajor}을 추천받은 ${name}님의 적성을 분석한 상세 리포트를 살펴보세요!`}
           color="black"
         />
         {/* SlideCategory 컴포넌트에 현재 카테고리와 카테고리 변경 함수를 전달합니다. */}

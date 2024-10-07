@@ -14,10 +14,6 @@ export default function PaymentPage() {
     setState(e.target.value);
   };
 
-  const handleClick = () => {
-    handleCoupon(coupon);
-  };
-
   if (loading) {
     return <Loading text="결제 진행 중..." />;
   }
@@ -57,9 +53,14 @@ export default function PaymentPage() {
               type="text"
               placeholder="쿠폰 번호"
               value={coupon}
+              maxLength={16}
               onChange={(e) => handleInput(e, setCoupon)}
             />
-            <button className={s.couponButton} onClick={handleClick}>
+            <button
+              className={s.couponButton}
+              onClick={() => handleCoupon(coupon)}
+              disabled={loading}
+            >
               등록
             </button>
           </div>
@@ -76,7 +77,9 @@ export default function PaymentPage() {
           </div>
         </div>
         {/* 결제버튼 섹션 */}
-        <button className={s.button}>결제하기</button>
+        <button className={s.button} disabled={loading}>
+          결제하기
+        </button>
       </div>
     </main>
   );

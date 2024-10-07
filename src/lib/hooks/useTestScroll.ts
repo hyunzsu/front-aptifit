@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const useTestScroll = (handleNextQuestion, handlePrevQuestion) => {
   const [scrollTimeout, setScrollTimeout] = useState(null);
+  const [startY, setStartY] = useState(0);
 
   // 1. 스크롤 이동 및 이동 방지
   const handleScroll = (e) => {
@@ -41,7 +42,40 @@ const useTestScroll = (handleNextQuestion, handlePrevQuestion) => {
     setScrollTimeout(timeout);
   };
 
-  return { scrollTimeout, setScrollTimeout, handleScroll };
+  // 터치 시작 시 Y축 위치 저장
+  const handleTouchStart = (e) => {
+    setStartY(e.touches[0].clientY);
+  };
+
+  // 터치 이동 중 스크롤 감지
+  const handleTouchMove = (e) => {
+    if (scrollTimeout) return;
+
+    const currentY = e.touches[0].clientY;
+    const deltaY = startY - currentY;
+
+    if (deltaY > 0) {
+      // 터치를 아래로 스크롤 -> 다음 질문
+      handleNextQuestion();
+    } else if (deltaY < 0) {
+      // 터치를 위로 스크롤 -> 이전 질문
+      handlePrevQuestion();
+    }
+
+    // 짧은 시간 동안 연속 스크롤을 막기 위한 타이머 설정
+    const timeout = setTimeout(() => {
+      setScrollTimeout(null);
+    }, 800);
+    setScrollTimeout(timeout);
+  };
+
+  return {
+    scrollTimeout,
+    setScrollTimeout,
+    handleScroll,
+    handleTouchStart,
+    handleTouchMove,
+  };
 };
 
 export default useTestScroll;

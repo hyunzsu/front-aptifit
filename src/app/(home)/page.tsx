@@ -8,6 +8,7 @@ import s from "./HomePage.module.css";
 import { useAuthStore } from "@/lib/stores";
 import { useTest, useResult } from "@/lib/hooks";
 import { Navigation } from "@/components";
+import { HomeTitle } from "@/app/(home)/_components";
 
 export default function HomePage() {
   const { loading: testLoading, handleInitializeTest } = useTest();
@@ -60,10 +61,37 @@ export default function HomePage() {
     <>
       <Navigation />
       <main className={s.HomePage}>
-        <div className={s.titleContainer}>
+        {/* 1. 제목 */}
+        <div className={s.HomeTitle}>
           <p className={s.subtitle}>AI 기반 진단도구로 쉽고 빠르게</p>
           <p className={s.title}>너만의 전공적성을 찾아봐</p>
           <Button
+            disabled={testLoading || resultLoading}
+            label="시작하기"
+            type="button"
+            pageType="main"
+            onClick={startTest}
+          />
+        </div>
+
+        {/* 2. 애니메이션 */}
+        <div className={s.HomeAnimation}>
+          <Image
+            className={s.iphone}
+            src="/imgs/iphone.png"
+            alt="아이폰"
+            width={330}
+            height={727}
+          />
+          <div className={s.cardAnimationContainer}>
+            <MajorCardSlider />
+          </div>
+        </div>
+        {/* <div className={s.titleContainer}>
+          <p className={s.subtitle}>AI 기반 진단도구로 쉽고 빠르게</p>
+          <p className={s.title}>너만의 전공적성을 찾아봐</p>
+          <Button
+            disabled={testLoading || resultLoading}
             label="시작하기"
             type="button"
             pageType="main"
@@ -79,7 +107,7 @@ export default function HomePage() {
         />
         <div className={s.cardAnimationContainer}>
           <MajorCardSlider />
-        </div>
+        </div> */}
       </main>
     </>
   );

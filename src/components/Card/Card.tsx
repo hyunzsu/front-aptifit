@@ -40,6 +40,7 @@ type CardProps = {
   onClick?: () => void;
   /** 카드가 선택되었는지 여부 */
   isSelected?: boolean;
+  isArray?: boolean;
 };
 
 export default function Card({
@@ -52,6 +53,7 @@ export default function Card({
   descriptionClassName,
   onClick,
   isSelected,
+  isArray,
 }: CardProps) {
   const cardStyle: React.CSSProperties = {
     width: width,
@@ -68,7 +70,15 @@ export default function Card({
     >
       <h2 className={`${s.title} ${titleClassName || ""}`}>{title}</h2>
       <div className={`${s.description} ${descriptionClassName || ""}`}>
-        {description}
+        {isArray
+          ? description.map((item, index) => {
+              return (
+                <p key={index} className={s.descriptionArray}>
+                  {item}
+                </p>
+              );
+            })
+          : description}
       </div>
     </div>
   );

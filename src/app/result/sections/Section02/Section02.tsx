@@ -49,10 +49,10 @@ export default function Section02({ name }: { name: string }) {
    */
   const cardData = useMemo(() => {
     const fields = [
-      { id: 1, title: "01 학과설명", key: "definition" },
-      { id: 2, title: "02 인재상", key: "ideal_candiate" },
-      { id: 3, title: "03 심화분야", key: "sub_major" },
-      { id: 4, title: "04 커리큘럼", key: "curriculum" },
+      { id: 1, title: "A. 학과설명", key: "definition" },
+      { id: 2, title: "B. 인재상", key: "ideal_candiate" },
+      { id: 3, title: "C. 심화분야", key: "sub_major" },
+      { id: 4, title: "D. 커리큘럼", key: "curriculum" },
     ];
     const defaultMessage =
       "결과지 정보가 없습니다. 새로고침해도 문제가 발생할 경우 관리자에게 문의해주세요.";

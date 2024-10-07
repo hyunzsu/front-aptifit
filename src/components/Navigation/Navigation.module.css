@@ -1,6 +1,7 @@
 .Navigation {
+  overflow-x: hidden;
   width: 100%;
-  z-index: 10;
+  z-index: 100;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -100,6 +101,12 @@
     font-size: var(--fs-40);
   }
 
+  .mobileNavLogo {
+    color: white;
+    font-size: var(--fs-40);
+    font-weight: var(--fw-900);
+  }
+
   .mobileMenuButton {
     display: flex;
     justify-content: center;
@@ -109,17 +116,15 @@
   }
 
   .li {
-    display: none;
+    /* display: none; */
   }
 
   .mobileNavigation {
     display: block;
-    position: fixed;
-    right: 0;
-    top: 6rem;
-    width: 100%;
-    height: 100vh;
+    position: absolute;
     background-color: #0a1632;
+    width: 100%;
+    height: 100dvh;
     transition: all 200ms linear;
     transform: translateX(100%);
   }
@@ -128,17 +133,50 @@
     transform: translateX(0);
   }
 
-  .mobileLink {
-    display: block;
-    height: 6rem;
-    font-size: 16px;
-    font-weight: 700;
+  .mobileHeader {
+    display: flex;
+    height: 60px;
+    padding: 0 16px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobileToggleButton {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .mobileLink {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 6rem;
   }
 
   .mobileLink:hover {
+    background-color: var(--cl-primary);
+  }
+
+  .mobileButton {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 6rem;
+    background: transparent;
+  }
+
+  .mobileButton:hover {
     background-color: var(--cl-primary);
   }
 }
