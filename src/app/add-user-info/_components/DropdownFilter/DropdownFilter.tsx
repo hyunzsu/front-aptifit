@@ -38,11 +38,11 @@ export default function DropdownFilter({
         <span>{selectedValue}</span>
         {isFilterActive ? (
           <button className={s.button} onClick={handleFilterActive}>
-            <Image src="/icons/arrow-down.svg" alt="" width={24} height={24} />
+            <Image src="/icons/arrow-up.svg" alt="" width={24} height={24} />
           </button>
         ) : (
           <button className={s.button} onClick={handleFilterActive}>
-            <Image src="/icons/arrow-up.svg" alt="" width={24} height={24} />
+            <Image src="/icons/arrow-down.svg" alt="" width={24} height={24} />
           </button>
         )}
       </div>

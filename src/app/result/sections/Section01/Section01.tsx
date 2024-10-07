@@ -45,7 +45,7 @@ export default function Section01({ name }: { name: string }) {
    */
   const majorItems = useMemo(() => {
     return Object.keys(majors).map((majorTitle, index) => (
-      <MajorCard key={index} majorName={majorTitle} />
+      <MajorCard key={index} index={index} majorName={majorTitle} />
     ));
   }, [majors]);
 
@@ -62,7 +62,7 @@ export default function Section01({ name }: { name: string }) {
     <section className={s.section}>
       <div className={s.sectionContainer}>
         <SectionTitle
-          title="01 학과순위"
+          title="01 적성학과 순위"
           description={`${name}님과 가장 어울리는 학과는 다음과 같습니다!`}
           color="white"
         />

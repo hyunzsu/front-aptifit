@@ -93,7 +93,7 @@ export default function AddUserInfoPage() {
         </div>
         {/* 부전공 및 복수전공 */}
         <div className={s.filterContainer}>
-          <p className={s.filterTitle}>부전공 및 복수전공</p>
+          <p className={s.filterTitle}>부전공 또는 복수전공</p>
           <CombinedDropdownFilter
             defaultValue1="계열"
             defaultValue2="전공"

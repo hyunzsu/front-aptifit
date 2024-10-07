@@ -20,10 +20,16 @@
   object-fit: contain;
 }
 
+.majorRank {
+  margin-top: var(--spc-24);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-700);
+  margin-bottom: var(--spc-8);
+}
+
 .majorName {
   font-size: var(--fs-20);
   font-weight: var(--fw-700);
-  margin-top: var(--spc-24);
   text-align: center;
 }
 
