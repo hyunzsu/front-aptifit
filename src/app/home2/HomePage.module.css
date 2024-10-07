@@ -1,6 +1,0 @@
-.HomePage {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background: linear-gradient(to bottom, #0a1632, #1f4298);
-}

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MajorCardsSlider } from "@/app/home2/_components";
+import { MajorCardsSlider } from "@/app/(home)/_components";
 import s from "./HomeCardAnimation.module.css";
 
 export default function HomeCardAnimation() {
