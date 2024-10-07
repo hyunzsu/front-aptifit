@@ -12,9 +12,17 @@ export default function SlideCategory({
   activeCategory,
   onCategoryChange,
 }: SlideCategoryProps) {
+  const newArray = [
+    categories[4], // 흥미
+    categories[0], // 역량
+    categories[1], // 가치
+    categories[2], // 개인특성
+    categories[3], // 지식
+  ];
+
   return (
     <div className={s.tabNavigation}>
-      {categories.map((category) => (
+      {newArray.map((category) => (
         <button
           key={category}
           className={`${s.tabButton} ${
