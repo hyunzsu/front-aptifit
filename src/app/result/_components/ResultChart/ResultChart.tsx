@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Chart, ChartConfiguration, registerables } from "chart.js";
 import { DetailItem } from "@/lib/types";
-import { convertTo100Scale } from "@/lib/utils/scoreConversion";
 import s from "./ResultChart.module.css";
 
 Chart.register(...registerables);
@@ -41,10 +40,10 @@ export default function ResultChart({ details }: ResultChartProps) {
             labels: details.map((detail) => detail.field),
             datasets: [
               {
-                data: details.map((detail) => convertTo100Scale(detail.score)),
+                data: details.map((detail) => detail.score),
                 backgroundColor: isMobile ? "#DEE7FC" : "#7685E5",
                 borderColor: isMobile ? "#DEE7FC" : "#7685E5",
-                hoverBackgroundColor: isMobile ? "#7685E5" : "#1F4298", // hover 시 색상
+                hoverBackgroundColor: isMobile ? "#7685E5" : "#1F4298",
                 borderWidth: 0,
                 borderRadius: 10,
                 barThickness: isMobile ? 40 : undefined,
@@ -66,7 +65,6 @@ export default function ResultChart({ details }: ResultChartProps) {
                 ticks: { display: false },
                 border: { display: false },
                 beginAtZero: true,
-                max: 100,
               },
             },
             plugins: {
