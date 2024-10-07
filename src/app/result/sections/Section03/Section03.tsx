@@ -7,24 +7,7 @@ import SectionTitle from "@/components/sectionTitle/SectionTitle";
 import SlideCategory from "../../_components/SlideCategory/SlideCategory";
 import RenderContent from "../../_components/RenderContent/RenderContent";
 import s from "./Section03.module.css";
-
-// 세부 항목 타입 정의
-type DetailItem = {
-  field: string;
-  score: number;
-  content: string;
-};
-
-// 카테고리 데이터 타입 정의
-type CategoryData = {
-  details: DetailItem[];
-  descriptions: string[];
-};
-
-// 전체 결과 데이터 타입 정의
-type ResultData = {
-  [key: string]: CategoryData;
-};
+import { ResultData } from "@/lib/types";
 
 export default function Section03({ name }: { name: string }) {
   // useResultStore에서 필요한 상태와 함수들을 가져옵니다.

@@ -2,7 +2,6 @@ import { CategoryData, DetailItem } from "@/lib/types";
 import s from "./RenderContent.module.css";
 import Card from "@/components/Card/Card";
 import { Category } from "@/lib/constants/categories";
-import { convertTo100Scale } from "../../../../lib/utils/scoreConversion";
 import ResultChart from "../ResultChart/ResultChart";
 
 type RenderContentProps = {
@@ -33,9 +32,7 @@ export default function RenderContent({
                     >
                       <div className={s.fieldContainer}>
                         <h3 className={s.field}>{detail.field}</h3>
-                        <span className={s.score}>
-                          {convertTo100Scale(detail.score)}점
-                        </span>
+                        <span className={s.score}>{detail.score}점</span>
                       </div>
                       <p className={s.content}>{detail.content}</p>
                     </div>
