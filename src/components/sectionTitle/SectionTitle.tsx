@@ -1,3 +1,5 @@
+"use client";
+
 import s from "./SectionTitle.module.css";
 
 export default function SectionTitle({
