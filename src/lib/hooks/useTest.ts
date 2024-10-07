@@ -212,11 +212,72 @@ const useTest = () => {
     }
   };
 
+  /* 4. 테스트 돌아가기 */
+  const handleReturnTest = async () => {
+    setLoading(true);
+
+    // 이전 페이지 넘버 생성
+    const prevPage = Number(id) - 1;
+
+    // 2-1. 세션스토리지에 저장된 /aptifit/${id}의 데이터 접근
+    const testData = getDataFromSessionStorage(`aptifit${id}`);
+
+    try {
+      // 2-2. /submit_responses_univeristy로 이전 페이지에 대한 POST 통신을 수행
+      const response = await postDataWithAuth(
+        "submit_responses_university",
+        access_token,
+        {
+          user_id: testData.user_id,
+          page: prevPage,
+        }
+      );
+
+      // 2-3. fetchResult에서 데이터 설렉션 진행
+      const fetchResult = await response.json();
+      const { questions, responses, page, user_id } = fetchResult;
+
+      // 2-4. 에러 핸들링
+      if (!response.ok) {
+        // 세션만료 에러면 로그인 페이지로 이동
+        if (response.status === 401) {
+          removeUser();
+          removeAccessToken();
+          alert("로그인이 만료되어 재로그인이 필요합니다!");
+          router.push("/login");
+          return;
+        }
+        // 그 외의 에러
+        console.error("로그인 실패:", fetchResult.error);
+        alert(fetchResult.error);
+        return;
+      }
+
+      // 2-5. 세션스토리지에 테스트 데이터 저장
+      saveDataToSessionStorage(`aptifit${page}`, {
+        questions: questions,
+        responses: responses,
+        page: page,
+        user_id: user_id,
+      });
+
+      // 2-6. user 스토어, 세션 스토리지의 page 업데이트 후 `/test/${page}`로 이동
+      updateUser({ page: page });
+
+      router.push(`/test/${page}`);
+    } catch (error) {
+      console.error("데이터 전송 중 오류가 발생했습니다:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     loading,
     handleInitializeTest,
     handleContinueTest,
     handleCompleteTest,
+    handleReturnTest,
   };
 };
 
