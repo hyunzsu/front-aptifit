@@ -49,16 +49,16 @@ export default function CombinedDropdownFilter({
           <span>{selectedValue1}</span>
           {isFilter1Active ? (
             <button className={s.button} onClick={handleFilter1Active}>
+              <Image src="/icons/arrow-up.svg" alt="" width={24} height={24} />
+            </button>
+          ) : (
+            <button className={s.button} onClick={handleFilter1Active}>
               <Image
                 src="/icons/arrow-down.svg"
                 alt=""
                 width={24}
                 height={24}
               />
-            </button>
-          ) : (
-            <button className={s.button} onClick={handleFilter1Active}>
-              <Image src="/icons/arrow-up.svg" alt="" width={24} height={24} />
             </button>
           )}
         </div>
@@ -90,16 +90,16 @@ export default function CombinedDropdownFilter({
           <span>{selectedValue2}</span>
           {isFilter2Active ? (
             <button className={s.button} onClick={handleFilter2Active}>
+              <Image src="/icons/arrow-up.svg" alt="" width={24} height={24} />
+            </button>
+          ) : (
+            <button className={s.button} onClick={handleFilter2Active}>
               <Image
                 src="/icons/arrow-down.svg"
                 alt=""
                 width={24}
                 height={24}
               />
-            </button>
-          ) : (
-            <button className={s.button} onClick={handleFilter2Active}>
-              <Image src="/icons/arrow-up.svg" alt="" width={24} height={24} />
             </button>
           )}
         </div>
