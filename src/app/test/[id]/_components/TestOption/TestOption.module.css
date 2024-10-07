@@ -36,6 +36,7 @@
 }
 
 .radioSmall {
+  border: 4px solid #eee;
   width: 30px;
   height: 30px;
 }
@@ -105,6 +106,7 @@
   }
 
   .radioSmall {
+    border: 2px solid #eaeaea;
     width: 25px;
     height: 25px;
   }
