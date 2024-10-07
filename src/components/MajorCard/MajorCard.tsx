@@ -1,7 +1,9 @@
 import Image from "next/image";
 import s from "./MajorCard.module.css";
 
-export default function MajorCard(props: { majorName: string }) {
+export default function MajorCard(props: { index: number; majorName: string }) {
+  const rank = props.index + 1;
+
   return (
     <div className={s.card}>
       <div className={s.imageWrapper}>
@@ -13,6 +15,7 @@ export default function MajorCard(props: { majorName: string }) {
           className={s.majorIcon}
         />
       </div>
+      <p className={s.majorRank}>{rank}위</p>
       <p className={s.majorName}>{props.majorName}</p>
     </div>
   );

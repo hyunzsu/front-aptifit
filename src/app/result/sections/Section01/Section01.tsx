@@ -45,7 +45,7 @@ export default function Section01({ name }: { name: string }) {
    */
   const majorItems = useMemo(() => {
     return Object.keys(majors).map((majorTitle, index) => (
-      <MajorCard key={index} majorName={majorTitle} />
+      <MajorCard key={index} index={index} majorName={majorTitle} />
     ));
   }, [majors]);
 
