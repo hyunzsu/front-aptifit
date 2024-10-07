@@ -51,10 +51,38 @@
 }
 
 /* 버튼 */
+.buttonContainer {
+  position: relative;
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.previousButton {
+  position: absolute;
+  left: 0%;
+  bottom: 15rem;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #282828;
+  background-color: #eeeeee;
+  transition: all 200ms ease-in-out;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  animation-delay: 1s;
+}
+
+.previousButton:hover {
+  color: white;
+  background-color: var(--cl-primary);
+  transition: all 200ms ease-in-out;
+}
+
 .submitButton {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 0%;
   bottom: 15rem;
   font-size: 18px;
   font-weight: 600;

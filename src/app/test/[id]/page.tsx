@@ -19,7 +19,8 @@ import s from "./TestPage.module.css";
 
 function TestPage() {
   const { id } = useParams();
-  const { loading, handleContinueTest, handleCompleteTest } = useTest();
+  const { loading, handleContinueTest, handleReturnTest, handleCompleteTest } =
+    useTest();
   const { responses, setResponses, questions } = useTestQuestion();
   const { currentIndex, handleNextQuestion, handlePrevQuestion } =
     useTestNavigation(responses, questions);
@@ -27,6 +28,17 @@ function TestPage() {
     handleNextQuestion,
     handlePrevQuestion
   );
+
+  /* 뒤로가기 */
+  const prevResponse = () => {
+    const userChoice = confirm("뒤로 갈 경우 현재 페이지 데이터가 사라집니다!");
+
+    if (userChoice) {
+      handleReturnTest();
+      return;
+    }
+    return;
+  };
 
   const submitResponses = () => {
     // 문제를 덜 풀었다면 넘어가기 X
@@ -94,15 +106,28 @@ function TestPage() {
           })}
         </div>
         {/* 03. 제출버튼 */}
-        {currentIndex === responses.length - 1 && (
-          <button
-            className={s.submitButton}
-            onClick={submitResponses}
-            disabled={loading}
-          >
-            다음
-          </button>
-        )}
+        <div className={s.buttonContainer}>
+          {/* 다음 버튼은 모든 문제에 등장한다 */}
+          {currentIndex !== responses.length && (
+            <button
+              className={s.previousButton}
+              onClick={prevResponse}
+              disabled={loading}
+            >
+              이전
+            </button>
+          )}
+          {/* 다음 버튼은 마지막 문제에만 등장한다 */}
+          {currentIndex === responses.length - 1 && (
+            <button
+              className={s.submitButton}
+              onClick={submitResponses}
+              disabled={loading}
+            >
+              다음
+            </button>
+          )}
+        </div>
       </LayoutContainer>
     </main>
   );
