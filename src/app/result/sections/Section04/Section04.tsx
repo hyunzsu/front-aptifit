@@ -77,7 +77,7 @@ export default function Section04({ name }: { name: string }) {
       <div className={s.sectionContainer}>
         <SectionTitle
           title="04 커리어로드맵"
-          description={`${currentMajor}을 배운 ${name}님의 미래를 살펴봐보세요!`}
+          description={`${currentMajor}을 배운 ${name}님의 미래를 알아보세요!`}
           color="black"
         />
         <div className={s.carouselContainer}>
