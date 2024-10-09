@@ -41,12 +41,12 @@ export default function ResultChart({ details }: ResultChartProps) {
             datasets: [
               {
                 data: details.map((detail) => detail.score),
-                backgroundColor: isMobile ? "#DEE7FC" : "#7685E5",
-                borderColor: isMobile ? "#DEE7FC" : "#7685E5",
-                hoverBackgroundColor: isMobile ? "#7685E5" : "#1F4298",
+                backgroundColor: "#7685E5",
+                borderColor: "#7685E5",
+                hoverBackgroundColor: "#1F4298",
                 borderWidth: 0,
                 borderRadius: 10,
-                barThickness: isMobile ? 40 : undefined,
+                barThickness: isMobile ? 20 : undefined,
               },
             ],
           },
@@ -73,8 +73,8 @@ export default function ResultChart({ details }: ResultChartProps) {
             },
             layout: {
               padding: isMobile
-                ? { top: 0, right: 20, bottom: 0, left: 0 }
-                : { top: 30, right: 20, bottom: 36, left: 20 },
+                ? { top: 20, right: 80, bottom: 20, left: 10 }
+                : { top: 30, right: 20, bottom: 50, left: 20 },
             },
           },
           plugins: [
@@ -84,6 +84,8 @@ export default function ResultChart({ details }: ResultChartProps) {
                 const ctx = chart.ctx;
                 const chartArea = chart.chartArea;
                 ctx.save();
+
+                // 데이터 포인트 및 라벨 그리기
                 chart.data.datasets[0].data.forEach((datapoint, index) => {
                   const meta = chart.getDatasetMeta(0);
                   const xPos = meta.data[index].x;
@@ -93,20 +95,56 @@ export default function ResultChart({ details }: ResultChartProps) {
                   ctx.textBaseline = isMobile ? "middle" : "bottom";
                   ctx.font = "600 16px Pretendard";
                   if (isMobile) {
-                    ctx.fillText(`${datapoint}점`, chartArea.right, yPos);
+                    ctx.fillText(`${datapoint}점`, chartArea.right + 30, yPos);
                     ctx.textAlign = "left";
                     const label = chart.data.labels && chart.data.labels[index];
                     if (typeof label === "string") {
-                      ctx.fillText(label, chartArea.left + 13, yPos);
+                      ctx.fillText(label, chartArea.left + 10, yPos);
                     }
                   } else {
                     ctx.fillText(`${datapoint}점`, xPos, chartArea.top - 10);
                     const label = chart.data.labels && chart.data.labels[index];
                     if (typeof label === "string") {
-                      ctx.fillText(label, xPos, chartArea.bottom + 20 + 16);
+                      ctx.fillText(label, xPos, chartArea.bottom + 20);
                     }
                   }
                 });
+
+                // 설명 텍스트 추가
+                ctx.fillStyle = "#666";
+                ctx.font = "300 12px Pretendard";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "bottom";
+                const description =
+                  "여러분의 응답을 100점 만점으로 환산해서 계산한 점수입니다.";
+
+                if (isMobile) {
+                  const words = description.split(" ");
+                  let line = "";
+                  let y = chartArea.bottom + 20;
+                  words.forEach((word) => {
+                    const testLine = line + word + " ";
+                    if (ctx.measureText(testLine).width > chartArea.width) {
+                      ctx.fillText(
+                        line,
+                        chartArea.left + chartArea.width / 2,
+                        y
+                      );
+                      line = word + " ";
+                      y += 15;
+                    } else {
+                      line = testLine;
+                    }
+                  });
+                  ctx.fillText(line, chartArea.left + chartArea.width / 2, y);
+                } else {
+                  ctx.fillText(
+                    description,
+                    chartArea.left + chartArea.width / 2,
+                    chartArea.bottom + 50
+                  );
+                }
+
                 ctx.restore();
               },
             },
